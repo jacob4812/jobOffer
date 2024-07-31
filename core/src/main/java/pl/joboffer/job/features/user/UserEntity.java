@@ -12,6 +12,7 @@ import pl.joboffer.job.enums.UserRole;
 @Entity
 @Table(name = "user")
 public class UserEntity {
+
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
   @Column(name = "id")
@@ -19,6 +20,9 @@ public class UserEntity {
 
   @Column(name = "login")
   String login;
+
+  @Column(name = "email")
+  String email;
 
   @Column(name = "password")
   String password;
