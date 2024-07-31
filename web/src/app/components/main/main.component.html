@@ -1,12 +1,12 @@
 <div class="main-container">
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand" routerLink="/">
+      <a class="navbar-brand" href="/main">
         <img src="assets/logo192.png" alt="logo" width="30" height="30" class="d-inline-block align-top" />
         Job Offers
       </a>
 
-      <div class="collapse navbar-collapse" [class.show]="isNavOpen" id="navbarNav" #navRef>
+      <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mx-auto">
           <li class="nav-item">
             <a class="nav-link" routerLink="/">Zacznij szukać</a>
@@ -19,12 +19,8 @@
           </li>
         </ul>
         <div class="d-flex">
-          <a routerLink="/login">
-            <button class="btn btn-outline-primary me-2" type="button">Zaloguj się</button>
-          </a>
-          <a routerLink="/signup">
-            <button class="btn btn-primary" type="button">Rejestracja</button>
-          </a>
+          <a routerLink="/login" class="btn btn-outline-primary me-2" role="button">Zaloguj się</a>
+          <a routerLink="/signup" class="btn btn-primary" role="button">Rejestracja</a>
         </div>
       </div>
     </div>
@@ -60,8 +56,8 @@
       </div>
     </div>
 
-    <div class="mt-5">
-      <div class="card mb-3 mx-auto" style="max-width: 540px; border: none;">
+    <div class="mt-5 job-listings">
+      <div class="card mb-3">
         <div class="row g-0 align-items-center">
           <div class="col-md-2 d-flex justify-content-center">
             <img src="assets/logo192.png" class="img-fluid rounded-start" alt="Company Logo"
@@ -79,6 +75,37 @@
               </div>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod magna vitae
                 libero tincidunt, vitae suscipit elit malesuada.</p>
+              <div class="d-flex mt-3">
+                <a href="#" class="btn btn-primary me-2">Aplikuj</a>
+                <a href="#" class="btn btn-secondary">Info</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="row g-0 align-items-center">
+          <div class="col-md-2 d-flex justify-content-center">
+            <img src="assets/logo192.png" class="img-fluid rounded-start" alt="Company Logo"
+              style="max-width: 80px; object-fit: contain;" />
+          </div>
+          <div class="col-md-10">
+            <div class="card-body">
+              <p class="card-text"><small class="text-muted">Firma #2</small></p>
+              <h5 class="card-title">IT Specialist</h5>
+              <div class="d-flex flex-wrap mb-2">
+                <span class="badge bg-secondary me-2">Gniezno</span>
+                <span class="badge bg-secondary me-2">Kontrakt B2B</span>
+                <span class="badge bg-secondary me-2">PLN 50-55k</span>
+                <span class="badge bg-secondary">35 min temu</span>
+              </div>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod magna vitae
+                libero tincidunt, vitae suscipit elit malesuada.</p>
+              <div class="d-flex mt-3">
+                <a href="#" class="btn btn-primary me-2">Aplikuj</a>
+                <a href="#" class="btn btn-secondary">Info</a>
+              </div>
             </div>
           </div>
         </div>
