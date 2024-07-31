@@ -6,7 +6,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule] 
+  imports: [ReactiveFormsModule]
 })
 export class LoginComponent {
   loginForm: FormGroup;

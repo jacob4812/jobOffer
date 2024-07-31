@@ -15,7 +15,7 @@ describe('LoginComponent', () => {
         RouterModule.forRoot([])
       ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
