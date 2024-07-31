@@ -1,0 +1,106 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: your_name
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: userRole
+                  type: varchar(20)
+                  defaultValue: 'employee'
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: offer
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: location
+                  type: varchar(100)
+              - column:
+                  name: salary
+                  type: numeric(10,2)
+              - column:
+                  name: expiration_date
+                  type: date
+              - column:
+                  name: status
+                  type: varchar(20)
+                  defaultValue: 'active'
+                  constraints:
+                    nullable: false
+
+        - insert:
+            tableName: user
+            columns:
+              - column:
+                  name: username
+                  value: 'admin'
+              - column:
+                  name: email
+                  value: 'admin@example.com'
+              - column:
+                  name: password
+                  value: 'admin123'
+              - column:
+                  name: userRole
+                  value: 'admin'
+        - insert:
+            tableName: offer
+            columns:
+              - column:
+                  name: title
+                  value: 'Software Engineer'
+              - column:
+                  name: description
+                  value: 'We are hiring a software engineer with experience in web development.'
+              - column:
+                  name: location
+                  value: 'New York'
+              - column:
+                  name: salary
+                  valueNumeric: 70000.00
+              - column:
+                  name: expiration_date
+                  valueDate: '2024-05-01'
+              - column:
+                  name: status
+                  value: 'active'
