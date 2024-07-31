@@ -1,0 +1,35 @@
+.main-container {
+  .px-3 {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .text-start {
+    margin: 0;
+  }
+
+  .navbar-collapse {
+    display: flex;
+    justify-content: center;
+  }
+
+  .navbar-nav {
+    text-align: center;
+  }
+
+  .navbar-toggler {
+    z-index: 1050;
+  }
+
+
+  .job-listings {
+    display: grid;
+    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+    .card {
+      border: none;
+      max-width: 100%;
+    }
+  }
+}
