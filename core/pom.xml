@@ -8,14 +8,7 @@
 		<version>3.2.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>pl.joboffer</groupId>
-	<artifactId>joboffer</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>job</name>
-	<description>jobs</description>
-	<properties>
-		<java.version>17</java.version>
-	</properties>
+	<artifactId>core</artifactId>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
