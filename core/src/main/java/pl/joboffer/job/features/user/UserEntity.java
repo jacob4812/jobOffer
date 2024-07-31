@@ -12,18 +12,18 @@ import pl.joboffer.job.enums.UserRole;
 @Entity
 @Table(name = "user")
 public class UserEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "id")
-    Long id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id
+  @Column(name = "id")
+  Long id;
 
-    @Column(name = "login")
-    String login;
+  @Column(name = "login")
+  String login;
 
-    @Column(name = "password")
-    String password;
+  @Column(name = "password")
+  String password;
 
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "user_role")
-    UserRole userRole;
+  @Enumerated(value = EnumType.STRING)
+  @Column(name = "user_role")
+  UserRole userRole;
 }
