@@ -1,0 +1,24 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: joboffer
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5434:5432"
+  spring-boot-app:
+    image: eclipse-temurin:17-jre
+    ports:
+      - "8082:8080"
+    depends_on:
+      - db
+
+  angular-app:
+    image: nginx:alpine
+    ports:
+      - "82:80"
+    depends_on:
+      - spring-boot-app
