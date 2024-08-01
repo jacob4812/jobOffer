@@ -1,9 +1,10 @@
 package pl.joboffer.job.features.offer;
 
-import org.antlr.v4.runtime.misc.NotNull;
+import org.springframework.validation.annotation.Validated;
 import pl.joboffer.job.dto.Offer;
 
+@Validated
 public interface OfferService {
-  @NotNull
+
   Offer findAllJobOffers();
 }

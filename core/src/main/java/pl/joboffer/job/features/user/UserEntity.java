@@ -30,4 +30,7 @@ public class UserEntity {
   @Enumerated(value = EnumType.STRING)
   @Column(name = "user_role")
   UserRole userRole;
+
+  @Column(name = "isActive", nullable = false)
+  boolean isActive = true;
 }

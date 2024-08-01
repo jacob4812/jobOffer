@@ -4,11 +4,20 @@ import java.util.List;
 import java.util.Optional;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
+import org.springframework.beans.factory.annotation.Autowired;
 import pl.joboffer.job.common.mappers.DtoEntityMapper;
 import pl.joboffer.job.dto.Offer;
 
 @Mapper(unmappedSourcePolicy = ReportingPolicy.ERROR, unmappedTargetPolicy = ReportingPolicy.ERROR)
 public abstract class OfferMapper implements DtoEntityMapper<Offer, OfferEntity> {
+
+  private OfferRepository offerRepository;
+
+  @Autowired
+  public void setOfferRepository(OfferRepository offerRepository) {
+    this.offerRepository = offerRepository;
+  }
+
   public abstract Offer mapEntityToDto(Optional<OfferEntity> offerEntity);
 
   @Override
