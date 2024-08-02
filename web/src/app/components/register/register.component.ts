@@ -6,7 +6,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
   standalone: true,
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
-  imports: [ReactiveFormsModule] 
+  imports: [ReactiveFormsModule]
 })
 export class RegisterComponent {
   registerForm: FormGroup;
