@@ -12,5 +12,5 @@ CREATE TABLE offer (
                        location VARCHAR(100),
                        salary NUMERIC(10, 2),
                        expiration_date DATE,
-                       status VARCHAR(20) DEFAULT 'active' CHECK (status IN ('active', 'inactive'))
+                       status VARCHAR(20) DEFAULT 'active' CHECK (status IN ('active', 'notActive'))
 );

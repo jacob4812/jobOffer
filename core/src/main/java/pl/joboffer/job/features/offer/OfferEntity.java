@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import pl.joboffer.job.enums.OfferStatus;
 
 @Data
 @NoArgsConstructor
@@ -37,7 +36,7 @@ public class OfferEntity {
   @Column(name = "expiration_date")
   LocalDate expirationDate;
 
-  @Column(name = "status", length = 20)
-  @Enumerated(EnumType.STRING)
-  OfferStatus status;
+  //  @Enumerated(EnumType.STRING)
+  //  @Column(name = "status", length = 20)
+  //  OfferStatus status;
 }
