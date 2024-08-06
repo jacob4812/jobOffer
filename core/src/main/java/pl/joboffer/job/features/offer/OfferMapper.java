@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.joboffer.job.common.mappers.DtoEntityMapper;
-import pl.joboffer.job.dto.Offer;
+import pl.joboffer.job.dto.offer.Offer;
 
 @Mapper(unmappedSourcePolicy = ReportingPolicy.ERROR, unmappedTargetPolicy = ReportingPolicy.ERROR)
 public abstract class OfferMapper implements DtoEntityMapper<Offer, OfferEntity> {

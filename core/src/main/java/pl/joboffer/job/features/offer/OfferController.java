@@ -6,12 +6,11 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
-import pl.joboffer.job.dto.Offer;
+import pl.joboffer.job.dto.offer.Offer;
 
-@Controller
+@RestController
 @RequestMapping(value = "/api/offer")
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)

@@ -6,7 +6,7 @@ import java.util.List;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
-import pl.joboffer.job.dto.Offer;
+import pl.joboffer.job.dto.offer.Offer;
 
 @Service
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
