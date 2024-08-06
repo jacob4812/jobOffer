@@ -2,6 +2,7 @@ CREATE TABLE "user" (
                         id SERIAL PRIMARY KEY,
                         username VARCHAR(50) NOT NULL,
                         email VARCHAR(100) NOT NULL,
+                        login VARCHAR(100) NOT NULL,
                         password VARCHAR(100) NOT NULL,
                         userRole VARCHAR(20) DEFAULT 'employee' CHECK (userRole IN ('admin', 'employee', 'hr'))
 );
