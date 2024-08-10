@@ -31,86 +31,12 @@
       <div class="text-start">
         <h1><b>Poszukaj <a href="#" class="text-primary text-decoration-none">pracy</a> już teraz</b></h1>
         <p>Tysiące oferty pracy w branżach komputerowych i technologicznych czekają na Ciebie.</p>
-
-        <form class="row g-3">
-          <div class="col-md-5">
-            <input type="text" class="form-control" placeholder="Jakiego stanowiska szukasz?" />
-          </div>
-          <div class="col-md-5">
-            <input type="text" class="form-control" placeholder="Lokalizacja" />
-          </div>
-          <div class="col-md-2">
-            <button type="submit" class="btn btn-primary w-100">Szukaj</button>
-          </div>
-        </form>
-
-        <div class="mt-3">
-          <label>Filter by: </label>
-          <select class="form-select w-25 d-inline ms-2">
-            <option value="stanowiska">Stanowiska</option>
-          </select>
-          <select class="form-select w-25 d-inline ms-2">
-            <option value="technologii">Technologii</option>
-          </select>
-        </div>
       </div>
     </div>
 
     <div class="mt-5 job-listings">
-      <div class="card mb-3">
-        <div class="row g-0 align-items-center">
-          <div class="col-md-2 d-flex justify-content-center">
-            <img src="assets/logo192.png" class="img-fluid rounded-start" alt="Company Logo"
-              style="max-width: 80px; object-fit: contain;" />
-          </div>
-          <div class="col-md-10">
-            <div class="card-body">
-              <p class="card-text"><small class="text-muted">Firma #1</small></p>
-              <h5 class="card-title">Software Engineer</h5>
-              <div class="d-flex flex-wrap mb-2">
-                <span class="badge bg-secondary me-2">Warszawa</span>
-                <span class="badge bg-secondary me-2">Kontrakt B2B</span>
-                <span class="badge bg-secondary me-2">PLN 50-55k</span>
-                <span class="badge bg-secondary">30 min temu</span>
-              </div>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod magna vitae
-                libero tincidunt, vitae suscipit elit malesuada.</p>
-              <div class="d-flex mt-3">
-                <a href="#" class="btn btn-primary me-2">Aplikuj</a>
-                <a href="#" class="btn btn-secondary">Info</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card mb-3">
-        <div class="row g-0 align-items-center">
-          <div class="col-md-2 d-flex justify-content-center">
-            <img src="assets/logo192.png" class="img-fluid rounded-start" alt="Company Logo"
-              style="max-width: 80px; object-fit: contain;" />
-          </div>
-          <div class="col-md-10">
-            <div class="card-body">
-              <p class="card-text"><small class="text-muted">Firma #2</small></p>
-              <h5 class="card-title">IT Specialist</h5>
-              <div class="d-flex flex-wrap mb-2">
-                <span class="badge bg-secondary me-2">Gniezno</span>
-                <span class="badge bg-secondary me-2">Kontrakt B2B</span>
-                <span class="badge bg-secondary me-2">PLN 50-55k</span>
-                <span class="badge bg-secondary">35 min temu</span>
-              </div>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod magna vitae
-                libero tincidunt, vitae suscipit elit malesuada.</p>
-              <div class="d-flex mt-3">
-                <a href="#" class="btn btn-primary me-2">Aplikuj</a>
-                <a href="#" class="btn btn-secondary">Info</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <app-job-search></app-job-search>
+      <app-job-list></app-job-list>
     </div>
   </div>
 </div>
-

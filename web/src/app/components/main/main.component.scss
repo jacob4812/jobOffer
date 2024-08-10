@@ -26,10 +26,5 @@
     display: grid;
     gap: 15px;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-
-    .card {
-      border: none;
-      max-width: 100%;
-    }
   }
 }
