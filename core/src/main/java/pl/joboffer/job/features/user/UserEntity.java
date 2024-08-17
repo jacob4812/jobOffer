@@ -10,7 +10,7 @@ import pl.joboffer.job.enums.UserRole;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "user")
+@Table(name = "userTable")
 public class UserEntity {
 
   @GeneratedValue(strategy = GenerationType.IDENTITY)

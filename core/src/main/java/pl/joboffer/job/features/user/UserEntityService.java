@@ -7,7 +7,7 @@ import pl.joboffer.job.dto.user.UserDetails;
 import pl.joboffer.job.dto.user.UserLoginDetails;
 
 @Service
-public interface UserService {
+public interface UserEntityService {
   void registerUser(@Valid UserLoginDetails userLoginDetails, UserDetails userDetails);
 
   void editUser(@Valid UserLoginDetails userLoginDetails);
