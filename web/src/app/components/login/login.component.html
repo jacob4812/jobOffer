@@ -3,15 +3,29 @@
         <div class="col-md-6 order-md-1 order-1 bg-white p-4 d-flex flex-column justify-content-center"
             style="min-height: 50vh;">
             <h2>Login to Your Account</h2>
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                <div class="form-group mb-3">
-                    <input type="email" id="username" formControlName="username" class="form-control"
-                        placeholder="Email" required />
+            <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    ngModel
+                    class="form-control"
+                    required
+                  />
                 </div>
-                <div class="form-group mb-3">
-                    <input type="password" id="password" formControlName="password" class="form-control"
-                        placeholder="Password" required />
-                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                      id="password"
+                      name="password"
+                      type="password"
+                      ngModel
+                      class="form-control"
+                      required
+                    />
+                  </div>
                 <button type="submit" class="btn btn-primary w-100">Sign in</button>
             </form>
         </div>

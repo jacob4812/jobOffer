@@ -19,8 +19,13 @@
           </li>
         </ul>
         <div class="d-flex">
-          <a href="/login" class="btn btn-outline-primary me-2" role="button">Zaloguj się</a>
-          <a href="/register" class="btn btn-primary" role="button">Rejestracja</a>
+          <ng-container *ngIf="!authTokenService.isLoggedIn()">
+            <a href="/login" class="btn btn-outline-primary me-2" role="button">Zaloguj się</a>
+            <a href="/register" class="btn btn-primary" role="button">Rejestracja</a>
+          </ng-container>
+          <ng-container *ngIf="authTokenService.isLoggedIn()">
+            <button class="btn btn-success" (click)="logout()">Wyloguj się</button>
+          </ng-container>
         </div>
       </div>
     </div>
