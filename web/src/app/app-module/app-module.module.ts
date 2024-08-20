@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import {AppComponent} from "../app.component";
 import {BrowserModule} from "@angular/platform-browser";
 import {HttpClientModule} from "@angular/common/http";
+import {RouterOutlet} from "@angular/router";
+import {ToastModule} from "primeng/toast";
 
 
 
@@ -10,7 +12,9 @@ import {HttpClientModule} from "@angular/common/http";
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterOutlet,
+    ToastModule
   ],
   providers: [],
   bootstrap: [AppComponent]
