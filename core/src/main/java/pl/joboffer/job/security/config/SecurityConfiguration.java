@@ -46,7 +46,7 @@ public class SecurityConfiguration {
                     .requestMatchers("/api/login")
                     .permitAll()
                     .anyRequest()
-                    .permitAll())
+                    .authenticated())
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         .build();
   }
@@ -54,6 +54,7 @@ public class SecurityConfiguration {
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
+    configuration.setAllowedOrigins(nullSafeProp(corsProperties.getAllowedOrigins()));
     configuration.setAllowedOrigins(nullSafeProp(corsProperties.getAllowedOrigins()));
     configuration.setAllowedMethods(nullSafeProp(corsProperties.getAllowedMethods()));
     configuration.setAllowedHeaders(nullSafeProp(corsProperties.getAllowedHeaders()));
