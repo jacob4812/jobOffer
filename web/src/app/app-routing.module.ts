@@ -4,14 +4,14 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import {NgModule} from "@angular/core";
 
-export const routes: Routes = [
+const routes: Routes = [
   { path: 'main', component: MainComponent },
   { path: '', redirectTo: '/main', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent  },
   { path: 'register', component: RegisterComponent },
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {useHash: true})],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

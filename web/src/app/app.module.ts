@@ -5,7 +5,6 @@ import {AppComponent} from "./app.component";
 import {SplitButtonModule} from "primeng/splitbutton";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {BrowserModule} from "@angular/platform-browser";
-import bootstrap from "../main.server";
 import { RouterModule } from '@angular/router';
 import {LoginComponent} from "./components/login/login.component";
 import {MainComponent} from "./components/main/main.component";
@@ -21,8 +20,10 @@ import {MessageService} from "primeng/api";
     AppComponent,
     LoginComponent,
     MainComponent
-],
-  bootstrap: [AppComponent], imports:[
+],providers: [MessageService],
+  bootstrap: [AppComponent],
+
+  imports:[
     BrowserAnimationsModule,
     CommonModule,
     ReactiveFormsModule,
@@ -34,9 +35,5 @@ import {MessageService} from "primeng/api";
     AppRoutingModule,
     ToastModule
   ],
-  providers: [
-    MessageService,
-
-  ]
 })
 export class AppModule { }
