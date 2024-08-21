@@ -4,8 +4,6 @@ import { ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-job-search',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './job-search.component.html',
   styleUrls: ['./job-search.component.scss']
 })

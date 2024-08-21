@@ -5,8 +5,6 @@ import { JobDetailDialogComponent } from '../job-detail-dialog/job-detail-dialog
 
 @Component({
   selector: 'app-job-list',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './job-list.component.html',
   styles: []
 })
@@ -23,6 +21,34 @@ export class JobListComponent {
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
     },
     {
+      logo: 'assets/logo192.png',
+      company: 'Firma #2',
+      title: 'IT Specialist',
+      location: 'Gniezno',
+      contractType: 'Kontrakt B2B',
+      salary: 'PLN 50-55k',
+      timeAgo: '35 min temu',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+    }
+    ,{
+      logo: 'assets/logo192.png',
+      company: 'Firma #2',
+      title: 'IT Specialist',
+      location: 'Gniezno',
+      contractType: 'Kontrakt B2B',
+      salary: 'PLN 50-55k',
+      timeAgo: '35 min temu',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+    },{
+      logo: 'assets/logo192.png',
+      company: 'Firma #2',
+      title: 'IT Specialist',
+      location: 'Gniezno',
+      contractType: 'Kontrakt B2B',
+      salary: 'PLN 50-55k',
+      timeAgo: '35 min temu',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+    },{
       logo: 'assets/logo192.png',
       company: 'Firma #2',
       title: 'IT Specialist',
