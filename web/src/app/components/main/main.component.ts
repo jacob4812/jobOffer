@@ -12,14 +12,19 @@ import {SplitButtonModule} from "primeng/splitbutton";
 export class MainComponent implements OnInit{
   loggedIn: boolean;
   items: MenuItem[] = [];
+  email: string = '';
   ngOnInit() {
     this.isLoggedIn();
+    this.loadEmail();
     this.items =[
 
-      {label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io'},
+      {label: `Zalogowano:  ${this.email}`, icon: 'pi pi-info', url: 'http://angular.io'},
+      {separator:true},
+      {label:'Dodaj CV'},
       {separator:true},
       {label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup']}
     ];
+
   }
   constructor(
     public authTokenService:AuthTokenService,
@@ -27,16 +32,38 @@ export class MainComponent implements OnInit{
     this.loggedIn = false;
   }
   save(severity: string) {
-    console.log("data");
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
+    localStorage.removeItem("idUser");
+    this.email = '';
+    this.loggedIn = false;
   }
   isLoggedIn(){
     const token = localStorage.getItem("token");
     this.loggedIn = !!token;
   }
-  logout() {
+  loadEmail() {
+    const storedEmail = localStorage.getItem('email');
+    if (storedEmail) {
+      this.email = storedEmail;
+    } else {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const parsedToken = JSON.parse(token);
+          this.email = parsedToken.email || '';
+        } catch (error) {
+          console.error('Error parsing token:', error);
+          this.email = 'Unknown';
+        }
+      }
+    }
+  }
+  logout(severity: string) {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
     localStorage.removeItem("idUser");
-
+    this.email = '';
+    this.loggedIn = false;
   }
 }

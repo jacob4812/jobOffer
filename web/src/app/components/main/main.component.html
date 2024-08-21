@@ -25,13 +25,12 @@
           </ng-container>
           <ng-container *ngIf="authTokenService.isLoggedIn()">
             <p-splitButton
-              label="Save"
-              icon="pi pi-check"
-              (onClick)="save('info')"
+              label="Wyloguj się"
+              (onClick)="logout('info')"
               [model]="items"
               styleClass="mr-2">
             </p-splitButton>
-            <button class="btn btn-success" (click)="logout()">Wyloguj się</button>
+
           </ng-container>
         </div>
       </div>
