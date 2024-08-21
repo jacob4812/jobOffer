@@ -21,22 +21,24 @@ public class OfferEntity {
   @Column(name = "id")
   Long id;
 
+  @Column(name = "company")
+  String company;
+
   @Column(name = "title")
   String title;
-
-  @Column(name = "salary")
-  double salary;
-
-  @Column(name = "description")
-  String description;
 
   @Column(name = "location")
   String location;
 
+  @Column(name = "contract_type")
+  String contractType;
+
+  @Column(name = "salary")
+  double salary;
+
   @Column(name = "expiration_date")
   LocalDate expirationDate;
 
-  //  @Enumerated(EnumType.STRING)
-  //  @Column(name = "status", length = 20)
-  //  OfferStatus status;
+  @Column(name = "description")
+  String description;
 }

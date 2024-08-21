@@ -33,4 +33,7 @@ export class RestService {
   delete(url:string):Observable<any>{
     return this.httpClient.delete(this.API_URL+url,requestOptions);
   }
+  getPageable<T>(url: string): Observable<T> {
+    return this.httpClient.get<T>(this.API_URL + url, requestOptions);
+  }
 }
