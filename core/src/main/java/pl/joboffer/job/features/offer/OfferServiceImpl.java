@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.joboffer.job.dto.offer.Offer;
 
@@ -21,8 +24,9 @@ public class OfferServiceImpl implements OfferService {
   }
 
   @Override
-  public List<Offer> findAllJobOffers() {
-    var offerEntity = offerRepository.findAll();
-    return offerMapper.mapListEntityToDto(offerEntity);
+  public Page<Offer> findAllJobOffers(PageRequest pageRequest) {
+    Page<OfferEntity> offerPage = offerRepository.findAll(pageRequest);
+    List<Offer> offers = offerMapper.mapListEntityToDto(offerPage.getContent());
+    return new PageImpl<>(offers, pageRequest, offerPage.getTotalElements());
   }
 }

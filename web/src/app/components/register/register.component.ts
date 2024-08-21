@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {RegisterService} from "../../../services/register.service";
+
 import {Router, RouterLink} from "@angular/router";
+import {RegisterService} from "../../../services/register/register.service";
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,7 @@ export class RegisterComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       repeatPassword: ['', Validators.required]
-    }, { validators: this.passwordMatchValidator }); // Add the custom validator here
+    }, { validators: this.passwordMatchValidator });
   }
 
   // Password matching validator
@@ -32,7 +33,7 @@ export class RegisterComponent {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      const { repeatPassword, ...userRegisterDetails } = this.registerForm.value; // Exclude repeatPassword from payload
+      const { repeatPassword, ...userRegisterDetails } = this.registerForm.value;
       this.registerService.register(userRegisterDetails).subscribe(
         () => {
           console.log('Registration successful');
