@@ -13,17 +13,28 @@ import {HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from "./app-routing.module";
 import {ToastModule} from "primeng/toast";
 import {MessageService} from "primeng/api";
+import {JobListComponent} from "./components/job-list/job-list.component";
+import {JobDetailDialogComponent} from "./components/job-detail-dialog/job-detail-dialog.component";
+import {JobOfferComponent} from "./components/job-offer/job-offer.component";
+import {JobSearchComponent} from "./components/job-search/job-search.component";
+import {MatDialogActions, MatDialogModule} from "@angular/material/dialog";
+import {MatButtonModule} from "@angular/material/button";
+import {DialogService} from "primeng/dynamicdialog";
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    MainComponent
-],providers: [MessageService],
+    MainComponent,
+    JobListComponent,
+    JobDetailDialogComponent,
+    JobOfferComponent,
+    JobSearchComponent
+],providers: [MessageService,DialogService],
   bootstrap: [AppComponent],
 
-  imports:[
+  imports: [
     BrowserAnimationsModule,
     CommonModule,
     ReactiveFormsModule,
@@ -33,7 +44,10 @@ import {MessageService} from "primeng/api";
     HttpClientModule,
     RouterModule,
     AppRoutingModule,
-    ToastModule
+    ToastModule,
+    MatDialogActions,
+    MatDialogModule,
+    MatButtonModule
   ],
 })
 export class AppModule { }
