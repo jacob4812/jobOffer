@@ -4,8 +4,6 @@
             <div class="card">
                 <div class="row g-0 align-items-center">
                     <div class="col-md-2 d-flex justify-content-center">
-                        <img src="{{ offer.logo }}" class="img-fluid rounded-start" alt="Company Logo"
-                            style="max-width: 80px; object-fit: contain;" />
                     </div>
                     <div class="col-md-10">
                         <div class="card-body">
@@ -20,7 +18,7 @@
                             <p class="card-text">{{ offer.description }}</p>
                             <div class="d-flex mt-3">
                                 <button class="btn btn-primary me-2" (click)="openJobDetailDialog(offer)">Info</button>
-                                <button class="btn btn-secondary">Aplikuj</button>
+                                <button class="btn btn-secondary">Aplikuj </button>
                             </div>
                         </div>
                     </div>
@@ -28,4 +26,11 @@
             </div>
         </div>
     </div>
+  <p-paginator
+    (onPageChange)="onPageChange($event)"
+    [first]="first"
+    [rows]="rows"
+    [totalRecords]="totalRecords"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    />
 </div>
