@@ -20,6 +20,7 @@ import {JobSearchComponent} from "./components/job-search/job-search.component";
 import {MatDialogActions, MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
 import {DialogService} from "primeng/dynamicdialog";
+import {PaginatorModule} from "primeng/paginator";
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import {DialogService} from "primeng/dynamicdialog";
     ToastModule,
     MatDialogActions,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    PaginatorModule
   ],
 })
 export class AppModule { }

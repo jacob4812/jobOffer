@@ -19,11 +19,6 @@ export class LoginComponent {
     });
   }
 
-  // onLogin() {
-  //   console.log('Login:', this.loginForm.value);
-  //   // Handle login logic
-  //   this.authService.onLogin(this.loginForm.value);
-  // }
   onSubmit(loginForm: NgForm){
      this.authService.onLogin(loginForm.value);
   }

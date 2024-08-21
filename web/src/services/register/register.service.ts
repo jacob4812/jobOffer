@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {RestService} from "./rest/rest.service";
+import {RestService} from "../rest/rest.service";
 import {Observable} from "rxjs";
-import {UserRegisterDetails} from "../app/dto/model/user/user-register-details";
+import {UserRegisterDetails} from "../../app/dto/model/user/user-register-details";
 
 @Injectable({
   providedIn: 'root'
