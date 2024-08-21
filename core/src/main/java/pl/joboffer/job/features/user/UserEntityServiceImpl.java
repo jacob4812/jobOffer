@@ -8,11 +8,11 @@ import pl.joboffer.job.dto.user.UserDetails;
 import pl.joboffer.job.dto.user.UserLoginDetails;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserEntityServiceImpl implements UserEntityService {
   @Autowired private UserRepository userRepository;
   private PasswordEncoder passwordEncoder;
 
-  public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+  public UserEntityServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
     this.userRepository = userRepository;
     this.passwordEncoder = passwordEncoder;
   }

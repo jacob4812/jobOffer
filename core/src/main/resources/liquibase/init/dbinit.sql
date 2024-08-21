@@ -1,11 +1,9 @@
-CREATE TABLE "user" (
+CREATE TABLE userTable (
                         id SERIAL PRIMARY KEY,
-                        username VARCHAR(50) NOT NULL,
+                        login VARCHAR(50) NOT NULL,
                         email VARCHAR(100) NOT NULL,
-                        login VARCHAR(100) NOT NULL,
                         password VARCHAR(100) NOT NULL,
-                        userRole VARCHAR(20) DEFAULT 'employee' CHECK (userRole IN ('admin', 'employee', 'hr'))
-);
+                        user_role VARCHAR(20) DEFAULT 'admin' )
 CREATE TABLE offer (
                        id SERIAL PRIMARY KEY,
                        title VARCHAR(100) NOT NULL,

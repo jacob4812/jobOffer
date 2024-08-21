@@ -1,3 +1,5 @@
 package pl.joboffer.job.dto.user;
 
-public record UserLoginDetails(String email, String password) {}
+import javax.validation.constraints.NotNull;
+
+public record UserLoginDetails(@NotNull String email, String password) {}
