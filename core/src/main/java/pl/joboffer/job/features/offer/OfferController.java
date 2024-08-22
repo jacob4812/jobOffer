@@ -27,16 +27,17 @@ public class OfferController {
   }
 
   @PostMapping("/addJobOffer")
-  public ResponseEntity<OfferEntity> addJobOffer(@RequestBody Offer offer){
+  public ResponseEntity<OfferEntity> addJobOffer(@RequestBody Offer offer) {
     return ResponseEntity.ok(offerService.addJobOffer(offer));
   }
 
   @PutMapping("/editJobOffer")
-  public ResponseEntity<OfferEntity> editJobOffer(@RequestBody Offer offer){
+  public ResponseEntity<OfferEntity> editJobOffer(@RequestBody Offer offer) {
     return ResponseEntity.ok(offerService.editJobOffer(offer));
   }
+
   @DeleteMapping("/deleteJobOffer/{id}")
-  public ResponseEntity<OfferEntity> deleteJobOffer(@PathVariable("id") Long id){
+  public ResponseEntity<OfferEntity> deleteJobOffer(@PathVariable("id") Long id) {
     return ResponseEntity.ok(offerService.deleteJobOffer(id));
   }
 }

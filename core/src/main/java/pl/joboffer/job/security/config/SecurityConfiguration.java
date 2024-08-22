@@ -31,53 +31,53 @@ import pl.joboffer.job.security.jwt.AuthTokenFilter;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class SecurityConfiguration {
 
-    CorsProperties corsProperties;
-    AuthTokenFilter jwtAuthenticationFilter;
+  CorsProperties corsProperties;
+  AuthTokenFilter jwtAuthenticationFilter;
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.cors(cors -> corsConfigurationSource())
-                .csrf(CsrfConfigurer::disable)
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(
-                        auth ->
-                                auth.requestMatchers("/api/auth/signup")
-                                        .permitAll()
-                                        .requestMatchers("/api/login")
-                                        .permitAll()
-                                        .requestMatchers("/api/offer/readAllJobOffers")
-                                        .permitAll()
-                                        .anyRequest()
-                                        .authenticated())
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
-    }
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    return http.cors(cors -> corsConfigurationSource())
+        .csrf(CsrfConfigurer::disable)
+        .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .authorizeHttpRequests(
+            auth ->
+                auth.requestMatchers("/api/auth/signup")
+                    .permitAll()
+                    .requestMatchers("/api/login")
+                    .permitAll()
+                    .requestMatchers("/api/offer/readAllJobOffers")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated())
+        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+        .build();
+  }
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(nullSafeProp(corsProperties.getAllowedOrigins()));
-        configuration.setAllowedOrigins(nullSafeProp(corsProperties.getAllowedOrigins()));
-        configuration.setAllowedMethods(nullSafeProp(corsProperties.getAllowedMethods()));
-        configuration.setAllowedHeaders(nullSafeProp(corsProperties.getAllowedHeaders()));
-        configuration.setMaxAge(1800L);
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+  @Bean
+  public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration configuration = new CorsConfiguration();
+    configuration.setAllowedOrigins(nullSafeProp(corsProperties.getAllowedOrigins()));
+    configuration.setAllowedOrigins(nullSafeProp(corsProperties.getAllowedOrigins()));
+    configuration.setAllowedMethods(nullSafeProp(corsProperties.getAllowedMethods()));
+    configuration.setAllowedHeaders(nullSafeProp(corsProperties.getAllowedHeaders()));
+    configuration.setMaxAge(1800L);
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration);
+    return source;
+  }
 
-    private List<String> nullSafeProp(List<String> corsProperty) {
-        return Optional.ofNullable(corsProperty).orElse(Collections.emptyList());
-    }
+  private List<String> nullSafeProp(List<String> corsProperty) {
+    return Optional.ofNullable(corsProperty).orElse(Collections.emptyList());
+  }
 
-    @Bean
-    public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
+  @Bean
+  public AuthenticationManager authenticationManager(
+      AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    return authenticationConfiguration.getAuthenticationManager();
+  }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 }

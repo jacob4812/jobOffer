@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -38,10 +37,9 @@ public class OfferServiceImpl implements OfferService {
     var savedOfferEntity = offerMapper.mapDtoToEntity(offer);
     System.out.println(offer);
     System.out.println(savedOfferEntity);
-    try{
+    try {
       var savedEntity = offerRepository.save(savedOfferEntity);
-    }
-    catch (Exception e){
+    } catch (Exception e) {
       throw new RuntimeException("nie da rady zapisac");
     }
     return savedOfferEntity;
@@ -50,14 +48,14 @@ public class OfferServiceImpl implements OfferService {
   @Override
   @Transactional
   public OfferEntity editJobOffer(Offer offer) {
-    if(offer.id()==null){
+    if (offer.id() == null) {
       throw new RuntimeException("Brak id dla wskazanej oferty");
     }
     var offerEntity = offerMapper.mapDtoToEntity(offer);
-    try{
+    try {
       var savedEntity = offerRepository.save(offerEntity);
 
-    }catch (RuntimeException e){
+    } catch (RuntimeException e) {
       throw e;
     }
     return offerEntity;
@@ -66,15 +64,16 @@ public class OfferServiceImpl implements OfferService {
   @Override
   @Transactional
   public OfferEntity deleteJobOffer(Long idOffer) {
-    var offerEntity = offerRepository.findById(idOffer)
-            .orElseThrow(()->new RuntimeException("Brak ofert dla wskazanego id"));
+    var offerEntity =
+        offerRepository
+            .findById(idOffer)
+            .orElseThrow(() -> new RuntimeException("Brak ofert dla wskazanego id"));
     try {
       offerRepository.delete(offerEntity);
-    }catch (RuntimeException e){
+    } catch (RuntimeException e) {
       throw new RuntimeException("Usuwanie nie powiodlo sie");
     }
 
     return offerEntity;
   }
-
 }
