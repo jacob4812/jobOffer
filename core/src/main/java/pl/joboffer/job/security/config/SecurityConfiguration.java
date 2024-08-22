@@ -47,6 +47,8 @@ public class SecurityConfiguration {
                     .permitAll()
                     .requestMatchers("/api/offer/readAllJobOffers")
                     .permitAll()
+                    .requestMatchers("/swagger-ui.html", "/v3/api-docs/**", "/swagger-ui/**")
+                    .permitAll()
                     .anyRequest()
                     .authenticated())
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
