@@ -8,4 +8,13 @@ import pl.joboffer.job.dto.offer.Offer;
 public interface OfferService {
   @NotNull
   Page<Offer> findAllJobOffers(PageRequest pageRequest);
+
+  @NotNull
+  OfferEntity addJobOffer(Offer offer);
+
+  @NotNull
+  OfferEntity editJobOffer(Offer offer);
+
+  @NotNull
+  OfferEntity deleteJobOffer(Long idOffer);
 }
