@@ -1,33 +1,33 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthTokenService} from "../../../services/auth/auth-token.service";
+import { Component, OnInit } from '@angular/core';
+import { AuthTokenService } from "../../../services/auth/auth-token.service";
 import { CommonModule } from '@angular/common';
-import {MenuItem} from 'primeng/api';
-import {SplitButtonModule} from "primeng/splitbutton";
+import { MenuItem } from 'primeng/api';
+import { SplitButtonModule } from "primeng/splitbutton";
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })
-export class MainComponent implements OnInit{
+export class MainComponent implements OnInit {
   loggedIn: boolean;
   items: MenuItem[] = [];
   email: string = '';
   ngOnInit() {
     this.isLoggedIn();
     this.loadEmail();
-    this.items =[
+    this.items = [
 
-      {label: `Zalogowano:  ${this.email}`, icon: 'pi pi-info', url: 'http://angular.io'},
-      {separator:true},
-      {label:'Dodaj CV'},
-      {separator:true},
-      {label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup']}
+      { label: `Zalogowano:  ${this.email}`, icon: 'pi pi-info', url: 'http://angular.io' },
+      { separator: true },
+      { label: 'Dodaj CV' },
+      { separator: true },
+      { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
     ];
 
   }
   constructor(
-    public authTokenService:AuthTokenService,
+    public authTokenService: AuthTokenService,
   ) {
     this.loggedIn = false;
   }
@@ -38,7 +38,7 @@ export class MainComponent implements OnInit{
     this.email = '';
     this.loggedIn = false;
   }
-  isLoggedIn(){
+  isLoggedIn() {
     const token = localStorage.getItem("token");
     this.loggedIn = !!token;
   }
