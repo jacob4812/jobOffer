@@ -17,6 +17,7 @@ import {JobListComponent} from "./components/job-list/job-list.component";
 import {JobDetailDialogComponent} from "./components/job-detail-dialog/job-detail-dialog.component";
 import {JobOfferComponent} from "./components/job-offer/job-offer.component";
 import {JobSearchComponent} from "./components/job-search/job-search.component";
+import {HeaderComponent} from "./components/header/header.component";
 import {MatDialogActions, MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
 import {DialogService} from "primeng/dynamicdialog";
@@ -31,7 +32,8 @@ import {PaginatorModule} from "primeng/paginator";
     JobListComponent,
     JobDetailDialogComponent,
     JobOfferComponent,
-    JobSearchComponent
+    JobSearchComponent,
+    HeaderComponent
 ],providers: [MessageService,DialogService],
   bootstrap: [AppComponent],
 

@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthTokenService } from "../../../services/auth/auth-token.service";
-import { CommonModule } from '@angular/common';
 import { MenuItem } from 'primeng/api';
-import { SplitButtonModule } from "primeng/splitbutton";
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
+  selector: 'header-component',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
 })
-export class MainComponent implements OnInit {
+export class HeaderComponent implements OnInit {
   loggedIn: boolean;
   items: MenuItem[] = [];
   email: string = '';
