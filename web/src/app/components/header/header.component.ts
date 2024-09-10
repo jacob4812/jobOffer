@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
       { separator: true },
       { label: 'Dodaj CV' },
       { separator: true },
-      { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
+      { label: 'Mój profil', icon: 'pi pi-cog', routerLink: ['/myprofile'] }
     ];
 
   }
