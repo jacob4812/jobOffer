@@ -13,15 +13,15 @@ export class ProfileComponent implements OnInit {
 
   constructor(public dialog: MatDialog) {
     this.user = {
-      username: 'Janek123',
-      email: 'jannowak@gmail.com',
-      fullName: 'Jan Nowak',
-      phoneNumber: '123 456 789'
+      username: null,
+      email: null,
+      fullName: null,
+      phoneNumber: null
     };
   }
 
   ngOnInit(): void {
-    // pobierz dane użytkownika
+    this.pobierzDaneUzytkownika();
   }
 
   openEditDialog(): void {
@@ -35,5 +35,8 @@ export class ProfileComponent implements OnInit {
         this.user = result;
       }
     });
+  }
+  pobierzDaneUzytkownika(){
+    this.user.email = localStorage.getItem("email");
   }
 }
