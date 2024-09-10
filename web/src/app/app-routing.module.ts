@@ -5,6 +5,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { RegisterCompanyComponent } from './components/registercompany/registercompany.component';
 import { MyProfileComponent } from './components/myprofile/myprofile.component';
 import { NgModule } from "@angular/core";
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'registercompany', component: RegisterCompanyComponent },
   { path: 'myprofile', component: MyProfileComponent },
+  { path: 'dashboard', component: DashboardComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
