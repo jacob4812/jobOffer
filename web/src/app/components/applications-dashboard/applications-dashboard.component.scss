@@ -1,0 +1,29 @@
+.table th {
+    cursor: pointer;
+}
+
+.table th:hover {
+    background-color: #f1f1f1;
+}
+
+.table th.sorted {
+    position: relative;
+    background-color: #e9ecef;
+}
+
+.table th.sorted-asc::after {
+    content: '▲';
+    position: absolute;
+    right: 10px;
+}
+
+.table th.sorted-desc::after {
+    content: '▼';
+    position: absolute;
+    right: 10px;
+}
+
+.table td,
+.table th {
+    text-align: left;
+}

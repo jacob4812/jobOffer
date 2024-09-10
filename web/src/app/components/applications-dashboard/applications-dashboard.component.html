@@ -1,0 +1,51 @@
+<div class="container mt-5">
+  <table class="table table-striped mt-3">
+    <thead>
+      <tr>
+        <th scope="col" [class.sorted]="sortColumn === 'name'"
+          [class.sorted-asc]="sortColumn === 'name' && sortDirection === 'asc'"
+          [class.sorted-desc]="sortColumn === 'name' && sortDirection === 'desc'" (click)="sort('name')">Name
+        </th>
+        <th scope="col" [class.sorted]="sortColumn === 'email'"
+          [class.sorted-asc]="sortColumn === 'email' && sortDirection === 'asc'"
+          [class.sorted-desc]="sortColumn === 'email' && sortDirection === 'desc'" (click)="sort('email')">Email
+        </th>
+        <th scope="col" [class.sorted]="sortColumn === 'cv'"
+          [class.sorted-asc]="sortColumn === 'cv' && sortDirection === 'asc'"
+          [class.sorted-desc]="sortColumn === 'cv' && sortDirection === 'desc'" (click)="sort('cv')">CV
+        </th>
+        <th scope="col" [class.sorted]="sortColumn === 'position'"
+          [class.sorted-asc]="sortColumn === 'position' && sortDirection === 'asc'"
+          [class.sorted-desc]="sortColumn === 'position' && sortDirection === 'desc'" (click)="sort('position')">
+          Stanowisko
+        </th>
+        <th scope="col" [class.sorted]="sortColumn === 'location'"
+          [class.sorted-asc]="sortColumn === 'location' && sortDirection === 'asc'"
+          [class.sorted-desc]="sortColumn === 'location' && sortDirection === 'desc'" (click)="sort('location')">
+          Lokalizacja
+        </th>
+        <th scope="col" [class.sorted]="sortColumn === 'when'"
+          [class.sorted-asc]="sortColumn === 'when' && sortDirection === 'asc'"
+          [class.sorted-desc]="sortColumn === 'when' && sortDirection === 'desc'" (click)="sort('when')">Kiedy
+        </th>
+        <th scope="col" [class.sorted]="sortColumn === 'status'"
+          [class.sorted-asc]="sortColumn === 'status' && sortDirection === 'asc'"
+          [class.sorted-desc]="sortColumn === 'status' && sortDirection === 'desc'" (click)="sort('status')">Status
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let application of sortedApplications">
+        <td>{{ application.name }}</td>
+        <td>{{ application.email }}</td>
+        <td>{{ application.cv }}</td>
+        <td>{{ application.position }}</td>
+        <td>{{ application.location }}</td>
+        <td>{{ application.when }}</td>
+        <td (click)="openStatusDialog(application)" style="cursor: pointer;">
+          {{ application.status }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

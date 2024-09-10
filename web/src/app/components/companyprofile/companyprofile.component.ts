@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CompanyProfileDialogComponent } from '../companyprofile-dialog/companyprofile-dialog.component';
+import { AddJobComponent } from '../add-job/add-job.component';
 
 @Component({
   selector: 'companyprofile-component',
@@ -31,6 +32,24 @@ export class CompanyProfileComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.user = result;
+      }
+    });
+  }
+  openJobDialog(): void {
+    const dialogRef = this.dialog.open(AddJobComponent, {
+      width: '400px',
+      data: {
+        company: 'Test1',  // Tutaj do ogarnięcia pobieranie nazwy firmy
+        location: '',
+        contractType: '',
+        salary: '',
+        description: ''
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Nowa oferta:', result);
       }
     });
   }

@@ -8,7 +8,6 @@ import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from "./components/login/login.component";
 import { MainComponent } from "./components/main/main.component";
-
 import { HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
 import { ToastModule } from "primeng/toast";
@@ -30,6 +29,17 @@ import { MyProfileComponent } from './components/myprofile/myprofile.component';
 import { ProfileDialogComponent } from './components/profile-dialog/profile-dialog.component';
 import { CompanyProfileDialogComponent } from './components/companyprofile-dialog/companyprofile-dialog.component';
 import { CompanyProfileComponent } from './components/companyprofile/companyprofile.component';
+import { CvComponent } from './components/cv/cv.component';
+import { ChangeprofileComponent } from './components/changeprofile/changeprofile.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MyApplicationsComponent } from './components/myapplications/myapplications.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashboardJobSearchComponent } from './components/job-search-dashboard/job-search-dashboard.component';
+import { DashboardJobListComponent } from './components/job-list-dashboard/job-list-dashboard.component';
+import { DashboardJobDetailDialogComponent } from './components/job-detail-dialog-dashboard/job-detail-dialog-dashboard.component';
+import { AddJobComponent } from './components/add-job/add-job.component';
+import { DashboardApplicationsComponent } from './components/applications-dashboard/applications-dashboard.component';
+import { DashboardApplicationsDialogComponent } from './components/applications-dashboard-dialog/applications-dashboard-dialog.component';
 
 
 @NgModule({
@@ -47,7 +57,17 @@ import { CompanyProfileComponent } from './components/companyprofile/companyprof
     MyProfileComponent,
     ProfileDialogComponent,
     CompanyProfileDialogComponent,
-    CompanyProfileComponent
+    CompanyProfileComponent,
+    CvComponent,
+    ChangeprofileComponent,
+    MyApplicationsComponent,
+    DashboardComponent,
+    DashboardJobSearchComponent,
+    DashboardJobListComponent,
+    DashboardJobDetailDialogComponent,
+    AddJobComponent,
+    DashboardApplicationsComponent,
+    DashboardApplicationsDialogComponent
   ], providers: [MessageService, DialogService],
   bootstrap: [AppComponent],
 
@@ -67,6 +87,7 @@ import { CompanyProfileComponent } from './components/companyprofile/companyprof
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTabsModule,
     PaginatorModule
   ],
 })

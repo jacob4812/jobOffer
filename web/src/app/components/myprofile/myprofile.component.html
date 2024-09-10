@@ -1,6 +1,23 @@
+<header-component></header-component>
+
 <div class="container-fluid mt-5 pt-5">
 
-  <profile-component></profile-component>
-  <companyprofile-component></companyprofile-component>
+  <mat-tab-group>
+    <mat-tab label="My profile">
+
+      <profile-component></profile-component>
+      <cv-component></cv-component>
+      <changeprofile-component></changeprofile-component>
+
+    </mat-tab>
+    <mat-tab label="My applications">
+
+      <myapplications-component></myapplications-component>
+
+    </mat-tab>
+
+  </mat-tab-group>
 
 </div>
+
+<footer-component></footer-component>

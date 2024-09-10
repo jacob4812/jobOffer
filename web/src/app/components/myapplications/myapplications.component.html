@@ -1,0 +1,21 @@
+<div class="container mt-5">
+  <h3>My Applications</h3>
+  <table class="table table-striped mt-3">
+    <thead>
+      <tr>
+        <th scope="col">Nazwa Firmy</th>
+        <th scope="col">Stanowisko</th>
+        <th scope="col">Lokalizacja</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let application of applications">
+        <td>{{ application.companyName }}</td>
+        <td>{{ application.position }}</td>
+        <td>{{ application.location }}</td>
+        <td>{{ application.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
