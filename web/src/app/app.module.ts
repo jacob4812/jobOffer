@@ -22,6 +22,7 @@ import {MatDialogActions, MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
 import {DialogService} from "primeng/dynamicdialog";
 import {PaginatorModule} from "primeng/paginator";
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {PaginatorModule} from "primeng/paginator";
     JobDetailDialogComponent,
     JobOfferComponent,
     JobSearchComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
 ],providers: [MessageService,DialogService],
   bootstrap: [AppComponent],
 
