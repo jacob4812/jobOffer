@@ -1,0 +1,18 @@
+<div class="container mt-5">
+  <h2>Company Profile</h2>
+  <p (click)="openEditDialog()"> Click here to edit your company data.</p>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Company Name</th>
+        <th scope="col">NIP</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="user">
+        <td>{{ user.companyname }}</td>
+        <td>{{ user.nip }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
