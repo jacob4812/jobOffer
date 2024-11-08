@@ -34,12 +34,17 @@ import { ChangeprofileComponent } from './components/changeprofile/changeprofile
 import { MatTabsModule } from '@angular/material/tabs';
 import { MyApplicationsComponent } from './components/myapplications/myapplications.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { DashboardJobSearchComponent } from './components/job-search-dashboard/job-search-dashboard.component';
 import { DashboardJobListComponent } from './components/job-list-dashboard/job-list-dashboard.component';
 import { DashboardJobDetailDialogComponent } from './components/job-detail-dialog-dashboard/job-detail-dialog-dashboard.component';
 import { AddJobComponent } from './components/add-job/add-job.component';
 import { DashboardApplicationsComponent } from './components/applications-dashboard/applications-dashboard.component';
 import { DashboardApplicationsDialogComponent } from './components/applications-dashboard-dialog/applications-dashboard-dialog.component';
+import { CategoryDialogComponent } from './components/category-dialog/category-dialog.component';
+import { TechnologyDialogComponent } from './components/technology-dialog/technology-dialog.component';
+import { ExperienceDialogComponent } from './components/experience-dialog/experience-dialog.component';
+import { MatListModule } from '@angular/material/list';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 @NgModule({
@@ -62,13 +67,15 @@ import { DashboardApplicationsDialogComponent } from './components/applications-
     ChangeprofileComponent,
     MyApplicationsComponent,
     DashboardComponent,
-    DashboardJobSearchComponent,
     DashboardJobListComponent,
     DashboardJobDetailDialogComponent,
     AddJobComponent,
     DashboardApplicationsComponent,
-    DashboardApplicationsDialogComponent
-  ], providers: [MessageService, DialogService],
+    DashboardApplicationsDialogComponent,
+    CategoryDialogComponent,
+    TechnologyDialogComponent,
+    ExperienceDialogComponent
+  ], providers: [MessageService, DialogService, provideAnimationsAsync()],
   bootstrap: [AppComponent],
 
   imports: [
@@ -88,6 +95,8 @@ import { DashboardApplicationsDialogComponent } from './components/applications-
     MatFormFieldModule,
     MatInputModule,
     MatTabsModule,
+    MatListModule,
+    MatCheckboxModule,
     PaginatorModule
   ],
 })

@@ -11,7 +11,7 @@ export class ProfileDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<ProfileDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { user: any }
-  ) { }
+  ) { dialogRef.disableClose = true;}
 
   onCancel(): void {
     this.dialogRef.close();

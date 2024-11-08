@@ -1,26 +1,25 @@
 <div class="px-3">
     <div class="text-start">
-        <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="row g-3">
-            <div class="col-md-5">
-                <input formControlName="position" type="text" class="form-control"
-                    placeholder="Jakiego stanowiska szukasz?" />
-            </div>
-            <div class="col-md-5">
-                <input formControlName="location" type="text" class="form-control" placeholder="Lokalizacja" />
-            </div>
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-primary w-100">Szukaj</button>
-            </div>
-        </form>
-
-        <div class="mt-3">
-            <label>Filter by: </label>
-            <select class="form-select w-25 d-inline ms-2">
-                <option value="salary">Pensja</option>
-                <option value="location">Lokalizacja</option>
-                <option value="contractType">Kontrakt</option>
-            </select>
+      <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="row g-3">
+        <div class="col-md-4">
+          <input formControlName="position" type="text" class="form-control" placeholder="Słowa kluczowe" />
         </div>
-        <br>
+        <div class="col-md-4">
+          <input formControlName="location" type="text" class="form-control" placeholder="Lokalizacja" />
+        </div>
+        <div class="col-md-2">
+          <input type="number" formControlName="salary" class="form-control" placeholder="Min. Pensja" />
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-danger w-100">Szukaj</button>
+        </div>
+      </form>
+  
+      <button type="button" class="btn btn-light mt-3" (click)="openCategoryDialog()">Stanowiska</button>
+
+      <button type="button" class="btn btn-light mt-3 ms-2" (click)="openTechnologyDialog()">Technologie</button>
+
+      <button type="button" class="btn btn-light mt-3 ms-2" (click)="openExperienceDialog()">Doświadczenie</button>
     </div>
-</div>
+  </div>
+  
