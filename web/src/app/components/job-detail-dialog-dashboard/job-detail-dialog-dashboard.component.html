@@ -1,30 +1,41 @@
 <mat-dialog-content>
-  <form #editForm="ngForm">
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Stanowisko</mat-label>
-      <input matInput [(ngModel)]="data.title" name="title" required>
+      <input matInput formControlName="title" required />
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Lokalizacja</mat-label>
-      <input matInput [(ngModel)]="data.location" name="location" required>
+      <input matInput formControlName="location" required />
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Typ kontraktu</mat-label>
-      <input matInput [(ngModel)]="data.contractType" name="contractType" required>
+      <input matInput formControlName="contractType" required />
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Wynagrodzenie</mat-label>
-      <input matInput [(ngModel)]="data.salary" name="salary" required>
+      <input matInput formControlName="salary" required />
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Opis</mat-label>
-      <textarea matInput [(ngModel)]="data.description" name="description" rows="4"></textarea>
+      <textarea matInput formControlName="description" rows="4"></textarea>
     </mat-form-field>
+
+    <!-- Przyciski do otwierania dialogów -->
+    <div class="d-flex mt-3">
+      <button type="button" class="btn btn-light mt-3" (click)="openCategoryDialog()">Stanowiska</button>
+      <button type="button" class="btn btn-light mt-3 ms-2" (click)="openTechnologyDialog()">Technologie</button>
+      <button type="button" class="btn btn-light mt-3 ms-2" (click)="openExperienceDialog()">Doświadczenie</button>
+    </div>
+
+    <div class="d-flex mt-3">
+      <button type="submit" mat-raised-button color="primary" [disabled]="editForm.invalid">Zapisz</button>
+    </div>
   </form>
 </mat-dialog-content>
 

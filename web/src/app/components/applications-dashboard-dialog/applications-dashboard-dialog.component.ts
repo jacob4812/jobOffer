@@ -13,6 +13,7 @@ export class DashboardApplicationsDialogComponent {
     public dialogRef: MatDialogRef<DashboardApplicationsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { currentStatus: string }
   ) {
+    dialogRef.disableClose = true;
     this.newStatus = data.currentStatus;
   }
 

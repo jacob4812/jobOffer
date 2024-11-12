@@ -1,4 +1,5 @@
 export interface JobOffer {
+  id: number;
   company: string;
   title: string;
   location: string;
@@ -6,4 +7,6 @@ export interface JobOffer {
   salary: string;
   timeAgo: string;
   description: string;
+  experience: string; 
+  technologies: string;
 }

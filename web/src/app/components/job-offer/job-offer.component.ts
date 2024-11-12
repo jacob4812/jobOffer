@@ -13,4 +13,6 @@ export class JobOfferComponent {
   @Input() salary!: string;
   @Input() timeAgo!: string;
   @Input() description!: string;
+  @Input() experience!: string; // Dodano pole doświadczenia
+  @Input() technologies!: string; // Dodano pole technologii
 }
