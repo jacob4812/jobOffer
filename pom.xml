@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.4</version>
+		<version>3.3.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>pl.joboffer</groupId>
@@ -51,7 +51,7 @@
 		<version.spock>2.3-groovy-4.0</version.spock>
 		<version.spotless.maven.plugin>2.37.0</version.spotless.maven.plugin>
 		<version.spring.boot>3.1.1</version.spring.boot>
-		<version.springdoc-openapi>2.2.0</version.springdoc-openapi>
+		<version.springdoc-openapi>1.8.0</version.springdoc-openapi>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -62,7 +62,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.8.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>

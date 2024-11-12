@@ -12,4 +12,16 @@ class CorsProperties {
   private List<String> allowedOrigins;
   private List<String> allowedMethods;
   private List<String> allowedHeaders;
+
+  public List<String> getAllowedOrigins() {
+    return allowedOrigins;
+  }
+
+  public List<String> getAllowedMethods() {
+    return allowedMethods;
+  }
+
+  public List<String> getAllowedHeaders() {
+    return allowedHeaders;
+  }
 }

@@ -1,0 +1,33 @@
+spring:
+    application:
+        name: job
+    datasource:
+        url: jdbc:postgresql://localhost:5434/joboffer
+        username: admin
+        password: admin
+    mvc:
+        pathmatch:
+            matching-strategy: ANT_PATH_MATCHER
+    liquibase:
+        change-log: classpath:/db/changelog/db.changelog-master.yml
+        change-log-enabled: true
+cors:
+    allowed-origins:
+        - "http://localhost:4200"
+    allowed-methods:
+        - "*"
+    allowed-headers:
+        - "*"
+logging:
+    level:
+        org:
+            springdoc: DEBUG
+            springframework:
+                web: DEBUG
+                hibernate: ERROR
+
+springdoc:
+    api-docs:
+        path: /v3/api-docs
+    swagger-ui:
+        path: /swagger-ui.html
