@@ -2,6 +2,11 @@
 <mat-dialog-content>
   <form>
     <mat-form-field appearance="fill">
+      <mat-label>Username</mat-label>
+      <input matInput [(ngModel)]="data.user.username" name="username">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
       <input matInput [(ngModel)]="data.user.email" name="email">
     </mat-form-field>
