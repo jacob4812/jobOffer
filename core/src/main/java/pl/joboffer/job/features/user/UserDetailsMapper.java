@@ -12,6 +12,7 @@ public abstract class UserDetailsMapper implements DtoEntityMapper<UserDetails, 
   @Override
   @Mapping(target = "email", ignore = true)
   @Mapping(target = "password", ignore = true)
+  @Mapping(target = "phoneNumber", source = "phoneNumber")
   public abstract UserEntity mapDtoToEntity(UserDetails userDetails);
 
   @Override

@@ -6,6 +6,7 @@ import { RegisterCompanyComponent } from './components/registercompany/registerc
 import { MyProfileComponent } from './components/myprofile/myprofile.component';
 import { NgModule } from "@angular/core";
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AuthGuard } from 'src/services/auth.guard';
 
 
 const routes: Routes = [
@@ -14,8 +15,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'registercompany', component: RegisterCompanyComponent },
-  { path: 'myprofile', component: MyProfileComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'myprofile', component: MyProfileComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

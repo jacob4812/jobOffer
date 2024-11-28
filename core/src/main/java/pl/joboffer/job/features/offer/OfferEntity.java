@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import pl.joboffer.job.features.company.CompanyEntity;
 
 @Data
 @NoArgsConstructor
@@ -21,8 +22,9 @@ public class OfferEntity {
   @Column(name = "id")
   Long id;
 
-  @Column(name = "company")
-  String company;
+  @ManyToOne
+  @JoinColumn(name = "company_id", nullable = false) // Foreign key to CompanyEntity
+  CompanyEntity company;
 
   @Column(name = "title")
   String title;

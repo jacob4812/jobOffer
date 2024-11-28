@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CompanyProfileDialogComponent } from '../companyprofile-dialog/companyprofile-dialog.component';
 import { AddJobComponent } from '../add-job/add-job.component';
+import { OfferService } from 'src/services/offers/offer.service';
 
 @Component({
   selector: 'companyprofile-component',
@@ -11,8 +12,11 @@ import { AddJobComponent } from '../add-job/add-job.component';
 export class CompanyProfileComponent implements OnInit {
 
   user: { companyname: string, nip: string };
+  message: string = '';
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog,
+    private offerService: OfferService
+  ) {
     this.user = {
       companyname: 'Test123',
       nip: '2137'
@@ -39,17 +43,29 @@ export class CompanyProfileComponent implements OnInit {
     const dialogRef = this.dialog.open(AddJobComponent, {
       width: '400px',
       data: {
-        company: 'Test1',  // Tutaj do ogarnięcia pobieranie nazwy firmy
+        company: { id: 1, 
+          companyName: 'sds', 
+          email: 'Kubax997@tlen.pl',
+          userRole: 'COMPANY'}, // Pass company name dynamically
+        title: '',
         location: '',
         contractType: '',
         salary: '',
-        description: ''
+        expirationDate: '',
+        description: "Wakaty: 2 (Mid oraz Senior) Start: ASAP Forma współpracy: B2B z ITFS (outsourcing) Projekt: branża automatyki, energetyki oraz"
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('Nowa oferta:', result);
+        this.offerService.addJobOffer(result).subscribe({
+          next: () => {
+            this.message = 'Job offer added successfully!';
+          },
+          error: () => {
+            this.message = 'Failed to add job offer. Please try again.';
+          }
+        });
       }
     });
   }

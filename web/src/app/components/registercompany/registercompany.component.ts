@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import {Router, RouterLink} from "@angular/router";
-import {RegisterService} from "../../../services/register/register.service";
+import {RegisterCompanyService} from "../../../services/register/register-company.service";
 
 @Component({
   selector: 'app-register',
@@ -15,7 +15,7 @@ export class RegisterCompanyComponent {
   registerForm: FormGroup;
 
   constructor(private fb: FormBuilder,
-              private registerService: RegisterService,
+              private registerCompanyService: RegisterCompanyService,
               private router: Router) {
     this.registerForm = this.fb.group({
       companyName: ['', Validators.required],
@@ -35,8 +35,8 @@ export class RegisterCompanyComponent {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      const { repeatPassword, ...userRegisterDetails } = this.registerForm.value;
-      this.registerService.register(userRegisterDetails).subscribe(
+      const { repeatPassword, ...companyRegisterDetails } = this.registerForm.value;
+      this.registerCompanyService.registerCompany(companyRegisterDetails).subscribe(
         () => {
           console.log('Registration successful');
           this.router.navigate(['/main']);

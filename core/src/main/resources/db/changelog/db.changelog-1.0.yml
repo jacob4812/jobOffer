@@ -4,7 +4,7 @@ databaseChangeLog:
       author: your_name
       changes:
         - createTable:
-            tableName: user
+            tableName: user_table
             columns:
               - column:
                   name: id
@@ -13,7 +13,7 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: username
+                  name: login
                   type: varchar(50)
                   constraints:
                     nullable: false
@@ -28,11 +28,52 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: userRole
+                  name: phone_number
+                  type: bigint
+              - column:
+                  name: user_role
                   type: varchar(20)
-                  defaultValue: 'employee'
+                  defaultValue: 'ADMIN'
                   constraints:
                     nullable: false
+
+        - createTable:
+            tableName: company
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: company_name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: nip
+                  type: bigint
+              - column:
+                  name: email
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone_number
+                  type: bigint
+              - column:
+                  name: user_role
+                  type: varchar(20)
+                  defaultValue: 'ADMIN'
+                  constraints:
+                    nullable: false
+
         - createTable:
             tableName: offer
             columns:
@@ -43,18 +84,21 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
+                  name: company_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
                   name: title
                   type: varchar(100)
                   constraints:
                     nullable: false
               - column:
-                  name: description
-                  type: text
-                  constraints:
-                    nullable: false
-              - column:
                   name: location
                   type: varchar(100)
+              - column:
+                  name: contract_type
+                  type: varchar(50)
               - column:
                   name: salary
                   type: numeric(10,2)
@@ -62,45 +106,14 @@ databaseChangeLog:
                   name: expiration_date
                   type: date
               - column:
-                  name: status
-                  type: varchar(20)
-                  defaultValue: 'active'
+                  name: description
+                  type: text
                   constraints:
                     nullable: false
-
-        - insert:
-            tableName: user
-            columns:
-              - column:
-                  name: username
-                  value: 'admin'
-              - column:
-                  name: email
-                  value: 'admin@example.com'
-              - column:
-                  name: password
-                  value: 'admin123'
-              - column:
-                  name: userRole
-                  value: 'admin'
-        - insert:
-            tableName: offer
-            columns:
-              - column:
-                  name: title
-                  value: 'Software Engineer'
-              - column:
-                  name: description
-                  value: 'We are hiring a software engineer with experience in web development.'
-              - column:
-                  name: location
-                  value: 'New York'
-              - column:
-                  name: salary
-                  valueNumeric: 70000.00
-              - column:
-                  name: expiration_date
-                  valueDate: '2024-05-01'
-              - column:
-                  name: status
-                  value: 'active'
+        - addForeignKeyConstraint:
+            baseTableName: offer
+            baseColumnNames: company_id
+            referencedTableName: company
+            referencedColumnNames: id
+            constraintName: fk_offer_company
+            onDelete: CASCADE
