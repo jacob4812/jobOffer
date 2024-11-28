@@ -16,7 +16,7 @@ public abstract class CompanyMapper
   @Mapping(target = "password", source = "password")
   @Mapping(source = "id", target = "id")
   @Mapping(source = "nip", target = "nip")
-  @Mapping(target = "phoneNumber", ignore = true)
+  @Mapping(target = "phoneNumber", source = "phoneNumber")
   @Mapping(target = "offers", ignore = true)
   public abstract CompanyEntity mapDtoToEntity(CompanyRegisterDetails companyRegisterDetails);
 

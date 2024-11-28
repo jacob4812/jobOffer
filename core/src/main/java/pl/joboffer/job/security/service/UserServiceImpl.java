@@ -1,10 +1,13 @@
 package pl.joboffer.job.security.service;
 
+import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import pl.joboffer.job.features.company.CompanyEntity;
+import pl.joboffer.job.features.company.CompanyRepository;
 import pl.joboffer.job.features.user.UserEntity;
 import pl.joboffer.job.features.user.UserRepository;
 import pl.joboffer.job.security.dto.JobUser;
@@ -15,19 +18,44 @@ import pl.joboffer.job.security.dto.JobUser;
 public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
+  private final CompanyRepository companyRepository;
 
   @Override
   public JobUser loadUserByUsername(String email) throws UsernameNotFoundException {
-    return mapUserEntityToUserDetails(
-        userRepository
-            .findByEmail(email)
+    return mapEntityToUserDetails(
+        findUserOrCompanyByEmail(email)
             .orElseThrow(
                 () ->
                     new UsernameNotFoundException(
                         String.format("Nie znaleziono uzytkownika: %s", email))));
   }
 
-  private JobUser mapUserEntityToUserDetails(UserEntity userEntity) {
+  private Optional<?> findUserOrCompanyByEmail(String email) {
+    Optional<?> user = userRepository.findByEmail(email);
+    if (user.isPresent()) {
+      return user;
+    }
+    return companyRepository.findByEmail(email);
+  }
+
+  private JobUser mapEntityToUserDetails(Object entity) {
+    if (entity instanceof UserEntity) {
+      return mapUserEntityToUserLoginDetails((UserEntity) entity);
+    } else if (entity instanceof CompanyEntity) {
+      return mapCompanyEntityToCompanyDetails((CompanyEntity) entity);
+    }
+    throw new IllegalArgumentException("Unexpected entity type");
+  }
+
+  private JobUser mapCompanyEntityToCompanyDetails(CompanyEntity entity) {
+    if (entity == null) {
+      throw new UsernameNotFoundException("Nie znaleziono firmy");
+    }
+    return new JobUser(
+        entity.getEmail(), entity.getPassword(), entity.getId(), entity.getUserRole());
+  }
+
+  private JobUser mapUserEntityToUserLoginDetails(UserEntity userEntity) {
     if (userEntity == null) {
       throw new UsernameNotFoundException("Nie znaleziono uzytkownika");
     }
@@ -37,9 +65,4 @@ public class UserServiceImpl implements UserService {
         userEntity.getId(),
         userEntity.getUserRole());
   }
-
-  //    @Override
-  //    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-  //        return null;
-  //    }
 }

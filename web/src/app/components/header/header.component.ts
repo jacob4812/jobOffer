@@ -14,14 +14,23 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.isLoggedIn();
     this.loadEmail();
+    const role = localStorage.getItem('role');
+     if (role === 'ADMIN') {
     this.items = [
-
       { label: `Zalogowano:  ${this.email}`, icon: 'pi pi-info', url: 'http://angular.io' },
       { separator: true },
       { label: 'Dodaj CV' },
       { separator: true },
       { label: 'Mój profil', icon: 'pi pi-cog', routerLink: ['/myprofile'] }
     ];
+  }
+else if(role === 'COMPANY'){
+  this.items = [
+        { label: `Zalogowano:  ${this.email}`, icon: 'pi pi-info', url: 'http://angular.io' },
+        { separator: true },
+        { label: 'Dashboard', icon: 'pi pi-cog', routerLink: ['/dashboard'] }
+      ];
+  }
 
   }
   constructor(
