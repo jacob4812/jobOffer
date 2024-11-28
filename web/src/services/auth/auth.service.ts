@@ -29,6 +29,8 @@ export class AuthService {
           localStorage.setItem("token",response.tokenContent);
           localStorage.setItem("email",decodedToken.sub);
           localStorage.setItem("idUser",decodedToken.idUser);
+          localStorage.setItem("role", decodedToken.role[0].authority);
+
 
         }
           this.router.navigate([""]);

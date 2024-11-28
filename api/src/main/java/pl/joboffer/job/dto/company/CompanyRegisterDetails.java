@@ -8,4 +8,5 @@ public record CompanyRegisterDetails(
     @NotBlank String companyName,
     @NotBlank String email,
     String password,
-    @NotBlank Long nip) {}
+    @NotBlank Long nip,
+    Long phoneNumber) {}
