@@ -50,6 +50,7 @@ public class LoginServiceImpl implements LoginService {
     return jwtUtils.generateToken(
         userDetails.getUsername(), userDetails.getAuthorities(), userDetails.getIdUser());
   }
+
   @Override
   @Transactional
   public String loginCompany(CompanyLoginDetails companyLoginDetails) {
@@ -59,9 +60,9 @@ public class LoginServiceImpl implements LoginService {
     Authentication authentication;
     try {
       authentication =
-              authenticationManager.authenticate(
-                      new UsernamePasswordAuthenticationToken(
-                              companyLoginDetails.email(), companyLoginDetails.password()));
+          authenticationManager.authenticate(
+              new UsernamePasswordAuthenticationToken(
+                  companyLoginDetails.email(), companyLoginDetails.password()));
       log.info(String.format("Firma o loginie %s", companyLoginDetails.email()));
     } catch (BadCredentialsException e) {
       log.warn(String.format("Bledne dane logowania dla firmy %s", companyLoginDetails.email()));
@@ -70,6 +71,6 @@ public class LoginServiceImpl implements LoginService {
     SecurityContextHolder.getContext().setAuthentication(authentication);
     var companyDetails = companyService.findUserByEmail(authentication.getName());
     return jwtUtils.generateToken(
-            companyDetails.getUsername(), companyDetails.getAuthorities(), companyDetails.getIdUser());
+        companyDetails.getUsername(), companyDetails.getAuthorities(), companyDetails.getIdUser());
   }
 }

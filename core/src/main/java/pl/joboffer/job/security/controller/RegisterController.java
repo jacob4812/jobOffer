@@ -35,8 +35,10 @@ public class RegisterController {
     registerService.signup(userRegisterDetails);
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
+
   @PostMapping("/company/signup")
-  public ResponseEntity<Void> registerCompany(@RequestBody CompanyRegisterDetails companyRegisterDetails) {
+  public ResponseEntity<Void> registerCompany(
+      @RequestBody CompanyRegisterDetails companyRegisterDetails) {
     registerService.companySignup(companyRegisterDetails);
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }

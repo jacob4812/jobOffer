@@ -12,10 +12,10 @@ import pl.joboffer.job.enums.UserRole;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Getter
 public class CompanyUser extends User {
-    Long idUser;
+  Long idUser;
 
-    public CompanyUser(String email, String password, Long idUser, UserRole userRole) {
-        super(email, password, AuthorityUtils.createAuthorityList(userRole.name()));
-        this.idUser = idUser;
-    }
+  public CompanyUser(String email, String password, Long idUser, UserRole userRole) {
+    super(email, password, AuthorityUtils.createAuthorityList(userRole.name()));
+    this.idUser = idUser;
+  }
 }

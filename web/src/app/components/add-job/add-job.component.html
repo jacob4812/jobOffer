@@ -8,6 +8,11 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Tytuł</mat-label>
+      <input matInput [(ngModel)]="data.title" name="title" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
       <mat-label>Lokalizacja</mat-label>
       <input matInput [(ngModel)]="data.location" name="location" required>
     </mat-form-field>
@@ -23,11 +28,16 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Data wygaśnięcia</mat-label>
+      <input matInput [(ngModel)]="data.expirationDate" name="expirationDate" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
       <mat-label>Opis</mat-label>
       <textarea matInput [(ngModel)]="data.description" name="description" rows="4"></textarea>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit">Zapisz</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!addForm.valid">Zapisz</button>
   </form>
 </mat-dialog-content>
 

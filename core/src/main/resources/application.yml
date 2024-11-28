@@ -9,8 +9,9 @@ spring:
         pathmatch:
             matching-strategy: ANT_PATH_MATCHER
     liquibase:
+        enabled: true
         change-log: classpath:/db/changelog/db.changelog-master.yml
-        change-log-enabled: true
+        default-schema: public
 cors:
     allowed-origins:
         - "http://localhost:4200"
@@ -20,6 +21,7 @@ cors:
         - "*"
 logging:
     level:
+        liquibase: DEBUG
         org:
             springdoc: DEBUG
             springframework:

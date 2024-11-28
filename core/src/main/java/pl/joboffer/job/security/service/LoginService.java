@@ -8,5 +8,6 @@ import pl.joboffer.job.dto.user.UserLoginDetails;
 public interface LoginService {
 
   String login(UserLoginDetails userLoginDetails);
+
   String loginCompany(CompanyLoginDetails companyLoginDetails);
 }

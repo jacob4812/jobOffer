@@ -16,5 +16,9 @@ export class OfferService {
     return this.restService.getPageable<Page<JobOffer>>(url);
   }
 
+  addJobOffer(offer: JobOffer): Observable<JobOffer> {
+    const url = `${this.offerUrl}/addJobOffer`;
+    return this.restService.post(url, offer);
+  }
 
 }

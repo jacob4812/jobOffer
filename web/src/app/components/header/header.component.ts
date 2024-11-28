@@ -58,10 +58,6 @@ export class HeaderComponent implements OnInit {
     }
   }
   logout(severity: string) {
-    localStorage.removeItem("token");
-    localStorage.removeItem("email");
-    localStorage.removeItem("idUser");
-    this.email = '';
-    this.loggedIn = false;
+    this.authTokenService.logout();
   }
 }

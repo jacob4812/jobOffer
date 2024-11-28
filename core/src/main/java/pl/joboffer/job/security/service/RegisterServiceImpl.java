@@ -47,5 +47,4 @@ public class RegisterServiceImpl implements RegisterService {
       throw new RuntimeException("Zapis sie nie powiodl");
     }
   }
-
 }
