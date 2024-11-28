@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.joboffer.job.dto.company.CompanyRegisterDetails;
 import pl.joboffer.job.dto.user.UserRegisterDetails;
 import pl.joboffer.job.features.user.UserRepository;
 import pl.joboffer.job.security.jwt.JwtUtils;
@@ -32,6 +33,11 @@ public class RegisterController {
   @PostMapping("/signup")
   public ResponseEntity<Void> registerUser(@RequestBody UserRegisterDetails userRegisterDetails) {
     registerService.signup(userRegisterDetails);
+    return ResponseEntity.status(HttpStatus.CREATED).build();
+  }
+  @PostMapping("/company/signup")
+  public ResponseEntity<Void> registerCompany(@RequestBody CompanyRegisterDetails companyRegisterDetails) {
+    registerService.companySignup(companyRegisterDetails);
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 }

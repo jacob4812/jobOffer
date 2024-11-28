@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.joboffer.job.dto.company.CompanyLoginDetails;
 import pl.joboffer.job.dto.user.UserLoginDetails;
 import pl.joboffer.job.dto.web.JwtToken;
 import pl.joboffer.job.security.service.LoginService;
@@ -28,4 +29,5 @@ public class LoginController {
         .map(it -> new ResponseEntity<>(new JwtToken(it), HttpStatus.OK))
         .orElseGet(() -> new ResponseEntity<>(HttpStatus.UNAUTHORIZED));
   }
+
 }

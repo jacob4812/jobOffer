@@ -27,6 +27,9 @@ public class UserEntity {
   @Column(name = "password")
   String password;
 
+  @Column(name = "phoneNumber")
+  Long phoneNumber;
+
   @Enumerated(value = EnumType.STRING)
   @Column(name = "user_role")
   UserRole userRole;
