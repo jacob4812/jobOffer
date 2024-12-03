@@ -1,48 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DashboardApplicationsDialogComponent } from '../applications-dashboard-dialog/applications-dashboard-dialog.component';
+import { CompanyApplicationService } from 'src/services/application/comapny-application.service';
+import { Page } from 'src/app/models/page.model';
+import {PaginatorState} from "primeng/paginator";
+import { CompanyApplication } from 'src/app/models/company-application.model';
 
-interface Application {
-  name: string;
-  email: string;
-  cv: string;
-  position: string;
-  location: string;
-  when: string;
-  status: string;
-}
 
 @Component({
   selector: 'applications-dashboard-component',
   templateUrl: './applications-dashboard.component.html',
   styleUrls: ['./applications-dashboard.component.scss']
 })
-export class DashboardApplicationsComponent {
-  applications: Application[] = [ //dla testu na sztywno
-    {
-      name: 'Jan Nowak',
-      email: 'jan.nowak@example.com',
-      cv: 'Link do CV',
-      position: 'Frontend Developer',
-      location: 'Warszawa',
-      when: '2024-09-10',
-      status: 'In progress'
-    },
-    {
-      name: 'Kasia Nowak',
-      email: 'Kasia.nowak@example.com',
-      cv: 'Link do CV',
-      position: 'Backend Developer',
-      location: 'Poznań',
-      when: '2023-11-9',
-      status: 'Hired'
-    }
-  ];
+export class DashboardApplicationsComponent implements OnInit {
+  applications: CompanyApplication[] = [];
+  first = 0;
+  rows = 10;
+  totalRecords = 0;
+  totalPages = 0;
+  
 
-  sortColumn: keyof Application = 'name';
+  sortColumn: keyof CompanyApplication = 'name';
   sortDirection: 'asc' | 'desc' = 'asc';
-
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog,private comapnyApplicationService:CompanyApplicationService) { }
+  ngOnInit(): void {
+    this.getCompanyApplications();
+    
+  }
 
   get sortedApplications() {
     return this.applications.slice().sort((a, b) => {
@@ -56,7 +40,7 @@ export class DashboardApplicationsComponent {
     });
   }
 
-  sort(column: keyof Application) {
+  sort(column: keyof CompanyApplication) {
     if (this.sortColumn === column) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
     } else {
@@ -65,7 +49,7 @@ export class DashboardApplicationsComponent {
     }
   }
 
-  openStatusDialog(application: Application): void {
+  openStatusDialog(application: CompanyApplication): void {
     const dialogRef = this.dialog.open(DashboardApplicationsDialogComponent, {
       width: '250px',
       data: { currentStatus: application.status }
@@ -74,6 +58,22 @@ export class DashboardApplicationsComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
         application.status = result;
+      }
+    });
+  }
+  getCompanyApplications(event?: PaginatorState){
+    const page = event ? Math.floor(event.first / event.rows) : 0;
+    const size = event ? event.rows : this.rows;
+    const userId = Number(localStorage.getItem('idUser')) || null;
+
+    this.comapnyApplicationService.readCompanyApplications(userId,page, size).subscribe((response: Page<CompanyApplication>) => {
+      this.applications = response.content;
+      this.totalRecords = response.totalElements;
+      this.totalPages = response.totalPages;
+
+      if (page >= this.totalPages && this.totalPages > 0) {
+        this.first = (this.totalPages - 1) * this.rows;
+        this.getCompanyApplications({ first: this.first, rows: this.rows });
       }
     });
   }

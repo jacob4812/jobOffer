@@ -20,16 +20,19 @@ public class CompanyServiceImpl implements CompanyService {
   private final OfferRepository offerRepository;
   private PasswordEncoder passwordEncoder;
   private final OfferMapper offerMapper;
+  private final CompanyMapper companyMapper;
 
   public CompanyServiceImpl(
       CompanyRepository companyRepository,
       OfferRepository offerRepository,
       PasswordEncoder passwordEncoder,
-      OfferMapper offerMapper) {
+      OfferMapper offerMapper,
+      CompanyMapper companyMapper) {
     this.companyRepository = companyRepository;
     this.offerRepository = offerRepository;
     this.passwordEncoder = passwordEncoder;
     this.offerMapper = offerMapper;
+    this.companyMapper = companyMapper;
   }
 
   @Override
@@ -55,6 +58,17 @@ public class CompanyServiceImpl implements CompanyService {
                 () ->
                     new RuntimeException(
                         String.format("Nie znaleziono uzytkownika o email: %s", email))));
+  }
+
+  @Override
+  public CompanyDetails readCompanyData(Long userId) {
+    return companyMapper.mapEntityToCompanyDetails(
+        companyRepository
+            .findCompanyById(userId)
+            .orElseThrow(
+                () ->
+                    new RuntimeException(
+                        String.format("Nie znaleziono uzytkownika o podanym id: %s", userId))));
   }
 
   @Override

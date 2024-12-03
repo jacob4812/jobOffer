@@ -17,5 +17,7 @@ public interface CompanyService {
 
   CompanyUser findUserByEmail(String email);
 
+  CompanyDetails readCompanyData(Long userId);
+
   List<UserDetails> findAllUsers();
 }

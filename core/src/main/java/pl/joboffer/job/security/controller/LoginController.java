@@ -28,11 +28,4 @@ public class LoginController {
         .map(it -> new ResponseEntity<>(new JwtToken(it), HttpStatus.OK))
         .orElseGet(() -> new ResponseEntity<>(HttpStatus.UNAUTHORIZED));
   }
-  //  @PostMapping("/loginCompany")
-  //  public ResponseEntity<JwtToken> loginCompany(@RequestBody CompanyLoginDetails
-  // userLoginDetails) {
-  //    return Optional.ofNullable(loginService.loginCompany(userLoginDetails))
-  //            .map(it -> new ResponseEntity<>(new JwtToken(it), HttpStatus.OK))
-  //            .orElseGet(() -> new ResponseEntity<>(HttpStatus.UNAUTHORIZED));
-  //  }
 }

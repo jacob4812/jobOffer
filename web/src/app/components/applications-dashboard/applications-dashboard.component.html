@@ -24,9 +24,9 @@
           [class.sorted-desc]="sortColumn === 'location' && sortDirection === 'desc'" (click)="sort('location')">
           Lokalizacja
         </th>
-        <th scope="col" [class.sorted]="sortColumn === 'when'"
-          [class.sorted-asc]="sortColumn === 'when' && sortDirection === 'asc'"
-          [class.sorted-desc]="sortColumn === 'when' && sortDirection === 'desc'" (click)="sort('when')">Kiedy
+        <th scope="col" [class.sorted]="sortColumn === 'timeAgo'"
+          [class.sorted-asc]="sortColumn === 'timeAgo' && sortDirection === 'asc'"
+          [class.sorted-desc]="sortColumn === 'timeAgo' && sortDirection === 'desc'" (click)="sort('timeAgo')">Kiedy
         </th>
         <th scope="col" [class.sorted]="sortColumn === 'status'"
           [class.sorted-asc]="sortColumn === 'status' && sortDirection === 'asc'"
@@ -41,7 +41,7 @@
         <td>{{ application.cv }}</td>
         <td>{{ application.position }}</td>
         <td>{{ application.location }}</td>
-        <td>{{ application.when }}</td>
+        <td>{{ application.timeAgo }}</td>
         <td (click)="openStatusDialog(application)" style="cursor: pointer;">
           {{ application.status }}
         </td>

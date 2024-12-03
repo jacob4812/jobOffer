@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
     this.isLoggedIn();
     this.loadEmail();
     const role = localStorage.getItem('role');
-     if (role === 'ADMIN') {
+     if (role === 'ADMIN' || role === 'EMPLOYEE') {
     this.items = [
       { label: `Zalogowano:  ${this.email}`, icon: 'pi pi-info', url: 'http://angular.io' },
       { separator: true },

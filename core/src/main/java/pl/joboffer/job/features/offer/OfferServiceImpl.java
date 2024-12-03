@@ -46,6 +46,13 @@ public class OfferServiceImpl implements OfferService {
   }
 
   @Override
+  public Page<Offer> findJobsOfferById(Long userId, PageRequest pageRequest) {
+    Page<OfferEntity> offerPage = offerRepository.findOfferByCompanyId(userId, pageRequest);
+    List<Offer> offers = offerMapper.mapListEntityToDto(offerPage.getContent());
+    return new PageImpl<>(offers, pageRequest, offerPage.getTotalElements());
+  }
+
+  @Override
   @Transactional
   public OfferEntity editJobOffer(Offer offer) {
     if (offer.id() == null) {

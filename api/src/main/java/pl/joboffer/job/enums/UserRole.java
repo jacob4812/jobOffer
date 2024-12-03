@@ -3,7 +3,8 @@ package pl.joboffer.job.enums;
 public enum UserRole {
   ADMIN("Admin"),
   COMPANY("Company"),
-  USER("User");
+  EMPLOYEE("Employee"),
+  HR("Hr");
   private final String role;
 
   UserRole(String role) {

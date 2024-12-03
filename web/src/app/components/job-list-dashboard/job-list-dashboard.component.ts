@@ -5,6 +5,7 @@ import { OfferService } from "../../../services/offers/offer.service";
 import { PaginatorState } from "primeng/paginator";
 import { JobOffer } from "../../models/job-offer.model";
 import { Page } from "../../models/page.model";
+import { CompanyService } from 'src/services/company/company.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class DashboardJobListComponent implements OnInit {
      this.readJobOffers();
   }
 
-  constructor(public dialog: MatDialog, private offerService: OfferService) { }
+  constructor(public dialog: MatDialog, private companyService: CompanyService) { }
 
 
   isTextTruncated(offer: JobOffer): boolean {
@@ -50,8 +51,9 @@ export class DashboardJobListComponent implements OnInit {
   readJobOffers(event?: PaginatorState) {
     const page = event ? Math.floor(event.first / event.rows) : 0;
     const size = event ? event.rows : this.rows;
+    const userId = Number(localStorage.getItem('idUser')) || null;
 
-    this.offerService.readAllJobOffers(page, size).subscribe((response: Page<JobOffer>) => {
+    this.companyService.readCompanyJobOffers(userId,page, size).subscribe((response: Page<JobOffer>) => {
       this.jobOffers = response.content;
       this.totalRecords = response.totalElements;
       this.totalPages = response.totalPages;

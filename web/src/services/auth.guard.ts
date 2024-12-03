@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
           this.router.navigate(['/main'], { queryParams: { returnUrl: state.url } });
                return false;
        }
-       if (route.routeConfig?.path === 'myprofile' && role !== 'ADMIN') {
+       if (route.routeConfig?.path === 'myprofile' && role !== 'ADMIN' && role !=='EMPLOYEE') {
                 this.router.navigate(['/main'], { queryParams: { returnUrl: state.url } });
                      return false;
              }

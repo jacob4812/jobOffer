@@ -17,4 +17,7 @@ public interface OfferService {
 
   @NotNull
   OfferEntity deleteJobOffer(Long idOffer);
+
+  @NotNull
+  Page<Offer> findJobsOfferById(Long userId, PageRequest pageRequest);
 }
