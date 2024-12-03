@@ -1,9 +1,11 @@
 package pl.joboffer.job.features.user;
 
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import pl.joboffer.job.enums.UserRole;
+import pl.joboffer.job.features.application.ApplicationEntity;
 
 @Data
 @NoArgsConstructor
@@ -17,6 +19,9 @@ public class UserEntity {
   @Id
   @Column(name = "id")
   Long id;
+
+  @OneToMany(mappedBy = "user")
+  private List<ApplicationEntity> applications;
 
   @Column(name = "login")
   String login;

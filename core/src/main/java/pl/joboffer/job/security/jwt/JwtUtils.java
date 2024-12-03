@@ -22,10 +22,6 @@ public class JwtUtils {
   private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
   private static final Long JWT_EXPIRATION = 36000000L;
 
-  //    private Key getSigningKey() {
-  //        return Keys.hmacShaKeyFor(Base64.getDecoder().decode(SECRET));
-  //    }
-
   public String extractUsername(String token) {
     return extractClaim(token, Claims::getSubject);
   }

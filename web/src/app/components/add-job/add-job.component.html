@@ -4,7 +4,7 @@
   <form #addForm="ngForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Firma</mat-label>
-      <input matInput [(ngModel)]="data.company" name="company" required readonly>
+      <input matInput [(ngModel)]="data.company.companyName" name="company" required readonly>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">

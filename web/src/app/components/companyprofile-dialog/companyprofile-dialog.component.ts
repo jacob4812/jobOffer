@@ -10,7 +10,7 @@ export class CompanyProfileDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<CompanyProfileDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { user: { companyname: string, nip: string } }
+    @Inject(MAT_DIALOG_DATA) public data: { company: { companyname: string, nip: string } }
   ) {dialogRef.disableClose = true; }
 
   onCancel(): void {
@@ -18,6 +18,6 @@ export class CompanyProfileDialogComponent {
   }
 
   onSave(): void {
-    this.dialogRef.close(this.data.user);
+    this.dialogRef.close(this.data.company);
   }
 }

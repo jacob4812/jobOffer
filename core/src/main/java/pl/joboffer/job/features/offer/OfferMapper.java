@@ -17,11 +17,13 @@ public abstract class OfferMapper implements DtoEntityMapper<Offer, OfferEntity>
 
   @Override
   @Mapping(target = "company", source = "company", ignore = true)
+  @BeanMapping(ignoreUnmappedSourceProperties = {"applications"})
   public abstract Offer mapEntityToDto(OfferEntity offerEntity);
 
   @Override
-  @Mapping(target = "company.email", ignore = true) // Ignore email
-  @Mapping(target = "company.password", ignore = true) // Ignore password
+  @Mapping(target = "company.email", ignore = true)
+  @Mapping(target = "company.password", ignore = true)
+  @Mapping(target = "applications", ignore = true)
   public abstract OfferEntity mapDtoToEntity(Offer offer);
 
   @Override

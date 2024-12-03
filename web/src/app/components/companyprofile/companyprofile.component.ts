@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { CompanyProfileDialogComponent } from '../companyprofile-dialog/companyprofile-dialog.component';
 import { AddJobComponent } from '../add-job/add-job.component';
 import { OfferService } from 'src/services/offers/offer.service';
+import { CompanyService } from 'src/services/company/company.service';
+import { Company } from 'src/app/models/company.model';
 
 @Component({
   selector: 'companyprofile-component',
@@ -10,32 +12,27 @@ import { OfferService } from 'src/services/offers/offer.service';
   styleUrls: ['./companyprofile.component.scss']
 })
 export class CompanyProfileComponent implements OnInit {
-
-  user: { companyname: string, nip: string };
+  company: Company;
   message: string = '';
 
   constructor(public dialog: MatDialog,
-    private offerService: OfferService
-  ) {
-    this.user = {
-      companyname: 'Test123',
-      nip: '2137'
-    };
-  }
+    private offerService: OfferService,
+    private companyService: CompanyService
+  ) {}
 
   ngOnInit(): void {
-    // pobierz dane użytkownika
+   this.readCompanyData();
   }
 
   openEditDialog(): void {
     const dialogRef = this.dialog.open(CompanyProfileDialogComponent, {
       width: '300px',
-      data: { user: { ...this.user } }
+      data: { company: { ...this.company } }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.user = result;
+        this.company = result;
       }
     });
   }
@@ -43,10 +40,7 @@ export class CompanyProfileComponent implements OnInit {
     const dialogRef = this.dialog.open(AddJobComponent, {
       width: '400px',
       data: {
-        company: { id: 1, 
-          companyName: 'sds', 
-          email: 'Kubax997@tlen.pl',
-          userRole: 'COMPANY'}, // Pass company name dynamically
+        company:this.company,
         title: '',
         location: '',
         contractType: '',
@@ -68,5 +62,23 @@ export class CompanyProfileComponent implements OnInit {
         });
       }
     });
+  }
+  readCompanyData(): void {
+    const userId = Number(localStorage.getItem('idUser')) || null;
+    console.log(userId);
+    if (userId) {
+      this.companyService.readCompanyData(userId).subscribe({
+        next: (response: Company) => {
+          this.company = response; 
+        },
+        error: () => {
+          console.error('Failed to fetch company data');
+          this.company = null; 
+        }
+      });
+    } else {
+      console.error('User ID not found in localStorage');
+      this.company = null;
+    }
   }
 }

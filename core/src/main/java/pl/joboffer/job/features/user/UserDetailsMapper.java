@@ -13,9 +13,10 @@ public abstract class UserDetailsMapper implements DtoEntityMapper<UserDetails, 
   @Mapping(target = "email", ignore = true)
   @Mapping(target = "password", ignore = true)
   @Mapping(target = "phoneNumber", source = "phoneNumber")
+  @Mapping(target = "applications", ignore = true)
   public abstract UserEntity mapDtoToEntity(UserDetails userDetails);
 
   @Override
-  @BeanMapping(ignoreUnmappedSourceProperties = {"email", "password"})
+  @BeanMapping(ignoreUnmappedSourceProperties = {"email", "password", "applications"})
   public abstract UserDetails mapEntityToDto(UserEntity userEntity);
 }

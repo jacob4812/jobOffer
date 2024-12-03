@@ -2,11 +2,13 @@ package pl.joboffer.job.features.offer;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import pl.joboffer.job.features.application.ApplicationEntity;
 import pl.joboffer.job.features.company.CompanyEntity;
 
 @Data
@@ -23,8 +25,11 @@ public class OfferEntity {
   Long id;
 
   @ManyToOne
-  @JoinColumn(name = "company_id", nullable = false) // Foreign key to CompanyEntity
+  @JoinColumn(name = "company_id", nullable = false)
   CompanyEntity company;
+
+  @OneToMany(mappedBy = "offer")
+  private List<ApplicationEntity> applications;
 
   @Column(name = "title")
   String title;
