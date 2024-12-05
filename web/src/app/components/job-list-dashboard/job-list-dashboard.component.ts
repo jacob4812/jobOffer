@@ -5,8 +5,8 @@ import { OfferService } from "../../../services/offers/offer.service";
 import { PaginatorState } from "primeng/paginator";
 import { JobOffer } from "../../models/job-offer.model";
 import { Page } from "../../models/page.model";
+import { HttpErrorResponse } from '@angular/common/http';
 import { CompanyService } from 'src/services/company/company.service';
-
 
 @Component({
   selector: 'app-job-list-dashboard',
@@ -26,7 +26,12 @@ export class DashboardJobListComponent implements OnInit {
      this.readJobOffers();
   }
 
-  constructor(public dialog: MatDialog, private companyService: CompanyService) { }
+  constructor(
+    public dialog: MatDialog,
+    private companyService: CompanyService,
+    private offerService: OfferService
+  ) { }
+
 
 
   isTextTruncated(offer: JobOffer): boolean {
@@ -48,6 +53,22 @@ export class DashboardJobListComponent implements OnInit {
     });
     console.log(offer.company);
   }
+  deleteJobOffer(offerId: number): void {
+    const url = `/api/offer/deleteJobOffer/${offerId}`;
+    console.log(`Próbujesz usunąć ofertę o ID: ${offerId}`);
+    console.log(`URL: ${url}`);
+
+    if (confirm("Czy na pewno?")) {
+      this.offerService.deleteJobOffer(offerId).subscribe({
+        next: () => {
+          this.jobOffers = this.jobOffers.filter(offer => offer.id !== offerId);
+          this.totalRecords--;
+          alert("Usunięto.");
+        }
+      });
+    }
+  }
+
   readJobOffers(event?: PaginatorState) {
     const page = event ? Math.floor(event.first / event.rows) : 0;
     const size = event ? event.rows : this.rows;

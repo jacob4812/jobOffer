@@ -1,29 +1,31 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { JobDetailDialogComponent } from '../job-detail-dialog/job-detail-dialog.component';
-import {OfferService} from "../../../services/offers/offer.service";
-import {PaginatorState} from "primeng/paginator";
-import {JobOffer} from "../../models/job-offer.model";
-import {Page} from "../../models/page.model";
-
+import { OfferService } from "../../../services/offers/offer.service";
+import { PaginatorState } from "primeng/paginator";
+import { JobOffer } from "../../models/job-offer.model";
+import { Page } from "../../models/page.model";
+import { ApplyJobComponent } from '../apply-job/apply-job.component';
 
 @Component({
   selector: 'app-job-list',
   templateUrl: './job-list.component.html',
   styles: []
 })
-export class JobListComponent implements OnInit{
+export class JobListComponent implements OnInit {
   jobOffers: JobOffer[] = [];
   first = 0;
   rows = 10;
   totalRecords = 0;
   totalPages = 0;
+  role: string = '';
+
   ngOnInit() {
     this.readJobOffers();
-
+    this.role = localStorage.getItem('role') || '';
   }
 
-  constructor(public dialog: MatDialog,private offerService:OfferService) { }
+  constructor(public dialog: MatDialog, private offerService: OfferService) { }
 
   openJobDetailDialog(offer: JobOffer) {
     this.dialog.open(JobDetailDialogComponent, {
@@ -31,7 +33,14 @@ export class JobListComponent implements OnInit{
     });
     console.log(offer.company);
   }
-  readJobOffers(event?: PaginatorState){
+  openApplyJobComponent(offer: JobOffer) {
+    this.dialog.open(ApplyJobComponent, {
+      data: offer
+    });
+    console.log(offer.company);
+  }
+
+  readJobOffers(event?: PaginatorState) {
     const page = event ? Math.floor(event.first / event.rows) : 0;
     const size = event ? event.rows : this.rows;
 
@@ -56,5 +65,4 @@ export class JobListComponent implements OnInit{
       this.readJobOffers({ first: this.first, rows: this.rows });
     }
   }
-
 }

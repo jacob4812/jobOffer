@@ -46,7 +46,7 @@ export class CompanyProfileComponent implements OnInit {
         contractType: '',
         salary: '',
         expirationDate: '',
-        description: "Wakaty: 2 (Mid oraz Senior) Start: ASAP Forma współpracy: B2B z ITFS (outsourcing) Projekt: branża automatyki, energetyki oraz"
+        description: ""
       }
     });
 
@@ -69,11 +69,11 @@ export class CompanyProfileComponent implements OnInit {
     if (userId) {
       this.companyService.readCompanyData(userId).subscribe({
         next: (response: Company) => {
-          this.company = response; 
+          this.company = response;
         },
         error: () => {
           console.error('Failed to fetch company data');
-          this.company = null; 
+          this.company = null;
         }
       });
     } else {

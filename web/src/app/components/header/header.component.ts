@@ -68,5 +68,6 @@ else if(role === 'COMPANY'){
   }
   logout(severity: string) {
     this.authTokenService.logout();
+    location.reload();
   }
 }

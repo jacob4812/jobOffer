@@ -14,5 +14,7 @@ export class AddJobComponent {
 
   onSubmit() {
     this.dialogRef.close(this.data);
+
+    location.reload();
   }
 }

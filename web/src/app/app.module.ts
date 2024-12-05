@@ -45,6 +45,7 @@ import { ExperienceDialogComponent } from './components/experience-dialog/experi
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ApplyJobComponent } from './components/apply-job/apply-job.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     DashboardApplicationsDialogComponent,
     CategoryDialogComponent,
     TechnologyDialogComponent,
-    ExperienceDialogComponent
+    ExperienceDialogComponent,
+    ApplyJobComponent
   ], providers: [MessageService, DialogService, provideAnimationsAsync()],
   bootstrap: [AppComponent],
 
