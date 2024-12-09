@@ -55,9 +55,6 @@ export class DashboardJobListComponent implements OnInit {
     console.log(offer);
   }
   deleteJobOffer(offerId: number): void {
-    const url = `/api/offer/deleteJobOffer/${offerId}`;
-    console.log(`Próbujesz usunąć ofertę o ID: ${offerId}`);
-    console.log(`URL: ${url}`);
 
     if (confirm("Czy na pewno?")) {
       this.offerService.deleteJobOffer(offerId).subscribe({

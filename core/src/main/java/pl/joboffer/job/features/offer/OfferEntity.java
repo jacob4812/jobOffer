@@ -28,7 +28,7 @@ public class OfferEntity {
   @JoinColumn(name = "company_id", nullable = false)
   CompanyEntity company;
 
-  @OneToMany(mappedBy = "offer")
+  @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL)
   private List<ApplicationEntity> applications;
 
   @Column(name = "title")
