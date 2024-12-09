@@ -24,7 +24,7 @@ public class OfferEntity {
   @Column(name = "id")
   Long id;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "company_id", nullable = false)
   CompanyEntity company;
 

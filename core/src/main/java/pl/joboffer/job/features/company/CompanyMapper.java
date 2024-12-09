@@ -34,6 +34,11 @@ public abstract class CompanyMapper
   @Mapping(target = "nip", source = "nip")
   @Mapping(target = "userRole", source = "userRole")
   @Mapping(target = "offers", ignore = true)
-  @BeanMapping(ignoreUnmappedSourceProperties = {"email", "password", "offers"})
+  @BeanMapping(ignoreUnmappedSourceProperties = { "email","password","offers"})
   public abstract CompanyDetails mapEntityToCompanyDetails(CompanyEntity companyEntity);
+
+//  @Mapping(target = "email", ignore = true)
+//  @Mapping(target = "password", ignore = true)
+//  @Mapping(target = "offer.applications", ignore = true)
+//  public abstract CompanyEntity mapCompanyDetailsToEntity(CompanyDetails companyDetails);
 }

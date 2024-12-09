@@ -7,6 +7,7 @@ import { JobOffer } from "../../models/job-offer.model";
 import { Page } from "../../models/page.model";
 import { HttpErrorResponse } from '@angular/common/http';
 import { CompanyService } from 'src/services/company/company.service';
+import { Company } from 'src/app/models/company.model';
 
 @Component({
   selector: 'app-job-list-dashboard',
@@ -20,7 +21,7 @@ export class DashboardJobListComponent implements OnInit {
   totalRecords = 0;
   totalPages = 0;
   expandedDescriptions: Set<number> = new Set();
-
+  company: Company[] =[];
 
   ngOnInit() {
      this.readJobOffers();
@@ -51,7 +52,7 @@ export class DashboardJobListComponent implements OnInit {
     this.dialog.open(DashboardJobDetailDialogComponent, {
       data: offer
     });
-    console.log(offer.company);
+    console.log(offer);
   }
   deleteJobOffer(offerId: number): void {
     const url = `/api/offer/deleteJobOffer/${offerId}`;

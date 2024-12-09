@@ -8,26 +8,27 @@ import org.mapstruct.ReportingPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.joboffer.job.common.mappers.DtoEntityMapper;
 import pl.joboffer.job.dto.offer.Offer;
+import pl.joboffer.job.features.company.CompanyMapper;
 
-@Mapper(unmappedSourcePolicy = ReportingPolicy.ERROR, unmappedTargetPolicy = ReportingPolicy.ERROR)
+@Mapper(uses = CompanyMapper.class,unmappedSourcePolicy = ReportingPolicy.ERROR, unmappedTargetPolicy = ReportingPolicy.ERROR)
 public abstract class OfferMapper implements DtoEntityMapper<Offer, OfferEntity> {
 
   @Autowired
   public void setOfferRepository(OfferRepository offerRepository) {}
 
   @Override
-  @Mapping(target = "company", source = "company", ignore = true)
+  @Mapping(target = "company", source = "company") // Use CompanyMapper for nested mapping
   @BeanMapping(ignoreUnmappedSourceProperties = {"applications"})
   public abstract Offer mapEntityToDto(OfferEntity offerEntity);
 
   @Override
-  @Mapping(target = "company.email", ignore = true)
-  @Mapping(target = "company.password", ignore = true)
+  @Mapping(target = "company", ignore = true) // Assuming you don’t need nested mapping back
   @Mapping(target = "applications", ignore = true)
+  @BeanMapping(ignoreUnmappedSourceProperties = {"company"})
   public abstract OfferEntity mapDtoToEntity(Offer offer);
 
   @Override
-  @BeanMapping(ignoreUnmappedSourceProperties = {,})
+
   public abstract List<Offer> mapListEntityToDto(List<OfferEntity> offerEntityList);
 
   @Override

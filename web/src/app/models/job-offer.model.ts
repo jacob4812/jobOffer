@@ -1,12 +1,14 @@
+import { Company } from "./company.model";
+
 export interface JobOffer {
   id: number;
-  company: string;
+  company: Company;
   title: string;
   location: string;
   contractType: string;
-  salary: string;
+  salary: number;
   timeAgo: string;
   description: string;
-  experience: string; 
-  technologies: string;
+  // experience: string; 
+  // technologies: string;
 }

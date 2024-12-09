@@ -13,5 +13,6 @@ public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
 
   List<OfferEntity> findByCompanyId(Long companyId);
 
+  @Query("SELECT o FROM OfferEntity o JOIN FETCH o.company WHERE o.company.id = :userId")
   Page<OfferEntity> findOfferByCompanyId(Long userId, PageRequest pageRequest);
 }

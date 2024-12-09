@@ -6,6 +6,7 @@ import { OfferService } from '../../../services/offers/offer.service';
 import { CategoryDialogComponent } from '../category-dialog/category-dialog.component';
 import { TechnologyDialogComponent } from '../technology-dialog/technology-dialog.component';
 import { ExperienceDialogComponent } from '../experience-dialog/experience-dialog.component';
+import { Company } from 'src/app/models/company.model';
 
 @Component({
   selector: 'app-job-detail-dialog-dashboard',
@@ -14,14 +15,18 @@ import { ExperienceDialogComponent } from '../experience-dialog/experience-dialo
 })
 export class DashboardJobDetailDialogComponent {
   editForm: FormGroup;
-
+  company: Company;
+  
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private offerService: OfferService  // Serwis do edycji oferty
+    private offerService: OfferService,
+    
   ) {
     this.editForm = this.fb.group({
+      id: [data.id],
+      company:[data.company],
       title: [data.title || '', Validators.required],
       location: [data.location || '', Validators.required],
       contractType: [data.contractType || '', Validators.required],
