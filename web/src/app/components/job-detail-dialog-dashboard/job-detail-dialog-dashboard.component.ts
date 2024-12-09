@@ -1,10 +1,12 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'; 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { OfferService } from '../../../services/offers/offer.service';
 
 import { CategoryDialogComponent } from '../category-dialog/category-dialog.component';
 import { TechnologyDialogComponent } from '../technology-dialog/technology-dialog.component';
 import { ExperienceDialogComponent } from '../experience-dialog/experience-dialog.component';
+import { Company } from 'src/app/models/company.model';
 
 @Component({
   selector: 'app-job-detail-dialog-dashboard',
@@ -13,29 +15,47 @@ import { ExperienceDialogComponent } from '../experience-dialog/experience-dialo
 })
 export class DashboardJobDetailDialogComponent {
   editForm: FormGroup;
-
+  company: Company;
+  
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
-    private dialog: MatDialog // Inicjalizujemy MatDialog
+    private dialog: MatDialog,
+    private offerService: OfferService,
+    
   ) {
     this.editForm = this.fb.group({
+      id: [data.id],
+      company:[data.company],
       title: [data.title || '', Validators.required],
       location: [data.location || '', Validators.required],
       contractType: [data.contractType || '', Validators.required],
       salary: [data.salary || '', [Validators.required, Validators.pattern('^[><0-9\\s]*(PLN|Zł)?$')]],
+      expirationDate: [data.expirationDate || ''],
       description: [data.description || ''],
-      category: [data.category || ''],
-      technologies: [data.technologies || ''],
-      experience: [data.experience || '']
+//       category: [data.category || ''],
+//       technologies: [data.technologies || ''],
+//       experience: [data.experience || '']
     });
   }
 
   onSubmit() {
     if (this.editForm.valid) {
       const updatedJob = this.editForm.value;
-      console.log('Zaktualizowane dane:', updatedJob);
-      // Przekazanie danych do logiki zapisu (np. API)
+
+      console.log('Zaktualizowane dane oferty:', updatedJob);
+
+      this.offerService.editJobOffer(updatedJob).subscribe({
+        next: (updatedOffer) => {
+          console.log('Oferta zaktualizowana:', updatedOffer);
+          alert('Oferta została zaktualizowana!');
+          this.dialog.closeAll();  // Zamykamy dialog po zapisaniu
+        },
+        error: (err) => {
+          console.error('Błąd podczas edycji oferty:', err);
+          alert('Nie udało się zaktualizować oferty.');
+        }
+      });
     }
   }
 
@@ -48,7 +68,7 @@ export class DashboardJobDetailDialogComponent {
 
     dialogRef.afterClosed().subscribe(selectedCategory => {
       if (selectedCategory) {
-        this.editForm.get('category').setValue(selectedCategory); 
+        this.editForm.get('category').setValue(selectedCategory);
       }
     });
   }

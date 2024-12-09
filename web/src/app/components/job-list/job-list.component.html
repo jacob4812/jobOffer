@@ -1,36 +1,37 @@
 <div class="container">
-    <div class="row">
-        <div *ngFor="let offer of jobOffers" class="col-12 col-md-6 mb-3">
-            <div class="card">
-                <div class="row g-0 align-items-center">
-                    <div class="col-md-2 d-flex justify-content-center">
-                    </div>
-                    <div class="col-md-10">
-                        <div class="card-body">
-                            <p class="card-text"><small class="text-muted">{{ offer.company }}</small></p>
-                            <h5 class="card-title">{{ offer.title }}</h5>
-                            <div class="d-flex flex-wrap mb-2">
-                                <span class="badge bg-secondary me-2">{{ offer.location }}</span>
-                                <span class="badge bg-secondary me-2">{{ offer.contractType }}</span>
-                                <span class="badge bg-secondary me-2">{{ offer.salary }}</span>
-                                <span class="badge bg-secondary">{{ offer.timeAgo }}</span>
-                            </div>
-                            <p class="card-text">{{ offer.description }}</p>
-                            <div class="d-flex mt-3">
-                                <button class="btn btn-primary me-2" (click)="openJobDetailDialog(offer)">Info</button>
-                                <button class="btn btn-secondary">Aplikuj </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <div class="row">
+    <div *ngFor="let offer of jobOffers" class="col-12 col-md-6 mb-3">
+      <div class="card">
+        <div class="row g-0 align-items-center">
+          <div class="col-md-2 d-flex justify-content-center">
+          </div>
+          <div class="col-md-10">
+            <div class="card-body">
+              <p class="card-text"><small class="text-muted">{{ offer.company.companyName }}</small></p>
+              <h5 class="card-title">{{ offer.title }}</h5>
+              <div class="d-flex flex-wrap mb-2">
+                <span class="badge bg-secondary me-2">{{ offer.location }}</span>
+                <span class="badge bg-secondary me-2">{{ offer.contractType }}</span>
+                <span class="badge bg-secondary me-2">{{ offer.salary }} PLN</span>
+                <span class="badge bg-secondary">{{ offer.timeAgo }}</span>
+              </div>
+              <p class="card-text">{{ offer.description }}</p>
+              <div class="d-flex mt-3">
+                <button class="btn btn-primary me-2" (click)="openJobDetailDialog(offer)">Info</button>
+                <button *ngIf="role === 'ADMIN'" class="btn btn-secondary" (click)="openApplyJobComponent(offer)">Aplikuj</button>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+
   <p-paginator
     (onPageChange)="onPageChange($event)"
     [first]="first"
     [rows]="rows"
     [totalRecords]="totalRecords"
     [rowsPerPageOptions]="[10, 20, 30]"
-    />
+  />
 </div>

@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>Zaplikuj na ofertę</h2>
+
+<mat-dialog-content>
+  <form #addForm="ngForm" (ngSubmit)="onSubmit()">
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Imię</mat-label>
+      <input matInput [(ngModel)]="data.firstName" name="firstName" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nazwisko</mat-label>
+      <input matInput [(ngModel)]="data.lastName" name="lastName" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Adres</mat-label>
+      <input matInput [(ngModel)]="data.address" name="address" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Data urodzenia</mat-label>
+      <input matInput [(ngModel)]="data.birthDate" name="birthDate" required type="date">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Telefon</mat-label>
+      <input matInput [(ngModel)]="data.phone" name="phone" required>
+    </mat-form-field>
+
+    <div class="file-upload-container">
+      <mat-label>Prześlij CV  </mat-label>
+      <input type="file" (change)="onFileChange($event)" accept=".pdf,.doc,.docx" name="cv">
+    </div>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="!addForm.valid">Zapisz</button>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Zamknij</button>
+</mat-dialog-actions>

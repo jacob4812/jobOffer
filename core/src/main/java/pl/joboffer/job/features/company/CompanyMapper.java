@@ -18,14 +18,13 @@ public abstract class CompanyMapper
   @Mapping(source = "id", target = "id")
   @Mapping(source = "nip", target = "nip")
   @Mapping(target = "phoneNumber", source = "phoneNumber")
-  @Mapping(target = "offers", ignore = true)
   public abstract CompanyEntity mapDtoToEntity(CompanyRegisterDetails companyRegisterDetails);
 
   @Mapping(target = "companyName", source = "companyName")
   @Mapping(target = "id", source = "id")
   @Mapping(target = "email", source = "email")
   @Mapping(target = "password", source = "password")
-  @BeanMapping(ignoreUnmappedSourceProperties = {"userRole", "phoneNumber", "offers"})
+  @BeanMapping(ignoreUnmappedSourceProperties = {"userRole", "phoneNumber"})
   public abstract CompanyRegisterDetails mapEntityToDto(CompanyEntity companyEntity);
 
   @Mapping(target = "companyName", source = "companyName")
@@ -33,7 +32,6 @@ public abstract class CompanyMapper
   @Mapping(target = "phoneNumber", source = "phoneNumber")
   @Mapping(target = "nip", source = "nip")
   @Mapping(target = "userRole", source = "userRole")
-  @Mapping(target = "offers", ignore = true)
-  @BeanMapping(ignoreUnmappedSourceProperties = {"email", "password", "offers"})
+  @BeanMapping(ignoreUnmappedSourceProperties = {"email", "password"})
   public abstract CompanyDetails mapEntityToCompanyDetails(CompanyEntity companyEntity);
 }

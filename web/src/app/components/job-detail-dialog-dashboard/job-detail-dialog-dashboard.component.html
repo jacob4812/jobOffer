@@ -26,12 +26,16 @@
       <textarea matInput formControlName="description" rows="4"></textarea>
     </mat-form-field>
 
-    <!-- Przyciski do otwierania dialogów -->
-    <div class="d-flex mt-3">
-      <button type="button" class="btn btn-light mt-3" (click)="openCategoryDialog()">Stanowiska</button>
-      <button type="button" class="btn btn-light mt-3 ms-2" (click)="openTechnologyDialog()">Technologie</button>
-      <button type="button" class="btn btn-light mt-3 ms-2" (click)="openExperienceDialog()">Doświadczenie</button>
-    </div>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Data wygaśnięcia</mat-label>
+      <input matInput formControlName="expirationDate" required type="date">
+    </mat-form-field>
+<!--    &lt;!&ndash; Przyciski do otwierania dialogów &ndash;&gt;-->
+<!--    <div class="d-flex mt-3">-->
+<!--      <button type="button" class="btn btn-light mt-3" (click)="openCategoryDialog()">Stanowiska</button>-->
+<!--      <button type="button" class="btn btn-light mt-3 ms-2" (click)="openTechnologyDialog()">Technologie</button>-->
+<!--      <button type="button" class="btn btn-light mt-3 ms-2" (click)="openExperienceDialog()">Doświadczenie</button>-->
+<!--    </div>-->
 
     <div class="d-flex mt-3">
       <button type="submit" mat-raised-button color="primary" [disabled]="editForm.invalid">Zapisz</button>

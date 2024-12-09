@@ -1,14 +1,12 @@
 package pl.joboffer.job.features.company;
 
 import jakarta.persistence.*;
-import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import pl.joboffer.job.enums.UserRole;
-import pl.joboffer.job.features.offer.OfferEntity;
 
 @Data
 @NoArgsConstructor
@@ -40,7 +38,4 @@ public class CompanyEntity {
   @Enumerated(value = EnumType.STRING)
   @Column(name = "user_role")
   UserRole userRole;
-
-  @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-  List<OfferEntity> offers;
 }

@@ -28,7 +28,7 @@ export class RestService {
     return this.httpClient.post(this.API_URL+url,body,requestOptions);
   }
   put(url:string,body:any):Observable<any>{
-    return this.httpClient.put(this.API_URL,body,requestOptions);
+    return this.httpClient.put(this.API_URL+url,body,requestOptions);
   }
   delete(url:string):Observable<any>{
     return this.httpClient.delete(this.API_URL+url,requestOptions);
