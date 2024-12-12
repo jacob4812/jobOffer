@@ -1,34 +1,51 @@
 <div class="container d-flex justify-content-center align-items-center vh-100">
   <div class="row w-100">
-    <div class="col-md-6 order-md-2 order-2 bg-white p-4 d-flex flex-column justify-content-center"
-      style="min-height: 50vh;">
-      <h2>Create Your Account</h2>
+    <div class="col-md-6 order-md-2 order-2 bg-white p-4 d-flex flex-column justify-content-center" style="min-height: 50vh;">
+      <h2>Rejestracja konta użytkownika</h2>
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
         <div class="form-group mb-3">
-          <input type="text" id="username" formControlName="username" class="form-control" placeholder="Username"
-            required />
+          <input type="text" id="username" formControlName="username" class="form-control" placeholder="Username" />
+          <div *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.invalid" class="text-danger">
+            <div *ngIf="registerForm.get('username')?.errors?.['required']">Nazwa użytkownika jest wymagana.</div>
+          </div>
         </div>
+
         <div class="form-group mb-3">
-          <input type="email" id="email" formControlName="email" class="form-control" placeholder="Email" required />
+          <input type="email" id="email" formControlName="email" class="form-control" placeholder="Email" />
+          <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" class="text-danger">
+            <div *ngIf="registerForm.get('email')?.errors?.['required']">Proszę podać adres e-mail.</div>
+            <div *ngIf="registerForm.get('email')?.errors?.['email']">Proszę podać poprawny adres e-mail.</div>
+            <div *ngIf="registerForm.get('email')?.errors?.['maxlength']">Email nie może być dłuższy niż 250 znaków.</div>
+          </div>
         </div>
+
         <div class="form-group mb-3">
-          <input type="password" id="password" formControlName="password" class="form-control" placeholder="Password"
-            required />
+          <input type="password" id="password" formControlName="password" class="form-control" placeholder="Password" />
+          <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="text-danger">
+            <div *ngIf="registerForm.get('password')?.errors?.['required']">Hasło jest wymagane.</div>
+            <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Hasło musi mieć co najmniej 6 znaków.</div>
+            <div *ngIf="registerForm.get('password')?.errors?.['maxlength']">Hasło nie może być dłuższe niż 25 znaków.</div>
+            <div *ngIf="registerForm.get('password')?.errors?.['pattern']">Hasło musi zawierać co najmniej 1 dużą literę, 1 małą literę, 1 cyfrę oraz 1 znak specjalny.</div>
+          </div>
         </div>
+
         <div class="form-group mb-3">
-          <input type="password" id="repeatPassword" formControlName="repeatPassword" class="form-control"
-            placeholder="Repeat Password" required />
+          <input type="password" id="repeatPassword" formControlName="repeatPassword" class="form-control" placeholder="Repeat Password" />
+          <div *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('repeatPassword')?.touched" class="text-danger">
+            Hasła muszą się zgadzać.
+          </div>
         </div>
-        <button type="submit" class="btn btn-primary w-100">Sign up</button>
+
+        <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid">Zarejestruj się</button>
       </form>
     </div>
-    <div
-      class="col-md-6 order-md-1 order-1 bg-info text-white d-flex flex-column align-items-center justify-content-center text-center"
-      style="min-height: 50vh;">
-      <h1>Already have an account?</h1>
-      <a [routerLink]="['/login']" class="btn btn-light mt-2">Sign in</a>
-      <h2>Want to register your company?</h2>
-      <a [routerLink]="['/registercompany']" class="btn btn-light mt-2">Sign up</a>
+
+    <div class="col-md-6 order-md-1 order-1 bg-info text-white d-flex flex-column align-items-center justify-content-center text-center" style="min-height: 50vh;">
+      <h1>Masz już konto?</h1>
+      <a [routerLink]="['/login']" class="btn btn-light mt-2">Zaloguj się tutaj.</a>
+      <h2>Chcesz zarejestorwać swoją firmę?</h2>
+      <a [routerLink]="['/registercompany']" class="btn btn-light mt-2">Zarejestruj się!</a>
     </div>
   </div>
 </div>

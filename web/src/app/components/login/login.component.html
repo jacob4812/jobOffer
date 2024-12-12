@@ -1,38 +1,37 @@
 <div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="row w-100">
-        <div class="col-md-6 order-md-1 order-1 bg-white p-4 d-flex flex-column justify-content-center"
-            style="min-height: 50vh;">
-            <h2>Login to Your Account</h2>
-            <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-                <div class="form-group">
-                  <label for="email">Email</label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    ngModel
-                    class="form-control"
-                    required
-                  />
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input
-                      id="password"
-                      name="password"
-                      type="password"
-                      ngModel
-                      class="form-control"
-                      required
-                    />
-                  </div>
-                <button type="submit" class="btn btn-primary w-100">Sign in</button>
-            </form>
+  <div class="row w-100">
+    <div class="col-md-6 order-md-1 order-1 bg-white p-4 d-flex flex-column justify-content-center" style="min-height: 50vh;">
+      <h2>Zaloguj się</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          {{ errorMessage }}
         </div>
-        <div class="col-md-6 order-md-2 order-2 bg-info text-white d-flex flex-column align-items-center justify-content-center text-center"
-            style="min-height: 50vh;">
-            <h1>New Here?</h1>
-            <a [routerLink]="['/register']" class="btn btn-light mt-2">Sign up</a>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input id="email" formControlName="email" type="email" class="form-control" required />
+          <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
+            <div *ngIf="loginForm.get('email')?.errors?.['required']">Email jest wymagany!</div>
+            <div *ngIf="loginForm.get('email')?.errors?.['email']">Proszę podać poprawny adres email!</div>
+            <div *ngIf="loginForm.get('email')?.errors?.['maxlength']">Email nie może być dłuższy niż 250 znaków!</div>
+          </div>
         </div>
+        <div class="form-group">
+          <label for="password">Hasło</label>
+          <input id="password" formControlName="password" type="password" class="form-control" required />
+          <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+            <div *ngIf="loginForm.get('password')?.errors?.['required']">Hasło jest wymagane!</div>
+            <div *ngIf="loginForm.get('password')?.errors?.['minlength']">Hasło musi mieć co najmniej 6 znaków!</div>
+            <div *ngIf="loginForm.get('password')?.errors?.['maxlength']">Hasło nie może być dłuższe niż 25 znaków!</div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">
+          Zaloguj się
+        </button>
+      </form>
     </div>
+    <div class="col-md-6 order-md-2 order-2 bg-info text-white d-flex flex-column align-items-center justify-content-center text-center" style="min-height: 50vh;">
+      <h1>Nie masz jeszcze konta?</h1>
+      <a [routerLink]="['/register']" class="btn btn-light mt-2">Zarejestruj się tutaj!</a>
+    </div>
+  </div>
 </div>
