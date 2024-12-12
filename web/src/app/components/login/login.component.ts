@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import {ReactiveFormsModule, FormBuilder, FormGroup, FormsModule} from '@angular/forms';
-import {AuthService} from "../../../services/auth/auth.service";
-import { NgForm } from "@angular/forms";
-import {CommonModule} from "@angular/common";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,15 +9,41 @@ import {CommonModule} from "@angular/common";
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder,private authService:AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.loginForm = this.fb.group({
-      email: [''],
-      password: ['']
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.maxLength(250),
+        ],
+      ],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(25),
+        ],
+      ],
     });
   }
 
-  onSubmit(loginForm: NgForm){
-     this.authService.onLogin(loginForm.value);
+  onSubmit() {
+    if (this.loginForm.valid) {
+      this.authService.onLogin(this.loginForm.value).subscribe({
+        next: () => {
+          this.errorMessage = null;
+        },
+        error: () => {
+          this.errorMessage = 'Nieprawidłowe dane logowania';
+        },
+      });
+    } else {
+      this.errorMessage = 'Formularz jest niepoprawny!';
+    }
   }
 }

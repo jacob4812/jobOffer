@@ -5,33 +5,64 @@
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="form-group mb-3">
           <input type="text" id="companyName" formControlName="companyName" class="form-control" placeholder="Company Name" required />
+          <div *ngIf="registerForm.get('companyName')?.invalid && registerForm.get('companyName')?.touched" class="text-danger">
+            Nazwa firmy jest wymagana.
+          </div>
         </div>
+
         <div class="form-group mb-3">
           <input type="text" id="nip" formControlName="nip" class="form-control" placeholder="NIP" required />
+          <div *ngIf="registerForm.get('nip')?.invalid && registerForm.get('nip')?.touched" class="text-danger">
+            NIP jest wymagany.
+          </div>
         </div>
+
         <div class="form-group mb-3">
           <input type="text" id="username" formControlName="username" class="form-control" placeholder="Username" required />
+          <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched" class="text-danger">
+            Nazwa użytkownika jest wymagana.
+          </div>
         </div>
+
         <div class="form-group mb-3">
           <input type="email" id="email" formControlName="email" class="form-control" placeholder="Email" required />
+          <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-danger">
+            <div *ngIf="registerForm.get('email')?.errors?.['email']">Proszę podać poprawny email.</div>
+            <div *ngIf="registerForm.get('email')?.errors?.['maxlength']">Email nie może być dłuższy niż 250 znaków.</div>
+          </div>
         </div>
+
         <div class="form-group mb-3">
           <input type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control" placeholder="Phone Number" required />
+          <div *ngIf="registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.touched" class="text-danger">
+            Proszę podać poprawny numer telefonu.
+          </div>
         </div>
+
         <div class="form-group mb-3">
           <input type="password" id="password" formControlName="password" class="form-control" placeholder="Password" required />
+          <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-danger">
+            <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Hasło musi mieć co najmniej 6 znaków.</div>
+            <div *ngIf="registerForm.get('password')?.errors?.['maxlength']">Hasło nie może być dłuższe niż 25 znaków.</div>
+            <div *ngIf="registerForm.get('password')?.errors?.['pattern']">Hasło musi zawierać co najmniej 1 dużą literę, 1 małą literę, 1 cyfrę oraz 1 znak specjalny.</div>
+          </div>
         </div>
+
         <div class="form-group mb-3">
           <input type="password" id="repeatPassword" formControlName="repeatPassword" class="form-control" placeholder="Repeat Password" required />
+          <div *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('repeatPassword')?.touched" class="text-danger">
+            Hasła muszą się zgadzać!
+          </div>
         </div>
-        <button type="submit" class="btn btn-primary w-100">Sign up</button>
+
+        <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid">Sign up</button>
       </form>
     </div>
     <div class="col-md-6 order-md-1 order-1 bg-info text-white d-flex flex-column align-items-center justify-content-center text-center" style="min-height: 50vh;">
-      <h1>Already have an account?</h1>
-      <a [routerLink]="['/login']" class="btn btn-light mt-2">Sign in</a>
-      <h2>Want to register as a user?</h2>
-      <a [routerLink]="['/register']" class="btn btn-light mt-2">Sign up</a>
+      <h1>Masz już konto?</h1>
+      <a [routerLink]="['/login']" class="btn btn-light mt-2">Zaloguj się tutaj</a>
+      <h2>Chcesz zarejestrować się jako użytkownik?</h2>
+      <a [routerLink]="['/register']" class="btn btn-light mt-2">Zarejestruj się tu</a>
     </div>
   </div>
 </div>
