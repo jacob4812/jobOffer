@@ -18,14 +18,14 @@ export class DashboardApplicationsComponent implements OnInit {
   rows = 10;
   totalRecords = 0;
   totalPages = 0;
-  
+
 
   sortColumn: keyof CompanyApplication = 'name';
   sortDirection: 'asc' | 'desc' = 'asc';
   constructor(public dialog: MatDialog,private comapnyApplicationService:CompanyApplicationService) { }
   ngOnInit(): void {
     this.getCompanyApplications();
-    
+
   }
 
   get sortedApplications() {
@@ -70,7 +70,6 @@ export class DashboardApplicationsComponent implements OnInit {
       this.applications = response.content;
       this.totalRecords = response.totalElements;
       this.totalPages = response.totalPages;
-
       if (page >= this.totalPages && this.totalPages > 0) {
         this.first = (this.totalPages - 1) * this.rows;
         this.getCompanyApplications({ first: this.first, rows: this.rows });

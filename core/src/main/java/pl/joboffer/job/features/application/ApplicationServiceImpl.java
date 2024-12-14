@@ -62,6 +62,9 @@ public class ApplicationServiceImpl implements ApplicationService {
                         app.getOffer().getCompany().getCompanyName(),
                         app.getOffer().getTitle(),
                         app.getOffer().getLocation(),
+                        app.getUser().getEmail(),
+                        app.getUser().getLogin(),
+                        app.getApplicationDate(),
                         "In Progress"))
             .collect(Collectors.toList());
 
