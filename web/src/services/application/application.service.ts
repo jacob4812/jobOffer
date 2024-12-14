@@ -3,6 +3,7 @@ import { RestService } from '../rest/rest.service';
 import {Observable} from "rxjs";
 import {Page} from "../../app/models/page.model";
 import { Application } from 'src/app/models/application.model';
+import { ApplicationRequest } from 'src/app/models/applicationRequest.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,5 +15,7 @@ private readonly applicationUrl = 'applications';
     const url = `${this.applicationUrl}/user/${userId}?page=${page}&size=${size}`;
     return this.restService.getPageable<Page<Application>>(url);
   }
-
+  applyForJob(applicationRequest:ApplicationRequest):Observable<Application>{
+    return this.restService.post(this.applicationUrl,applicationRequest);
+  }
 }
