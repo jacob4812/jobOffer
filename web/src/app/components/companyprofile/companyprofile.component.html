@@ -4,16 +4,20 @@
   <button class="btn btn-secondary" (click)="openJobDialog()">Add new offer</button>
   <table class="table table-striped">
     <thead>
-      <tr>
-        <th scope="col">Company Name</th>
-        <th scope="col">NIP</th>
-      </tr>
+    <tr>
+      <th scope="col">Company Name</th>
+      <th scope="col">NIP</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col">Email</th>
+    </tr>
     </thead>
     <tbody>
-      <tr *ngIf="company">
-        <td>{{ company.companyName }}</td>
-        <td>{{ company.nip }}</td>
-      </tr>
+    <tr *ngIf="company">
+      <td>{{ company.companyName }}</td>
+      <td>{{ company.nip }}</td>
+      <td>{{ company.phoneNumber }}</td>
+      <td>{{ company.email }}</td>
+    </tr>
     </tbody>
   </table>
 </div>

@@ -2,12 +2,22 @@
 <mat-dialog-content>
   <mat-form-field appearance="fill">
     <mat-label>Company Name</mat-label>
-    <input matInput [(ngModel)]="data.company.companyname" name="companyname">
+    <input matInput [(ngModel)]="data.company.companyName" name="companyName">
   </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>NIP</mat-label>
-    <input matInput [(ngModel)]="data.company.nip" name="nip">
+    <input matInput [(ngModel)]="data.company.nip" name="nip" pattern="[0-9]*" inputmode="numeric">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Phone Number</mat-label>
+    <input matInput [(ngModel)]="data.company.phoneNumber" name="phoneNumber" pattern="[0-9]*" inputmode="numeric">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput [(ngModel)]="data.company.email" name="email" disabled>
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>

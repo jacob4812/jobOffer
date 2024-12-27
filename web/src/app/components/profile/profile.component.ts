@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { UserService } from '../../../services/application/user.service';
 import { ProfileDialogComponent } from '../profile-dialog/profile-dialog.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'profile-component',
@@ -8,20 +10,35 @@ import { ProfileDialogComponent } from '../profile-dialog/profile-dialog.compone
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  user: { id: number, username: string, email: string, phoneNumber: string | null, userRole: string };
 
-  user: { username: string, email: string, fullName: string, phoneNumber: string };
-
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private userService: UserService) {
     this.user = {
-      username: null,
-      email: null,
-      fullName: null,
-      phoneNumber: null
+      id: 0,
+      username: '',
+      email: '',
+      phoneNumber: null,
+      userRole: ''
     };
   }
 
   ngOnInit(): void {
     this.pobierzDaneUzytkownika();
+  }
+
+  pobierzDaneUzytkownika() {
+    this.userService.findUserByEmail().subscribe(
+      (data: any) => {
+        this.user.id = data.id;
+        this.user.username = data.login;
+        this.user.email = data.email;
+        this.user.phoneNumber = data.phoneNumber;
+        this.user.userRole = data.userRole;
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Failed to fetch user data:', error);
+      }
+    );
   }
 
   openEditDialog(): void {
@@ -33,10 +50,13 @@ export class ProfileComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.user = result;
+        this.userService.updateUserProfile(this.user).subscribe(
+          () => console.log('User profile updated successfully'),
+          (error: HttpErrorResponse) => {
+            console.error('Failed to update user profile:', error);
+          }
+        );
       }
     });
-  }
-  pobierzDaneUzytkownika(){
-    this.user.email = localStorage.getItem("email");
   }
 }
