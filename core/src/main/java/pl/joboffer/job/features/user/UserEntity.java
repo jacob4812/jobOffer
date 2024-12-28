@@ -15,10 +15,13 @@ import pl.joboffer.job.features.application.ApplicationEntity;
 @Table(name = "user_table")
 public class UserEntity {
 
-  @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id
   @Column(name = "id")
-  private Long id;
+  Long id;
+
+  @OneToMany(mappedBy = "user")
+  private List<ApplicationEntity> applications;
 
   @Column(name = "login", nullable = false)
   private String login;
