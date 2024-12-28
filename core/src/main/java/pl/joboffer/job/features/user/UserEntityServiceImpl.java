@@ -1,18 +1,16 @@
 package pl.joboffer.job.features.user;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.joboffer.job.dto.user.UserDetails;
 import pl.joboffer.job.dto.user.UserLoginDetails;
 
-import java.util.List;
-
 @Service
 public class UserEntityServiceImpl implements UserEntityService {
 
-  @Autowired
-  private UserRepository userRepository;
+  @Autowired private UserRepository userRepository;
 
   private PasswordEncoder passwordEncoder;
 
@@ -33,7 +31,9 @@ public class UserEntityServiceImpl implements UserEntityService {
 
   @Override
   public void editUser(UserLoginDetails userLoginDetails, UserDetails userDetails) {
-    UserEntity userEntity = userRepository.findByEmail(userLoginDetails.email())
+    UserEntity userEntity =
+        userRepository
+            .findByEmail(userLoginDetails.email())
             .orElseThrow(() -> new RuntimeException("User not found"));
 
     if (userDetails.login() != null) {
@@ -52,8 +52,10 @@ public class UserEntityServiceImpl implements UserEntityService {
   @Override
   public UserEntity findUserByEmail(String email) {
     return userRepository
-            .findByEmailIgnoreCase(email)
-            .orElseThrow(() -> new RuntimeException(
+        .findByEmailIgnoreCase(email)
+        .orElseThrow(
+            () ->
+                new RuntimeException(
                     String.format("Nie znaleziono użytkownika o email: %s", email)));
   }
 
@@ -62,4 +64,3 @@ public class UserEntityServiceImpl implements UserEntityService {
     return null;
   }
 }
-

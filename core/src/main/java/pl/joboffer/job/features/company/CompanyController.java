@@ -37,10 +37,10 @@ public class CompanyController {
     CompanyDetails companyDetails = companyService.readCompanyData(userId);
     return ResponseEntity.ok(companyDetails);
   }
+
   @PutMapping("/update")
   public ResponseEntity<Void> updateCompany(@RequestBody @Valid CompanyDetails companyDetails) {
     companyService.updateCompany(companyDetails);
     return ResponseEntity.ok().build();
   }
-
 }
