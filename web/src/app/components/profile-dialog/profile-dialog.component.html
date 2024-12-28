@@ -2,26 +2,23 @@
 <mat-dialog-content>
   <form>
     <mat-form-field appearance="fill">
-      <mat-label>Username</mat-label>
+      <mat-label>Login</mat-label>
       <input matInput [(ngModel)]="data.user.username" name="username">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
-      <input matInput [(ngModel)]="data.user.email" name="email">
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Full Name</mat-label>
-      <input matInput [(ngModel)]="data.user.fullName" name="fullName">
+      <input matInput [(ngModel)]="data.user.email" name="email" disabled>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Phone Number</mat-label>
-      <input matInput [(ngModel)]="data.user.phoneNumber" name="phoneNumber">
+      <input matInput [(ngModel)]="data.user.phoneNumber" name="phoneNumber"
+             pattern="[0-9]*" inputmode="numeric" maxlength="15">
     </mat-form-field>
   </form>
 </mat-dialog-content>
+
 <mat-dialog-actions>
   <button mat-button (click)="onCancel()">Cancel</button>
   <button mat-button (click)="onSave()">Save</button>

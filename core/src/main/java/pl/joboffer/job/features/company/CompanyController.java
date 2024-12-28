@@ -1,5 +1,6 @@
 package pl.joboffer.job.features.company;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +36,11 @@ public class CompanyController {
   public ResponseEntity<CompanyDetails> readCompanyData(@PathVariable Long userId) {
     CompanyDetails companyDetails = companyService.readCompanyData(userId);
     return ResponseEntity.ok(companyDetails);
+  }
+
+  @PutMapping("/update")
+  public ResponseEntity<Void> updateCompany(@RequestBody @Valid CompanyDetails companyDetails) {
+    companyService.updateCompany(companyDetails);
+    return ResponseEntity.ok().build();
   }
 }

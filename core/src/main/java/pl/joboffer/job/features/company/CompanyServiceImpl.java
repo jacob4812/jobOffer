@@ -47,7 +47,24 @@ public class CompanyServiceImpl implements CompanyService {
   }
 
   @Override
-  public void editUser(CompanyLoginDetails companyLoginDetails) {}
+  public void updateCompany(CompanyDetails companyDetails) {
+    CompanyEntity companyEntity =
+        companyRepository
+            .findCompanyById(companyDetails.id())
+            .orElseThrow(() -> new RuntimeException("Company not found"));
+
+    if (companyDetails.companyName() != null) {
+      companyEntity.setCompanyName(companyDetails.companyName());
+    }
+    if (companyDetails.phoneNumber() != null) {
+      companyEntity.setPhoneNumber(companyDetails.phoneNumber());
+    }
+    if (companyDetails.nip() != null) {
+      companyEntity.setNip(companyDetails.nip());
+    }
+
+    companyRepository.save(companyEntity);
+  }
 
   @Override
   public CompanyUser findUserByEmail(String email) throws UsernameNotFoundException {

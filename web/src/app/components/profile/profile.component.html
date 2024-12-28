@@ -1,22 +1,20 @@
 <div class="container mt-5">
   <h2>User Profile</h2>
-  <p (click)="openEditDialog()"> Click here to edit your profile data.</p>
+  <p (click)="openEditDialog()">Click here to edit your profile data.</p>
   <table class="table table-striped">
     <thead>
-      <tr>
-        <th scope="col">Username</th>
-        <th scope="col">Email</th>
-        <th scope="col">Full Name</th>
-        <th scope="col">Phone Number</th>
-      </tr>
+    <tr>
+      <th scope="col">Login</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone Number</th>
+    </tr>
     </thead>
     <tbody>
-      <tr *ngIf="user">
-        <td>{{ user.username }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.fullName }}</td>
-        <td>{{ user.phoneNumber }}</td>
-      </tr>
+    <tr *ngIf="user">
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.phoneNumber }}</td>
+    </tr>
     </tbody>
   </table>
 </div>

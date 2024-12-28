@@ -13,11 +13,11 @@ public interface CompanyService {
   void registerCompany(
       @Valid CompanyLoginDetails companyLoginDetails, CompanyDetails companyDetails);
 
-  void editUser(@Valid CompanyLoginDetails companyLoginDetails);
-
   CompanyUser findUserByEmail(String email);
 
   CompanyDetails readCompanyData(Long userId);
 
   List<UserDetails> findAllUsers();
+
+  void updateCompany(@Valid CompanyDetails companyDetails);
 }
