@@ -6,9 +6,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.joboffer.job.dto.company.CompanyDetails;
+import pl.joboffer.job.dto.company.CompanyLoginDetails;
 import pl.joboffer.job.dto.offer.Offer;
 import pl.joboffer.job.features.offer.OfferService;
 
@@ -35,5 +37,10 @@ public class CompanyController {
   public ResponseEntity<CompanyDetails> readCompanyData(@PathVariable Long userId) {
     CompanyDetails companyDetails = companyService.readCompanyData(userId);
     return ResponseEntity.ok(companyDetails);
+  }
+  @PutMapping("/updateCompanyData")
+  public ResponseEntity<CompanyDetails> updateCompanyData(@RequestBody CompanyDetails companyDetails){
+     companyService.editCompanyData(companyDetails);
+    return ResponseEntity.status(HttpStatus.OK).build();
   }
 }

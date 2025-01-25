@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Page} from "../../app/models/page.model";
 import { JobOffer } from 'src/app/models/job-offer.model';
 import { Company } from 'src/app/models/company.model';
+import { CompanyDataUpdate } from 'src/app/dto/model/company/company-data-update';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,9 @@ export class CompanyService {
   readCompanyData(userId: number): Observable<Company>{
   const url = `${this.companyUrl}/readCompanyData/${userId}`;
   return this.restService.get(url);
+  }
+  updateCompanyData(companyDataUpdate: Company):Observable<Company>{
+     const url = `${this.companyUrl}/updateCompanyData`;
+      return this.restService.put(url,companyDataUpdate);
   }
 }

@@ -13,7 +13,7 @@ public interface CompanyService {
   void registerCompany(
       @Valid CompanyLoginDetails companyLoginDetails, CompanyDetails companyDetails);
 
-  void editUser(@Valid CompanyLoginDetails companyLoginDetails);
+  void editCompanyData(@Valid CompanyDetails companyDetails);
 
   CompanyUser findUserByEmail(String email);
 

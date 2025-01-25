@@ -55,6 +55,8 @@ public class SecurityConfiguration {
                     .permitAll()
                     .requestMatchers("/api/company/readCompanyData/{userId}")
                     .permitAll()
+                        .requestMatchers("/api/company/*")
+                        .permitAll()
                     .requestMatchers("/api/applications")
                     .permitAll()
                     .requestMatchers("/api/applications/user/{userId}")

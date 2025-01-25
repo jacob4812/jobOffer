@@ -5,6 +5,8 @@ import { AddJobComponent } from '../add-job/add-job.component';
 import { OfferService } from 'src/services/offers/offer.service';
 import { CompanyService } from 'src/services/company/company.service';
 import { Company } from 'src/app/models/company.model';
+import { Observable } from 'rxjs';
+import { CompanyDataUpdate } from 'src/app/dto/model/company/company-data-update';
 
 @Component({
   selector: 'companyprofile-component',
@@ -15,7 +17,8 @@ export class CompanyProfileComponent implements OnInit {
   company: Company;
   message: string = '';
 
-  constructor(public dialog: MatDialog,
+  constructor(
+    public dialog: MatDialog,
     private offerService: OfferService,
     private companyService: CompanyService
   ) {}
@@ -26,7 +29,7 @@ export class CompanyProfileComponent implements OnInit {
 
   openEditDialog(): void {
     const dialogRef = this.dialog.open(CompanyProfileDialogComponent, {
-      width: '300px',
+      width: '400px',
       data: { company: { ...this.company } }
     });
 
@@ -65,11 +68,12 @@ export class CompanyProfileComponent implements OnInit {
   }
   readCompanyData(): void {
     const userId = Number(localStorage.getItem('idUser')) || null;
-    console.log(userId);
+    const email = localStorage.getItem('email') || null;
     if (userId) {
       this.companyService.readCompanyData(userId).subscribe({
         next: (response: Company) => {
           this.company = response;
+          this.company.email = email;
         },
         error: () => {
           console.error('Failed to fetch company data');
