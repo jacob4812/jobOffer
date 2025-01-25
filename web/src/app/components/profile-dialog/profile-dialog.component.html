@@ -3,17 +3,22 @@
   <form>
     <mat-form-field appearance="fill">
       <mat-label>Username</mat-label>
-      <input matInput [(ngModel)]="data.user.username" name="username">
+      <input matInput [(ngModel)]="data.user.login" name="username">
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <!-- <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
       <input matInput [(ngModel)]="data.user.email" name="email">
+    </mat-form-field> -->
+
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="data.user.imie" name="imie">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Full Name</mat-label>
-      <input matInput [(ngModel)]="data.user.fullName" name="fullName">
+      <mat-label>Surname</mat-label>
+      <input matInput [(ngModel)]="data.user.nazwisko" name="nazwisko">
     </mat-form-field>
 
     <mat-form-field appearance="fill">

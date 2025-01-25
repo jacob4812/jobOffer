@@ -6,16 +6,18 @@
       <tr>
         <th scope="col">Username</th>
         <th scope="col">Email</th>
-        <th scope="col">Full Name</th>
+        <th scope="col">Name</th>
+        <th scope="col">Surname</th>
         <th scope="col">Phone Number</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngIf="user">
-        <td>{{ user.username }}</td>
+        <td>{{ userData.login }}</td>
         <td>{{ user.email }}</td>
-        <td>{{ user.fullName }}</td>
-        <td>{{ user.phoneNumber }}</td>
+        <td>{{ user.imie }}</td>
+        <td>{{ user.nazwisko }}</td>
+        <td>{{ userData.phoneNumber }}</td>
       </tr>
     </tbody>
   </table>

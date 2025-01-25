@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from "../../../services/auth/auth.service";
 import { NgForm } from "@angular/forms";
+import { UserService } from 'src/services/user/user.service';
+import { User } from 'src/app/dto/model/user/user/user.model';
 
 
 
@@ -12,14 +14,12 @@ import { NgForm } from "@angular/forms";
 })
 export class MyProfileComponent {
   loginForm: FormGroup;
-
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.loginForm = this.fb.group({
       email: [''],
       password: ['']
     });
   }
-
   onSubmit(loginForm: NgForm) {
     this.authService.onLogin(loginForm.value);
   }
