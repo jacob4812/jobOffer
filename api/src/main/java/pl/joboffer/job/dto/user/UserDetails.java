@@ -5,4 +5,9 @@ import javax.validation.constraints.NotNull;
 import pl.joboffer.job.enums.UserRole;
 
 public record UserDetails(
-    Long id, @NotBlank String login, Long phoneNumber, @NotNull UserRole userRole) {}
+    Long id,
+    @NotBlank String login,
+    Long phoneNumber,
+    String name,
+    String surname,
+    @NotNull UserRole userRole) {}

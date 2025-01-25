@@ -23,11 +23,11 @@ export class LoginComponent {
       ],
       password: [
         '',
-        [
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(25),
-        ],
+//         [
+//           Validators.required,
+//           Validators.minLength(6),
+//           Validators.maxLength(25),
+//         ],
       ],
     });
   }

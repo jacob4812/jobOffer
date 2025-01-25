@@ -1,11 +1,11 @@
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
-INSERT INTO user_table (email, login, password, user_role)
+INSERT INTO user_table (email, login, password,name,surname, user_role)
 VALUES
-    ('admin@example.com', 'administ', crypt('admin123', gen_salt('bf')), 'ADMIN'),
-    ('user1@example.com', 'user1', crypt('password1', gen_salt('bf')), 'EMPLOYEE'),
-    ('user2@example.com', 'user2', crypt('password2', gen_salt('bf')), 'EMPLOYEE'),
-    ('hr1@example.com', 'hr1', crypt('password3', gen_salt('bf')), 'HR');
+    ('admin@example.com', 'administ', crypt('admin123', gen_salt('bf')),null,null, 'ADMIN'),
+    ('user1@example.com', 'user1', crypt('password1', gen_salt('bf')),null,null, 'EMPLOYEE'),
+    ('user2@example.com', 'user2', crypt('password2', gen_salt('bf')),null,null, 'EMPLOYEE'),
+    ('hr1@example.com', 'hr1', crypt('password3', gen_salt('bf')),null,null, 'HR');
 INSERT INTO company (id,company_name, nip, email, password, phone_number, user_role)
 VALUES
 (1,'Firma #1', 123456789, 'firma1@example.com', crypt('zaq1', gen_salt('bf')), 123456789, 'COMPANY'),

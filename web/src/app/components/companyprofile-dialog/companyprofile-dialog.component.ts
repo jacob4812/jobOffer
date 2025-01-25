@@ -1,5 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UserRole } from 'src/app/dto/model/user/user/user-role';
+import { CompanyService } from 'src/services/company/company.service';
 
 @Component({
   selector: 'app-company-profile-dialog',
@@ -9,8 +11,14 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class CompanyProfileDialogComponent {
 
   constructor(
+    private companyService: CompanyService,
     public dialogRef: MatDialogRef<CompanyProfileDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { company: { companyName: string, nip: string, phoneNumber: string, email: string } }
+    @Inject(MAT_DIALOG_DATA) public data: { company: { id: number;
+      companyName: string;
+      phoneNumber:number;
+      nip:number;
+      email:string;
+      userRole: UserRole.COMPANY; } }
   ) {dialogRef.disableClose = true; }
 
   onCancel(): void {
@@ -18,6 +26,11 @@ export class CompanyProfileDialogComponent {
   }
 
   onSave(): void {
-    this.dialogRef.close(this.data.company);
-  }
+    this.companyService.updateCompanyData(this.data.company).subscribe(() => {
+      this.dialogRef.close(this.data.company);
+      
+    }, (error) => {
+      console.error('Error updating company data:', error);
+  });
+}
 }

@@ -15,10 +15,7 @@
     <input matInput [(ngModel)]="data.company.phoneNumber" name="phoneNumber" pattern="[0-9]*" inputmode="numeric">
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Email</mat-label>
-    <input matInput [(ngModel)]="data.company.email" name="email" disabled>
-  </mat-form-field>
+  
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onCancel()">Cancel</button>

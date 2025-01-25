@@ -12,7 +12,7 @@ import pl.joboffer.job.features.application.ApplicationEntity;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "user_table")
+@Table(name = "userTable")
 public class UserEntity {
 
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,19 +23,25 @@ public class UserEntity {
   @OneToMany(mappedBy = "user")
   private List<ApplicationEntity> applications;
 
-  @Column(name = "login", nullable = false)
-  private String login;
+  @Column(name = "login")
+  String login;
 
-  @Column(name = "email", unique = true, nullable = false)
-  private String email;
+  @Column(name = "email")
+  String email;
 
-  @Column(name = "password", nullable = false)
-  private String password;
+  @Column(name = "password")
+  String password;
 
-  @Column(name = "phone_number")
-  private Long phoneNumber;
+  @Column(name = "name")
+  String name;
 
-  @Enumerated(EnumType.STRING)
+  @Column(name = "surname")
+  String surname;
+
+  @Column(name = "phoneNumber")
+  Long phoneNumber;
+
+  @Enumerated(value = EnumType.STRING)
   @Column(name = "user_role")
-  private UserRole userRole;
+  UserRole userRole;
 }

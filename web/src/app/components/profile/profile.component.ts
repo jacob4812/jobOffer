@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { UserService } from '../../../services/application/user.service';
 import { ProfileDialogComponent } from '../profile-dialog/profile-dialog.component';
-import { HttpErrorResponse } from '@angular/common/http';
+import { UserService } from 'src/services/user/user.service';
+import { User } from 'src/app/dto/model/user/user/user.model';
 
 @Component({
   selector: 'profile-component',
@@ -10,53 +10,45 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  user: { id: number, username: string, email: string, phoneNumber: string | null, userRole: string };
 
-  constructor(public dialog: MatDialog, private userService: UserService) {
-    this.user = {
-      id: 0,
-      username: '',
-      email: '',
-      phoneNumber: null,
-      userRole: ''
-    };
+  userData: User;
+  constructor(public dialog: MatDialog,private userService: UserService) {
   }
 
   ngOnInit(): void {
-    this.pobierzDaneUzytkownika();
-  }
-
-  pobierzDaneUzytkownika() {
-    this.userService.findUserByEmail().subscribe(
-      (data: any) => {
-        this.user.id = data.id;
-        this.user.username = data.login;
-        this.user.email = data.email;
-        this.user.phoneNumber = data.phoneNumber;
-        this.user.userRole = data.userRole;
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Failed to fetch user data:', error);
-      }
-    );
-  }
+    this.readUserData();
+   }
 
   openEditDialog(): void {
     const dialogRef = this.dialog.open(ProfileDialogComponent, {
       width: '300px',
-      data: { user: { ...this.user } }
+      data: { user: { ...this.userData } }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.user = result;
-        this.userService.updateUserProfile(this.user).subscribe(
-          () => console.log('User profile updated successfully'),
-          (error: HttpErrorResponse) => {
-            console.error('Failed to update user profile:', error);
-          }
-        );
+        this.userData = result;
       }
     });
+  }
+  
+  readUserData(): void {
+    const userId = Number(localStorage.getItem('idUser')) || null;
+    const email = localStorage.getItem('email') || null;
+    if (userId) {
+      this.userService.readUserData(userId).subscribe({
+        next: (response: User) => {
+          this.userData = response;
+          this.userData.email = email;
+        },
+        error: () => {
+          console.error('Failed to fetch company data');
+          this.userData = null;
+        }
+      });
+    } else {
+      console.error('User ID not found in localStorage');
+      this.userData = null;
+    }
   }
 }

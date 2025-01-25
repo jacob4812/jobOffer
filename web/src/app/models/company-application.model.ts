@@ -4,6 +4,6 @@ export interface CompanyApplication {
     cv: string;
     position: string;
     location: string;
-    timeAgo: string;
+    applicationDate: Date;
     status: string;
   }

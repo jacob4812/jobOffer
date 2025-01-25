@@ -10,9 +10,11 @@ import pl.joboffer.job.dto.user.UserLoginDetails;
 public interface UserEntityService {
   void registerUser(@Valid UserLoginDetails userLoginDetails, UserDetails userDetails);
 
-  void editUser(@Valid UserLoginDetails userLoginDetails, UserDetails userDetails);
+  void editUser(@Valid UserDetails userDetails);
 
   UserEntity findUserByEmail(String email);
+
+  UserDetails readUserDetails(Long userId);
 
   List<UserDetails> findAllUsers();
 }

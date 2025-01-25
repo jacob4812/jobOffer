@@ -1,5 +1,6 @@
 package pl.joboffer.job.features.company;
 
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,23 +48,29 @@ public class CompanyServiceImpl implements CompanyService {
   }
 
   @Override
-  public void updateCompany(CompanyDetails companyDetails) {
-    CompanyEntity companyEntity =
+  public void editCompanyData(CompanyDetails companyDetails) {
+    CompanyEntity existingCompany =
         companyRepository
-            .findCompanyById(companyDetails.id())
-            .orElseThrow(() -> new RuntimeException("Company not found"));
+            .findById(companyDetails.id())
+            .orElseThrow(
+                () ->
+                    new EntityNotFoundException(
+                        "Company with ID " + companyDetails.id() + " not found"));
 
     if (companyDetails.companyName() != null) {
-      companyEntity.setCompanyName(companyDetails.companyName());
+      existingCompany.setCompanyName(companyDetails.companyName());
     }
     if (companyDetails.phoneNumber() != null) {
-      companyEntity.setPhoneNumber(companyDetails.phoneNumber());
+      existingCompany.setPhoneNumber(companyDetails.phoneNumber());
+    }
+    if (companyDetails.userRole() != null) {
+      existingCompany.setUserRole(companyDetails.userRole());
     }
     if (companyDetails.nip() != null) {
-      companyEntity.setNip(companyDetails.nip());
+      existingCompany.setNip(companyDetails.nip());
     }
 
-    companyRepository.save(companyEntity);
+    CompanyEntity savedEntity = companyRepository.save(existingCompany);
   }
 
   @Override

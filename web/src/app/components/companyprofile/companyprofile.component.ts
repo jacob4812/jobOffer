@@ -5,7 +5,8 @@ import { AddJobComponent } from '../add-job/add-job.component';
 import { OfferService } from 'src/services/offers/offer.service';
 import { CompanyService } from 'src/services/company/company.service';
 import { Company } from 'src/app/models/company.model';
-import { JobOffer } from 'src/app/models/job-offer.model';
+import { Observable } from 'rxjs';
+import { CompanyDataUpdate } from 'src/app/dto/model/company/company-data-update';
 
 @Component({
   selector: 'companyprofile-component',
@@ -15,7 +16,6 @@ import { JobOffer } from 'src/app/models/job-offer.model';
 export class CompanyProfileComponent implements OnInit {
   company: Company;
   message: string = '';
-  jobOffers: JobOffer[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -24,7 +24,7 @@ export class CompanyProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.readCompanyData();
+   this.readCompanyData();
   }
 
   openEditDialog(): void {
@@ -36,23 +36,14 @@ export class CompanyProfileComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.company = result;
-        this.updateCompanyProfile(this.company);
       }
     });
   }
-
-  updateCompanyProfile(company: any): void {
-    this.companyService.updateCompanyProfile(company).subscribe({
-      next: () => console.log('Company profile updated successfully'),
-      error: (err) => console.error('Failed to update company profile:', err)
-    });
-  }
-
   openJobDialog(): void {
     const dialogRef = this.dialog.open(AddJobComponent, {
       width: '400px',
       data: {
-        company: this.company,
+        company:this.company,
         title: '',
         location: '',
         contractType: '',
@@ -75,21 +66,14 @@ export class CompanyProfileComponent implements OnInit {
       }
     });
   }
-
   readCompanyData(): void {
     const userId = Number(localStorage.getItem('idUser')) || null;
-    console.log('User ID:', userId);
-
+    const email = localStorage.getItem('email') || null;
     if (userId) {
       this.companyService.readCompanyData(userId).subscribe({
         next: (response: Company) => {
           this.company = response;
-          const email = localStorage.getItem('email');
-          if (email) {
-            this.company.email = email;
-          }
-
-          this.readCompanyJobOffers(userId);
+          this.company.email = email;
         },
         error: () => {
           console.error('Failed to fetch company data');
@@ -100,20 +84,5 @@ export class CompanyProfileComponent implements OnInit {
       console.error('User ID not found in localStorage');
       this.company = null;
     }
-  }
-
-  readCompanyJobOffers(userId: number): void {
-    const page = 0;
-    const size = 10;
-
-    this.companyService.readCompanyJobOffers(userId, page, size).subscribe({
-      next: (offers) => {
-        this.jobOffers = offers.content;
-        console.log('Fetched job offers:', this.jobOffers);
-      },
-      error: () => {
-        console.error('Failed to fetch job offers');
-      }
-    });
   }
 }

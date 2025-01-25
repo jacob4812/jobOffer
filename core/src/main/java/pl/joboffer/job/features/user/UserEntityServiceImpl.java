@@ -1,5 +1,6 @@
 package pl.joboffer.job.features.user;
 
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,54 +10,74 @@ import pl.joboffer.job.dto.user.UserLoginDetails;
 
 @Service
 public class UserEntityServiceImpl implements UserEntityService {
-
   @Autowired private UserRepository userRepository;
-
   private PasswordEncoder passwordEncoder;
+  private final UserMapper userMapper;
 
-  public UserEntityServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+  public UserEntityServiceImpl(
+      UserRepository userRepository, PasswordEncoder passwordEncoder, UserMapper userMapper) {
     this.userRepository = userRepository;
     this.passwordEncoder = passwordEncoder;
+    this.userMapper = userMapper;
   }
 
   @Override
   public void registerUser(UserLoginDetails userLoginDetails, UserDetails userDetails) {
     UserEntity userEntity = new UserEntity();
     userEntity.setEmail(userLoginDetails.email());
-    userEntity.setPassword(passwordEncoder.encode(userLoginDetails.password()));
+    userEntity.setPassword(userLoginDetails.password());
     userEntity.setLogin(userDetails.login());
-    userEntity.setPhoneNumber(userDetails.phoneNumber());
+
     userRepository.save(userEntity);
   }
 
   @Override
-  public void editUser(UserLoginDetails userLoginDetails, UserDetails userDetails) {
-    UserEntity userEntity =
+  public void editUser(UserDetails userDetails) {
+    UserEntity existingUser =
         userRepository
-            .findByEmail(userLoginDetails.email())
-            .orElseThrow(() -> new RuntimeException("User not found"));
+            .findById(userDetails.id())
+            .orElseThrow(
+                () ->
+                    new EntityNotFoundException("User with ID " + userDetails.id() + " not found"));
 
     if (userDetails.login() != null) {
-      userEntity.setLogin(userDetails.login());
+      existingUser.setLogin(userDetails.login());
     }
     if (userDetails.phoneNumber() != null) {
-      userEntity.setPhoneNumber(userDetails.phoneNumber());
+      existingUser.setPhoneNumber(userDetails.phoneNumber());
     }
-    if (userLoginDetails.password() != null) {
-      userEntity.setPassword(passwordEncoder.encode(userLoginDetails.password()));
+    if (userDetails.userRole() != null) {
+      existingUser.setUserRole(userDetails.userRole());
+    }
+    if (userDetails.name() != null) {
+      existingUser.setName(userDetails.name());
+    }
+    if (userDetails.surname() != null) {
+      existingUser.setSurname(userDetails.surname());
     }
 
-    userRepository.save(userEntity);
+    UserEntity savedEntity = userRepository.save(existingUser);
   }
 
   @Override
   public UserEntity findUserByEmail(String email) {
     return userRepository
-        .findByEmailIgnoreCase(email)
+        .findByEmail(email)
         .orElseThrow(
             () ->
                 new RuntimeException(
-                    String.format("Nie znaleziono użytkownika o email: %s", email)));
+                    String.format("Nie znaleziono uzytkownika o email: %s", email)));
+  }
+
+  @Override
+  public UserDetails readUserDetails(Long userId) {
+    return userMapper.mapEntityToUserDetailsDto(
+        userRepository
+            .findUserById(userId)
+            .orElseThrow(
+                () ->
+                    new RuntimeException(
+                        String.format("Nie znaleziono uzytkownika o podanym id: %s", userId))));
   }
 
   @Override

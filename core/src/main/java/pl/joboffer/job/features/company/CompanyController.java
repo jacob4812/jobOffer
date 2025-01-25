@@ -1,12 +1,12 @@
 package pl.joboffer.job.features.company;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.joboffer.job.dto.company.CompanyDetails;
@@ -38,9 +38,10 @@ public class CompanyController {
     return ResponseEntity.ok(companyDetails);
   }
 
-  @PutMapping("/update")
-  public ResponseEntity<Void> updateCompany(@RequestBody @Valid CompanyDetails companyDetails) {
-    companyService.updateCompany(companyDetails);
-    return ResponseEntity.ok().build();
+  @PutMapping("/updateCompanyData")
+  public ResponseEntity<CompanyDetails> updateCompanyData(
+      @RequestBody CompanyDetails companyDetails) {
+    companyService.editCompanyData(companyDetails);
+    return ResponseEntity.status(HttpStatus.OK).build();
   }
 }

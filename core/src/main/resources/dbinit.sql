@@ -5,6 +5,8 @@ CREATE TABLE user_table (
     email VARCHAR(100) NOT NULL,
     password VARCHAR(100) NOT NULL,
     phone_number BIGINT,
+    name VARCHAR(50) NOT NULL,
+    surname VARCHAR(50) NOT NULL,
     user_role VARCHAR(20) DEFAULT 'admin'
 );
 
