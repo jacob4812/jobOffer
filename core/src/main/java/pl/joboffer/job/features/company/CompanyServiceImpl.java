@@ -1,9 +1,8 @@
 package pl.joboffer.job.features.company;
 
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -50,9 +49,13 @@ public class CompanyServiceImpl implements CompanyService {
 
   @Override
   public void editCompanyData(CompanyDetails companyDetails) {
-    CompanyEntity existingCompany = companyRepository.findById(companyDetails.id())
-            .orElseThrow(() -> new EntityNotFoundException("Company with ID " + companyDetails.id() + " not found"));
-
+    CompanyEntity existingCompany =
+        companyRepository
+            .findById(companyDetails.id())
+            .orElseThrow(
+                () ->
+                    new EntityNotFoundException(
+                        "Company with ID " + companyDetails.id() + " not found"));
 
     if (companyDetails.companyName() != null) {
       existingCompany.setCompanyName(companyDetails.companyName());
@@ -67,9 +70,7 @@ public class CompanyServiceImpl implements CompanyService {
       existingCompany.setNip(companyDetails.nip());
     }
 
-
     CompanyEntity savedEntity = companyRepository.save(existingCompany);
-
   }
 
   @Override

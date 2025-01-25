@@ -11,16 +11,8 @@ import { User } from 'src/app/dto/model/user/user/user.model';
 })
 export class ProfileComponent implements OnInit {
 
-  user: { username: string, email: string, imie: string, nazwisko:string, phoneNumber: string };
   userData: User;
   constructor(public dialog: MatDialog,private userService: UserService) {
-    this.user = {
-      username: null,
-      email: null,
-      imie: null,
-      nazwisko: null,
-      phoneNumber: null
-    };
   }
 
   ngOnInit(): void {
@@ -35,7 +27,7 @@ export class ProfileComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.user = result;
+        this.userData = result;
       }
     });
   }
@@ -47,7 +39,7 @@ export class ProfileComponent implements OnInit {
       this.userService.readUserData(userId).subscribe({
         next: (response: User) => {
           this.userData = response;
-          this.user.email = email;
+          this.userData.email = email;
         },
         error: () => {
           console.error('Failed to fetch company data');

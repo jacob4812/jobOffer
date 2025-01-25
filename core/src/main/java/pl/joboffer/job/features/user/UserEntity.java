@@ -32,6 +32,12 @@ public class UserEntity {
   @Column(name = "password")
   String password;
 
+  @Column(name = "name")
+  String name;
+
+  @Column(name = "surname")
+  String surname;
+
   @Column(name = "phoneNumber")
   Long phoneNumber;
 

@@ -17,8 +17,9 @@ export class ProfileDialogComponent {
       id: number;
       login: string;
       phoneNumber:number;
-      imie:string;
-      nazwisko:string;
+      name:string;
+      surname:string;
+      email:string;
       userRole: UserRole; } }
   ) { dialogRef.disableClose = true;}
 

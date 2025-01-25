@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.joboffer.job.dto.company.CompanyDetails;
-import pl.joboffer.job.dto.company.CompanyLoginDetails;
 import pl.joboffer.job.dto.offer.Offer;
 import pl.joboffer.job.features.offer.OfferService;
 
@@ -38,9 +37,11 @@ public class CompanyController {
     CompanyDetails companyDetails = companyService.readCompanyData(userId);
     return ResponseEntity.ok(companyDetails);
   }
+
   @PutMapping("/updateCompanyData")
-  public ResponseEntity<CompanyDetails> updateCompanyData(@RequestBody CompanyDetails companyDetails){
-     companyService.editCompanyData(companyDetails);
+  public ResponseEntity<CompanyDetails> updateCompanyData(
+      @RequestBody CompanyDetails companyDetails) {
+    companyService.editCompanyData(companyDetails);
     return ResponseEntity.status(HttpStatus.OK).build();
   }
 }

@@ -14,17 +14,17 @@ import pl.joboffer.job.dto.user.UserDetails;
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PUBLIC)
 public class UserController {
-    @NotNull
-    UserEntityService userEntityService;
+  @NotNull UserEntityService userEntityService;
 
-    @GetMapping("/readUserDetails/{userId}")
-    public ResponseEntity<UserDetails> readUserDetails(@PathVariable Long userId) {
-        UserDetails userDetails = userEntityService.readUserDetails(userId);
-        return ResponseEntity.ok(userDetails);
-    }
-    @PutMapping("/updateUserData")
-    public ResponseEntity<UserDetails> updateUserData(@RequestBody UserDetails userDetails){
-        userEntityService.editUser(userDetails);
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
+  @GetMapping("/readUserDetails/{userId}")
+  public ResponseEntity<UserDetails> readUserDetails(@PathVariable Long userId) {
+    UserDetails userDetails = userEntityService.readUserDetails(userId);
+    return ResponseEntity.ok(userDetails);
+  }
+
+  @PutMapping("/updateUserData")
+  public ResponseEntity<UserDetails> updateUserData(@RequestBody UserDetails userDetails) {
+    userEntityService.editUser(userDetails);
+    return ResponseEntity.status(HttpStatus.OK).build();
+  }
 }

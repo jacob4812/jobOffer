@@ -12,11 +12,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngIf="user">
+      <tr *ngIf="userData">
         <td>{{ userData.login }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.imie }}</td>
-        <td>{{ user.nazwisko }}</td>
+        <td>{{ userData.email }}</td>
+        <td>{{ userData.name }}</td>
+        <td>{{ userData.surname }}</td>
         <td>{{ userData.phoneNumber }}</td>
       </tr>
     </tbody>
