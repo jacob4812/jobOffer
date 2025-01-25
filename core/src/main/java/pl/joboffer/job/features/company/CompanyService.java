@@ -13,7 +13,6 @@ public interface CompanyService {
   void registerCompany(
       @Valid CompanyLoginDetails companyLoginDetails, CompanyDetails companyDetails);
 
-
   void editCompanyData(@Valid CompanyDetails companyDetails);
 
   CompanyUser findUserByEmail(String email);
@@ -21,6 +20,4 @@ public interface CompanyService {
   CompanyDetails readCompanyData(Long userId);
 
   List<UserDetails> findAllUsers();
-
- 
 }
