@@ -6,8 +6,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import pl.joboffer.job.features.user.UserEntity;
 
-import java.util.UUID;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
