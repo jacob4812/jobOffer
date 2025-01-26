@@ -52,6 +52,11 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
                   name: file_name
                   type: varchar(250)
                   constraints:
@@ -72,7 +77,6 @@ databaseChangeLog:
                   referencedTableName: user_table
                   referencedColumnNames: id
                   constraintName: fk_application_user
-
         - createTable:
             tableName: company
             columns:

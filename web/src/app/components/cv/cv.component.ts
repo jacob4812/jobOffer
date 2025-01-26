@@ -11,8 +11,8 @@ import { CvUpload } from 'src/app/models/cvUpload.model';
 export class CvComponent implements OnInit { 
   selectedFile: File | null = null; // Przechowuje wybrany plik
   cvUploaded = false; // Sprawdza, czy plik jest już przesłany
-  cv: CvUpload = null; // Przechowuje dane pliku po dodaniu
-
+  cvFileName: string ; // Przechowuje dane pliku po dodaniu
+  cv: any;
   constructor(private http: HttpClient) {}
 
   // Funkcja wywoływana przy załadowaniu komponentu
@@ -22,17 +22,44 @@ export class CvComponent implements OnInit {
 
   // Funkcja do pobrania CV z serwera
   getCv() {
-    this.http.get('http://localhost:8080/api/cv/7c612588-23aa-42a8-be6a-94363860e1b9').subscribe(
-      (response: any) => {
-        this.cv.fileName = response;
-        this.cvUploaded = true;
-        console.log(this.cvUploaded) // Jeśli CV jest w bazie, ustawiamy, że jest załadowane
-      },
-      (error) => {
-        console.error('Error fetching CV:', error);
-        console.log(this.cv)
-      }
-    );
+    const userId = localStorage.getItem("idUser");
+    if (userId) {
+      this.http.get('http://localhost:8080/api/cv/' + userId, { responseType: 'text' }).subscribe(
+        (response: string) => {
+          if (response) {
+            this.cvFileName = response; // Ustawienie nazwy pliku
+            this.cvUploaded = true; // CV jest załadowane
+            console.log("CV file name:", this.cvFileName); // Wyświetlenie nazwy pliku w konsoli
+          } else {
+            this.cvFileName = ''; // Brak CV w bazie
+            this.cvUploaded = false; // CV nie jest załadowane
+            console.log("No CV found for this user.");
+          }
+        },
+        (error) => {
+          if (error.status === 204) {
+            // Jeśli serwer zwrócił 204 (brak zawartości), zaktualizuj stan
+            this.cvFileName = ''; // Brak CV
+            this.cvUploaded = false;
+            console.error('Error fetching CV:', error);
+          } else if (error.status === 403) {
+            console.log("No CV available.");
+            this.cvFileName = ''; // Resetowanie nazwy pliku
+            this.cvUploaded = false;
+          }
+          else {
+            // Obsługa innych błędów, np. 404 lub 500
+            console.log("No CV available.");
+            this.cvUploaded = false;
+            this.cvFileName = ''; // Resetowanie nazwy pliku
+          }
+        }
+      );
+    } else {
+      console.error('User ID is not available');
+      this.cvUploaded = false;
+      this.cvFileName = ''; // Resetowanie nazwy pliku, gdy nie ma ID użytkownika
+    }
   }
 
   // Funkcja do obsługi zmiany pliku
@@ -46,9 +73,11 @@ export class CvComponent implements OnInit {
     if (this.selectedFile) {
       const formData = new FormData();
       formData.append('file', this.selectedFile);
-
+      const userId = localStorage.getItem("idUser");
+      formData.append('userId', userId);
       // Wysłanie pliku na serwer
-      this.http.post('http://localhost:8080/api/cv/upload', formData).subscribe(
+      const url = `http://localhost:8080/api/cv/upload/${userId}`;
+      this.http.post(url, formData).subscribe(
         (response: any) => {
           this.cv = response;
           this.cvUploaded = true;
@@ -79,17 +108,20 @@ export class CvComponent implements OnInit {
 
   // Funkcja do usuwania pliku
   deleteCv() {
-    if (this.cv && this.cv.UUID) {
-      this.http.delete(`http://localhost:8080/api/cv/${this.cv.UUID}`).subscribe(
-        () => {
-          this.cvUploaded = false;
-          this.cv = null; // Zresetowanie danych CV
-        },
-        (error) => {
-          console.error('Error deleting file:', error);
-        }
-      );
-    }
+    const userId = localStorage.getItem("idUser");
+  if (userId) {
+    this.http.delete(`http://localhost:8080/api/cv/delete/${userId}`).subscribe(
+      (response: any) => {
+        console.log('CV deleted successfully');
+        this.cvUploaded = false; // Zaktualizuj stan, np. oznaczenie, że CV zostało usunięte
+      },
+      (error) => {
+        console.error('Error deleting CV:', error);
+      }
+    );
+  } else {
+    console.error('User ID is not available');
+  }
   }
 
   // Funkcja do podglądu CV (np. otwarcie pliku w nowej karcie)

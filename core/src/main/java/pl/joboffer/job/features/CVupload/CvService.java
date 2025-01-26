@@ -7,7 +7,9 @@ import java.util.UUID;
 
 @Service
 public interface CvService {
-    void saveCV(MultipartFile file);
+    void saveCV(MultipartFile file,Long userId);
 
-    byte[] getCV(Long id);
+    String getCV(Long userId);
+
+    boolean deleteCV(Long userId);
 }

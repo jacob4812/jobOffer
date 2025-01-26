@@ -1,4 +1,4 @@
 export interface CvUpload {
-    UUID: number;
+    iD: number;
     fileName: string;
   }

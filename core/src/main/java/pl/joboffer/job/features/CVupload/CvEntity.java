@@ -18,7 +18,7 @@ import java.util.UUID;
 @Table(name = "CvUpload")
 public class CvEntity {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id" ,updatable = false,nullable = false)
     Long id;
