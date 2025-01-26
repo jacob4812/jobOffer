@@ -1,5 +1,5 @@
 <div class="container mt-5">
-    <!-- Formularz dodawania pliku -->
+   
     <div *ngIf="!cvUploaded">
     <form (ngSubmit)="uploadCv()" enctype="multipart/form-data">
       <div class="form-group">
@@ -17,7 +17,7 @@
       </button>
     </form>
   </div>
-    <!-- Wyświetlanie już dodanego CV -->
+   
     <div *ngIf="cvUploaded">
       <h3>Dodany plik: {{ cvFileName }}</h3>
       <div class="mt-3">
