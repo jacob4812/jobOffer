@@ -31,14 +31,13 @@ export class JobListComponent implements OnInit {
     this.dialog.open(JobDetailDialogComponent, {
       data: offer
     });
-    console.log(offer.company);
+
   }
   openApplyJobComponent(offer: JobOffer) {
     this.dialog.open(ApplyJobComponent, {
       data: offer
     });
-    console.log(offer.id);
-    console.log(offer.company.id)
+
 
   }
 
