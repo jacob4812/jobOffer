@@ -70,18 +70,13 @@ public class CvServiceImpl implements CvService {
 
   @Override
   @Transactional
-  public String getCV(Long userId) {
+  public Optional<String> getCV(Long userId) {
     UserEntity user =
         userRepository
             .findUserById(userId)
             .orElseThrow(() -> new RuntimeException("Nie znaleziono uzytkownika"));
 
-    CvEntity cvEntity =
-        cvRepository
-            .findByUserId(userId)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "CV not found"));
-
-    return cvEntity.getFileName();
+    return cvRepository.findByUserId(userId).map(CvEntity::getFileName);
   }
 
   @Override

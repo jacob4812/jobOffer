@@ -1,5 +1,6 @@
 package pl.joboffer.job.features.CVupload;
 
+import java.util.Optional;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,17 +20,14 @@ public class CvController {
   public ResponseEntity<String> uploadCV(
       @RequestParam("file") MultipartFile file, @PathVariable Long userId) {
     cvService.saveCV(file, userId);
-    return ResponseEntity.ok("File uploaded successfully.");
+    return ResponseEntity.ok(file.getOriginalFilename());
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<String> getCV(@PathVariable Long id) {
-    String fileName = cvService.getCV(id);
-    if (fileName.isEmpty()) {
-      return ResponseEntity.noContent().build();
-    } else {
-      return ResponseEntity.ok(fileName);
-    }
+    Optional<String> cv = cvService.getCV(id);
+
+    return cv.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent().build());
   }
 
   @DeleteMapping("/delete/{userId}")

@@ -1,5 +1,6 @@
 package pl.joboffer.job.features.CVupload;
 
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -7,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface CvService {
   void saveCV(MultipartFile file, Long userId);
 
-  String getCV(Long userId);
+  Optional<String> getCV(Long userId);
 
   boolean deleteCV(Long userId);
 
