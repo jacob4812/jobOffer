@@ -1,10 +1,7 @@
 package pl.joboffer.job.features.company;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import pl.joboffer.job.enums.UserRole;
 
@@ -12,6 +9,8 @@ import pl.joboffer.job.enums.UserRole;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Setter
+@Getter
 @Entity
 @Table(name = "company")
 public class CompanyEntity {

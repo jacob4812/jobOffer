@@ -1,3 +1,28 @@
 <div class="container mt-5">
-  <button class="btn btn-primary">Dodaj CV</button>
-</div>
+   
+    <div *ngIf="!cvUploaded">
+    <form (ngSubmit)="uploadCv()" enctype="multipart/form-data">
+      <div class="form-group">
+        <input
+          type="file"
+          (change)="onFileSelected($event)"
+          accept="application/pdf"
+          class="form-control"
+          [disabled]="cvUploaded"
+        />
+      </div>
+    
+      <button class="btn btn-primary mt-3" [disabled]="!selectedFile || cvUploaded" type="submit">
+        Dodaj CV
+      </button>
+    </form>
+  </div>
+   
+    <div *ngIf="cvUploaded">
+      <h3>Dodany plik: {{ cvFileName }}</h3>
+      <div class="mt-3">
+        <button class="btn btn-secondary" (click)="editCv()">Edytuj CV</button>
+        <button class="btn btn-danger" (click)="deleteCv()">Usuń CV</button>
+      </div>
+    </div>
+  </div>

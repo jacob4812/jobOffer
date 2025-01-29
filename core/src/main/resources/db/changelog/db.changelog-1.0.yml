@@ -42,7 +42,41 @@ databaseChangeLog:
                   defaultValue: 'ADMIN'
                   constraints:
                     nullable: false
-
+        - createTable:
+            tableName: cv_upload
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: file_name
+                  type: varchar(250)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: file_type
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: data
+                  type: BLOB
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseTableName: cv_upload
+                  baseColumnNames: user_id
+                  referencedTableName: user_table
+                  referencedColumnNames: id
+                  constraintName: fk_application_user
         - createTable:
             tableName: company
             columns:

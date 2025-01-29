@@ -3,10 +3,7 @@ package pl.joboffer.job.features.offer;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import pl.joboffer.job.features.application.ApplicationEntity;
 import pl.joboffer.job.features.company.CompanyEntity;
@@ -15,6 +12,8 @@ import pl.joboffer.job.features.company.CompanyEntity;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Setter
+@Getter
 @Entity
 @Table(name = "offer")
 public class OfferEntity {
