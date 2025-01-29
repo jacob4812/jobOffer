@@ -3,7 +3,6 @@ package pl.joboffer.job.features.offer;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
-
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import pl.joboffer.job.features.application.ApplicationEntity;

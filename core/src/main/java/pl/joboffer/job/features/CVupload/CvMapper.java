@@ -1,4 +1,3 @@
 package pl.joboffer.job.features.CVupload;
 
-public class CvMapper {
-}
+public class CvMapper {}
