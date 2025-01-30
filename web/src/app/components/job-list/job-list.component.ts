@@ -6,6 +6,7 @@ import { PaginatorState } from "primeng/paginator";
 import { JobOffer } from "../../models/job-offer.model";
 import { Page } from "../../models/page.model";
 import { ApplyJobComponent } from '../apply-job/apply-job.component';
+import { SearchService } from 'src/services/searchService/search.service';
 
 @Component({
   selector: 'app-job-list',
@@ -13,62 +14,75 @@ import { ApplyJobComponent } from '../apply-job/apply-job.component';
   styles: []
 })
 export class JobListComponent implements OnInit {
-  jobOffers: JobOffer[] = [];
+  jobOffers: JobOffer[] = []; 
+  allOffers: JobOffer[] = []; 
+  filteredOffers: JobOffer[] = []; 
   first = 0;
   rows = 10;
   totalRecords = 0;
-  totalPages = 0;
   role: string = '';
   searchCriteria: any = null;
 
-  ngOnInit() {
-    this.readJobOffers();
-    this.role = localStorage.getItem('role') || '';
-//     this.searchService.searchCriteria$.subscribe((criteria) => {
-//           this.searchCriteria = criteria;
-//           this.readJobOffers();
-//         });
-  }
+  constructor(
+    public dialog: MatDialog, 
+    private offerService: OfferService,
+    private searchService: SearchService
+  ) { }
 
-  constructor(public dialog: MatDialog, private offerService: OfferService) { }
+  ngOnInit() {
+    this.role = localStorage.getItem('role') || '';
+    this.searchService.searchCriteria$.subscribe((criteria) => {
+      this.searchCriteria = criteria;
+      this.filterOffers(); 
+    });
+    this.readJobOffers();
+  }
 
   openJobDetailDialog(offer: JobOffer) {
-    this.dialog.open(JobDetailDialogComponent, {
-      data: offer
-    });
-
+    this.dialog.open(JobDetailDialogComponent, { data: offer });
   }
+
   openApplyJobComponent(offer: JobOffer) {
-    this.dialog.open(ApplyJobComponent, {
-      data: offer
-    });
-
-
+    this.dialog.open(ApplyJobComponent, { data: offer });
   }
 
-  readJobOffers(event?: PaginatorState) {
-    const page = event ? Math.floor(event.first / event.rows) : 0;
-    const size = event ? event.rows : this.rows;
-
-    this.offerService.readAllJobOffers(page, size).subscribe((response: Page<JobOffer>) => {
-      this.jobOffers = response.content;
-      this.totalRecords = response.totalElements;
-      this.totalPages = response.totalPages;
-
-      if (page >= this.totalPages && this.totalPages > 0) {
-        this.first = (this.totalPages - 1) * this.rows;
-        this.readJobOffers({ first: this.first, rows: this.rows });
-      }
+  
+  readJobOffers() {
+    this.offerService.readAllJobOffers(0, 1000).subscribe((response) => {
+      this.allOffers = response.content; 
+      this.filterOffers(); 
     });
   }
+
+
+  filterOffers() {
+    if (!this.searchCriteria) {
+      this.filteredOffers = [...this.allOffers]; 
+    } else {
+      this.filteredOffers = this.allOffers.filter(offer => {
+        return (!this.searchCriteria.title || offer.title?.toLowerCase().includes(this.searchCriteria.title.toLowerCase())) &&
+               (!this.searchCriteria.location || offer.location?.toLowerCase().includes(this.searchCriteria.location.toLowerCase())) &&
+               (!this.searchCriteria.salary || offer.salary >= this.searchCriteria.salary) &&
+               (!this.searchCriteria.company || this.searchCriteria.company.length === 0 || this.searchCriteria.company.includes(offer.company)) &&
+               (!this.searchCriteria.description || offer.description?.toLowerCase().includes(this.searchCriteria.description.toLowerCase()));
+      });
+    }
+
+    this.totalRecords = this.filteredOffers.length; 
+    this.first = 0; 
+    this.paginateFilteredOffers();
+  }
+
+  
+  paginateFilteredOffers() {
+    const start = this.first;
+    const end = start + this.rows;
+    this.jobOffers = this.filteredOffers.slice(start, end);
+  }
+
 
   onPageChange(event: PaginatorState) {
-    const requestedPage = Math.floor(event.first / event.rows);
-    if (requestedPage >= 0 && requestedPage < this.totalPages) {
-      this.readJobOffers(event);
-    } else {
-      this.first = (this.totalPages - 1) * this.rows;
-      this.readJobOffers({ first: this.first, rows: this.rows });
-    }
+    this.first = event.first;
+    this.paginateFilteredOffers();
   }
 }
