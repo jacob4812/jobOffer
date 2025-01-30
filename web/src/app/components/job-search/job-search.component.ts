@@ -4,7 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { CategoryDialogComponent } from '../category-dialog/category-dialog.component';
 import { TechnologyDialogComponent } from '../technology-dialog/technology-dialog.component';
 import { ExperienceDialogComponent } from '../experience-dialog/experience-dialog.component';
-
+import { HttpClient } from '@angular/common/http';
+import { SearchService } from 'src/services/searchService/search.service';
 @Component({
   selector: 'app-job-search',
   templateUrl: './job-search.component.html',
@@ -13,20 +14,32 @@ import { ExperienceDialogComponent } from '../experience-dialog/experience-dialo
 export class JobSearchComponent {
   searchForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private dialog: MatDialog) {
+  constructor(private fb: FormBuilder, private dialog: MatDialog,private http: HttpClient,private searchService: SearchService) {
     this.searchForm = this.fb.group({
-      position: [''],
+      title: [''],
       location: [''],
       category: [[]],
-      salary: [null],
+      salary: [],
       technologies: [[]],
-      experience: [[]]
+      experience: [[]],
+      description: []
     });
   }
 
   onSearch() {
     const searchCriteria = this.searchForm.value;
-    console.log(searchCriteria);
+    const filteredSearchCriteria = {
+        title: searchCriteria.title || null,
+        location: searchCriteria.location || null,
+        salary: searchCriteria.salary || null,
+        category: searchCriteria.category && searchCriteria.category.length > 0 ? searchCriteria.category : null,
+        technologies: searchCriteria.technologies && searchCriteria.technologies.length > 0 ? searchCriteria.technologies : null,
+        experience: searchCriteria.experience && searchCriteria.experience.length > 0 ? searchCriteria.experience : null,
+        description: searchCriteria.description && searchCriteria.description.length > 0 ? searchCriteria.description : null
+      };
+    this.searchService.searchJobOffers(searchCriteria);
+    this.searchService.updateSearchCriteria(searchCriteria);
+    console.log(searchCriteria)
   }
 
   openCategoryDialog() {
@@ -37,7 +50,7 @@ export class JobSearchComponent {
     });
     dialogRef.afterClosed().subscribe(selectedCategories => {
       if (selectedCategories) {
-        this.searchForm.get('category').setValue(selectedCategories); 
+        this.searchForm.get('category').setValue(selectedCategories);
       }
     });
   }

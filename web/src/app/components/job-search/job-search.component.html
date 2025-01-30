@@ -1,10 +1,13 @@
 <div class="px-3">
     <div class="text-start">
       <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="row g-3">
-        <div class="col-md-4">
-          <input formControlName="position" type="text" class="form-control" placeholder="Słowa kluczowe" />
+        <div class="col-md-3">
+          <input formControlName="title" type="text" class="form-control" placeholder="Stanowisko" />
         </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
+          <input formControlName="description" type="text" class="form-control" placeholder="Słowa kluczowe" />
+        </div>
+        <div class="col-md-2">
           <input formControlName="location" type="text" class="form-control" placeholder="Lokalizacja" />
         </div>
         <div class="col-md-2">

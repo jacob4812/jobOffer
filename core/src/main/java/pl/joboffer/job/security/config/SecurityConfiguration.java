@@ -61,7 +61,7 @@ public class SecurityConfiguration {
                     .permitAll()
                     .requestMatchers("/api/applications/user/{userId}")
                     .permitAll()
-                    .requestMatchers("/api/offer/addJobOffer")
+                    .requestMatchers("/api/offer/*")
                     .permitAll()
                     .requestMatchers("/swagger-ui.html", "/v3/api-docs/**", "/swagger-ui/**")
                     .permitAll()

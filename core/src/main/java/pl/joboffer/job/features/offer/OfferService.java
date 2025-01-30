@@ -20,4 +20,7 @@ public interface OfferService {
 
   @NotNull
   Page<Offer> findJobsOfferById(Long userId, PageRequest pageRequest);
+
+  Page<Offer> searchJobOffers(
+      String description, String location, Double salary, PageRequest pageRequest);
 }

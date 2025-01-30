@@ -41,4 +41,17 @@ public class OfferController {
     offerService.deleteJobOffer(id);
     return ResponseEntity.noContent().build();
   }
+
+  @GetMapping("/search")
+  public ResponseEntity<Page<Offer>> searchJobOffers(
+      @RequestParam(value = "description", required = false) String description,
+      @RequestParam(value = "location", required = false) String location,
+      @RequestParam(value = "salary", required = false) Double salary,
+      @RequestParam(value = "page", defaultValue = "0") int page,
+      @RequestParam(value = "size", defaultValue = "10") int size) {
+    PageRequest pageRequest = PageRequest.of(page, size);
+    Page<Offer> jobOffers =
+        offerService.searchJobOffers(description, location, salary, pageRequest);
+    return ResponseEntity.ok(jobOffers);
+  }
 }
