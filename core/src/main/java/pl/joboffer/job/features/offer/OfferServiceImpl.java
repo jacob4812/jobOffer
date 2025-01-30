@@ -53,6 +53,40 @@ public class OfferServiceImpl implements OfferService {
   }
 
   @Override
+  public Page<Offer> searchJobOffers(
+      String description, String location, Double salary, PageRequest pageRequest) {
+    Page<OfferEntity> offerPage;
+
+    if (salary == null) {
+      salary = 0.0;
+    }
+
+    if (description != null && location != null && salary != 0.0) {
+      offerPage =
+          offerRepository.findByDescriptionAndLocationAndSalary(
+              description, location, salary, pageRequest);
+    } else if (description != null && location != null) {
+      offerPage = offerRepository.findByDescriptionAndLocation(description, location, pageRequest);
+    } else if (description != null && salary != 0.0) {
+      offerPage = offerRepository.findByDescriptionAndSalary(description, salary, pageRequest);
+    } else if (location != null && salary != 0.0) {
+      offerPage = offerRepository.findByLocationAndSalary(location, salary, pageRequest);
+    } else if (description != null) {
+      offerPage = offerRepository.findByDescription(description, pageRequest);
+    } else if (location != null) {
+      offerPage = offerRepository.findByLocation(location, pageRequest);
+    } else if (salary != 0.0) {
+      offerPage = offerRepository.findBySalaryGreaterThanEqual(salary, pageRequest);
+    } else {
+      offerPage = offerRepository.findAll(pageRequest);
+    }
+
+    List<Offer> offers = offerMapper.mapListEntityToDto(offerPage.getContent());
+
+    return new PageImpl<>(offers, pageRequest, offerPage.getTotalElements());
+  }
+
+  @Override
   @Transactional
   public OfferEntity editJobOffer(Offer offer) {
     if (offer.id() == null) {

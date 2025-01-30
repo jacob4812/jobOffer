@@ -19,10 +19,15 @@ export class JobListComponent implements OnInit {
   totalRecords = 0;
   totalPages = 0;
   role: string = '';
+  searchCriteria: any = null;
 
   ngOnInit() {
     this.readJobOffers();
     this.role = localStorage.getItem('role') || '';
+//     this.searchService.searchCriteria$.subscribe((criteria) => {
+//           this.searchCriteria = criteria;
+//           this.readJobOffers();
+//         });
   }
 
   constructor(public dialog: MatDialog, private offerService: OfferService) { }

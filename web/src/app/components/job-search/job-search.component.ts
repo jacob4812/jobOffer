@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CategoryDialogComponent } from '../category-dialog/category-dialog.component';
 import { TechnologyDialogComponent } from '../technology-dialog/technology-dialog.component';
 import { ExperienceDialogComponent } from '../experience-dialog/experience-dialog.component';
-
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-job-search',
   templateUrl: './job-search.component.html',
@@ -13,12 +13,12 @@ import { ExperienceDialogComponent } from '../experience-dialog/experience-dialo
 export class JobSearchComponent {
   searchForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private dialog: MatDialog) {
+  constructor(private fb: FormBuilder, private dialog: MatDialog,private http: HttpClient) {
     this.searchForm = this.fb.group({
       position: [''],
       location: [''],
       category: [[]],
-      salary: [null],
+      salary: [],
       technologies: [[]],
       experience: [[]]
     });
@@ -26,7 +26,43 @@ export class JobSearchComponent {
 
   onSearch() {
     const searchCriteria = this.searchForm.value;
-    console.log(searchCriteria);
+    const filteredSearchCriteria = {
+        position: searchCriteria.position || null,
+        location: searchCriteria.location || null,
+        salary: searchCriteria.salary || null,
+        category: searchCriteria.category && searchCriteria.category.length > 0 ? searchCriteria.category : null,
+        technologies: searchCriteria.technologies && searchCriteria.technologies.length > 0 ? searchCriteria.technologies : null,
+        experience: searchCriteria.experience && searchCriteria.experience.length > 0 ? searchCriteria.experience : null
+      };
+    this.searchJobOffers(searchCriteria);
+    console.log(searchCriteria)
+  }
+searchJobOffers(searchData: any) {
+     let url = 'http://localhost:8080/api/offer/search?';
+
+      if (searchData.position) {
+        url += `description=${searchData.position}&`;
+      }
+
+      if (searchData.location) {
+        url += `location=${searchData.location}&`;
+      }
+
+      if (searchData.salary) {
+        url += `salary=${searchData.salary}&`;
+      }
+
+      // Usuwanie ostatniego & (jeśli jest obecne)
+      url = url.endsWith('&') ? url.slice(0, -1) : url;
+
+      this.http.get(url).subscribe(
+        (response: any) => {
+          console.log('Found job offers:', response);
+        },
+        (error) => {
+          console.error('Error searching job offers:', error);
+        }
+      );
   }
 
   openCategoryDialog() {
@@ -37,7 +73,7 @@ export class JobSearchComponent {
     });
     dialogRef.afterClosed().subscribe(selectedCategories => {
       if (selectedCategories) {
-        this.searchForm.get('category').setValue(selectedCategories); 
+        this.searchForm.get('category').setValue(selectedCategories);
       }
     });
   }
