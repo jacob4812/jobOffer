@@ -7,7 +7,9 @@
           </div>
           <div class="col-md-10">
             <div class="card-body">
-              <p class="card-text"><small class="text-muted">{{ offer.company.companyName }}</small></p>
+              <p class="card-text"><small class="text-muted">{{ offer.company.companyName }}</small> |
+                <small class="text-muted">{{ offer.contractType }}</small> |
+                <small class="text-muted">{{ offer.offerExperience }}</small></p>
               <h5 class="card-title">{{ offer.title }}</h5>
               <div class="d-flex flex-wrap mb-2">
                 <span class="badge bg-secondary me-2">{{ offer.location }}</span>
