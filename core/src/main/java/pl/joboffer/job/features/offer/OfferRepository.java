@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import pl.joboffer.job.enums.OfferExperience;
 
 public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
   @Query("select o from OfferEntity o ")
@@ -45,4 +47,6 @@ public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
   @Query(
       "SELECT o FROM OfferEntity o WHERE LOWER(o.description) LIKE LOWER(CONCAT('%', :description, '%'))")
   Page<OfferEntity> findByDescription(String description, PageRequest pageRequest);
+  @Query("SELECT o FROM OfferEntity o WHERE o.offerExperience = :offerExperience")
+  Page<OfferEntity> findByOfferExperience(@Param("offerExperience") OfferExperience offerExperience, PageRequest pageRequest);
 }

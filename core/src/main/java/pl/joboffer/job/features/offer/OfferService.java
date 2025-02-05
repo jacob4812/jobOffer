@@ -4,6 +4,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import pl.joboffer.job.dto.offer.Offer;
+import pl.joboffer.job.enums.OfferExperience;
 
 public interface OfferService {
   @NotNull
@@ -23,4 +24,6 @@ public interface OfferService {
 
   Page<Offer> searchJobOffers(
       String description, String location, Double salary, PageRequest pageRequest);
+  Page<Offer> filterJobOffers(
+          OfferExperience offerExperience, PageRequest pageRequest);
 }

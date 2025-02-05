@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.joboffer.job.dto.offer.Offer;
+import pl.joboffer.job.enums.OfferExperience;
 
 @Service
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -86,6 +87,13 @@ public class OfferServiceImpl implements OfferService {
 
     List<Offer> offers = offerMapper.mapListEntityToDto(offerPage.getContent());
 
+    return new PageImpl<>(offers, pageRequest, offerPage.getTotalElements());
+  }
+
+  @Override
+  public Page<Offer> filterJobOffers(OfferExperience offerExperience, PageRequest pageRequest) {
+    Page<OfferEntity> offerPage = offerRepository.findByOfferExperience(offerExperience, pageRequest);
+    List<Offer> offers = offerMapper.mapListEntityToDto(offerPage.getContent());
     return new PageImpl<>(offers, pageRequest, offerPage.getTotalElements());
   }
 

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import pl.joboffer.job.dto.offer.Offer;
+import pl.joboffer.job.enums.OfferExperience;
 
 @RestController
 @RequestMapping(value = "/api/offer")
@@ -53,5 +54,15 @@ public class OfferController {
     Page<Offer> jobOffers =
         offerService.searchJobOffers(description, location, salary, pageRequest);
     return ResponseEntity.ok(jobOffers);
+  }
+
+  @GetMapping("/filter/experience")
+  public ResponseEntity<Page<Offer>> filterJobOffersByExperience(
+          @RequestParam OfferExperience experience,
+          @RequestParam(defaultValue = "0") int page,
+          @RequestParam(defaultValue = "10") int size) {
+    PageRequest pageRequest = PageRequest.of(page, size);
+    Page<Offer> filteredOffers = offerService.filterJobOffers(experience, pageRequest);
+    return ResponseEntity.ok(filteredOffers);
   }
 }
