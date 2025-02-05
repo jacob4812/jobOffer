@@ -19,7 +19,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class ExperienceDialogComponent {
   experienceLevels = [
-    'Junior', 'Mid', 'Senior', 'Expert', 'C-level'
+    'Intern' ,'sf', 'Mid', 'Senior', 'Expert'
   ];
 
   constructor(

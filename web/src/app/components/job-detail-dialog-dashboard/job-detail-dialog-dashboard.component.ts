@@ -7,6 +7,7 @@ import { CategoryDialogComponent } from '../category-dialog/category-dialog.comp
 import { TechnologyDialogComponent } from '../technology-dialog/technology-dialog.component';
 import { ExperienceDialogComponent } from '../experience-dialog/experience-dialog.component';
 import { Company } from 'src/app/models/company.model';
+import { Experience } from 'src/app/models/experience';
 
 @Component({
   selector: 'app-job-detail-dialog-dashboard',
@@ -16,7 +17,10 @@ import { Company } from 'src/app/models/company.model';
 export class DashboardJobDetailDialogComponent {
   editForm: FormGroup;
   company: Company;
-  
+   experienceOptions: { label: string, value: string }[] = [];
+    
+    
+     
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
@@ -24,6 +28,10 @@ export class DashboardJobDetailDialogComponent {
     private offerService: OfferService,
     
   ) {
+    this.experienceOptions = Object.keys(Experience).map(key => ({
+      label: key,
+      value: Experience[key as keyof typeof Experience]
+    }));
     this.editForm = this.fb.group({
       id: [data.id],
       company:[data.company],
@@ -33,10 +41,9 @@ export class DashboardJobDetailDialogComponent {
       salary: [data.salary || '', [Validators.required, Validators.pattern('^[><0-9\\s]*(PLN|Zł)?$')]],
       expirationDate: [data.expirationDate || ''],
       description: [data.description || ''],
-//       category: [data.category || ''],
-//       technologies: [data.technologies || ''],
-//       experience: [data.experience || '']
+      offerExperience: [data.offerExperience || []]
     });
+    console.log(this.editForm)
   }
 
   onSubmit() {
@@ -49,7 +56,7 @@ export class DashboardJobDetailDialogComponent {
         next: (updatedOffer) => {
           console.log('Oferta zaktualizowana:', updatedOffer);
           alert('Oferta została zaktualizowana!');
-          this.dialog.closeAll();  // Zamykamy dialog po zapisaniu
+          this.dialog.closeAll();  
         },
         error: (err) => {
           console.error('Błąd podczas edycji oferty:', err);
@@ -87,17 +94,17 @@ export class DashboardJobDetailDialogComponent {
     });
   }
 
-  openExperienceDialog() {
-    const dialogRef = this.dialog.open(ExperienceDialogComponent, {
-      data: { selectedExperience: this.editForm.get('experience').value },
-      width: '100vw',
-      height: '100vh',
-    });
+  // openExperienceDialog() {
+  //   const dialogRef = this.dialog.open(ExperienceDialogComponent, {
+  //     data: { selectedExperience: this.editForm.get('experience').value },
+  //     width: '100vw',
+  //     height: '100vh',
+  //   });
 
-    dialogRef.afterClosed().subscribe(selectedExperience => {
-      if (selectedExperience) {
-        this.editForm.get('experience').setValue(selectedExperience);
-      }
-    });
-  }
+  //   dialogRef.afterClosed().subscribe(selectedExperience => {
+  //     if (selectedExperience) {
+  //       this.editForm.get('experience').setValue(selectedExperience);
+  //     }
+  //   });
+  // }
 }

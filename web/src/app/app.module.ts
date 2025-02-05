@@ -46,7 +46,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ApplyJobComponent } from './components/apply-job/apply-job.component';
-
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   declarations: [
@@ -99,7 +99,8 @@ import { ApplyJobComponent } from './components/apply-job/apply-job.component';
     MatTabsModule,
     MatListModule,
     MatCheckboxModule,
-    PaginatorModule
+    PaginatorModule,
+    MultiSelectModule
   ],
 })
 export class AppModule { }

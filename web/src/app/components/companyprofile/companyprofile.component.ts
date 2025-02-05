@@ -7,6 +7,7 @@ import { CompanyService } from 'src/services/company/company.service';
 import { Company } from 'src/app/models/company.model';
 import { Observable } from 'rxjs';
 import { CompanyDataUpdate } from 'src/app/dto/model/company/company-data-update';
+import { Experience } from 'src/app/models/experience';
 
 @Component({
   selector: 'companyprofile-component',
@@ -16,12 +17,13 @@ import { CompanyDataUpdate } from 'src/app/dto/model/company/company-data-update
 export class CompanyProfileComponent implements OnInit {
   company: Company;
   message: string = '';
-
   constructor(
     public dialog: MatDialog,
     private offerService: OfferService,
     private companyService: CompanyService
-  ) {}
+  ) {
+    
+  }
 
   ngOnInit(): void {
    this.readCompanyData();
@@ -49,10 +51,11 @@ export class CompanyProfileComponent implements OnInit {
         contractType: '',
         salary: '',
         expirationDate: '',
-        description: ""
+        description: "",
+        offerExperience: [] as Experience[]
       }
     });
-
+    
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.offerService.addJobOffer(result).subscribe({

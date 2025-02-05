@@ -35,6 +35,9 @@ public class OfferServiceImpl implements OfferService {
   @Transactional
   public OfferEntity addJobOffer(Offer offer) {
     var savedOfferEntity = offerMapper.mapDtoToEntity(offer);
+    if (offer.offerExperience() == null || offer.offerExperience().isEmpty()) {
+      throw new IllegalArgumentException("Offer experience cannot be null or empty");
+    }
     System.out.println(offer);
     System.out.println(savedOfferEntity);
     try {
@@ -89,6 +92,9 @@ public class OfferServiceImpl implements OfferService {
   @Override
   @Transactional
   public OfferEntity editJobOffer(Offer offer) {
+    if (offer.offerExperience() == null || offer.offerExperience().isEmpty()) {
+      throw new IllegalArgumentException("Offer experience cannot be null or empty");
+    }
     if (offer.id() == null) {
       throw new RuntimeException("Brak id dla wskazanej oferty");
     }

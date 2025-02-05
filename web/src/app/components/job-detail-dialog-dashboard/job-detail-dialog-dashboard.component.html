@@ -20,7 +20,17 @@
       <mat-label>Wynagrodzenie</mat-label>
       <input matInput formControlName="salary" required />
     </mat-form-field>
-
+    <p-multiSelect 
+    [options]="experienceOptions"
+    [(ngModel)]="data.offerExperience" 
+    name="offerExperience" 
+    optionLabel="label" 
+    optionValue="value"
+    placeholder="Select Experience"
+    [showToggleAll]="false" 
+    class="full-width"
+    required="true">
+    </p-multiSelect>  
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Opis</mat-label>
       <textarea matInput formControlName="description" rows="4"></textarea>

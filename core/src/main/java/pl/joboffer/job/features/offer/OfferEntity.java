@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import pl.joboffer.job.enums.OfferExperience;
 import pl.joboffer.job.features.application.ApplicationEntity;
 import pl.joboffer.job.features.company.CompanyEntity;
 
@@ -44,6 +45,10 @@ public class OfferEntity {
 
   @Column(name = "expiration_date")
   LocalDate expirationDate;
+
+  @Column(name = "offer_experience")
+  @Enumerated(EnumType.STRING)
+   List<OfferExperience> offerExperience;
 
   @Column(name = "description")
   String description;
