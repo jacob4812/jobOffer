@@ -17,10 +17,8 @@ import { Experience } from 'src/app/models/experience';
 export class DashboardJobDetailDialogComponent {
   editForm: FormGroup;
   company: Company;
-   experienceOptions: { label: string, value: string }[] = [];
+   experienceOptions: { label: string ,value: string }[] = [];
     
-    
-     
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
@@ -43,18 +41,16 @@ export class DashboardJobDetailDialogComponent {
       description: [data.description || ''],
       offerExperience: [data.offerExperience || []]
     });
-    console.log(this.editForm)
   }
 
   onSubmit() {
     if (this.editForm.valid) {
       const updatedJob = this.editForm.value;
-
-      console.log('Zaktualizowane dane oferty:', updatedJob);
-
+      
+      
       this.offerService.editJobOffer(updatedJob).subscribe({
         next: (updatedOffer) => {
-          console.log('Oferta zaktualizowana:', updatedOffer);
+          
           alert('Oferta została zaktualizowana!');
           this.dialog.closeAll();  
         },
@@ -65,45 +61,17 @@ export class DashboardJobDetailDialogComponent {
       });
     }
   }
-
-  openCategoryDialog() {
-    const dialogRef = this.dialog.open(CategoryDialogComponent, {
-      data: { selectedCategory: this.editForm.get('category').value || [] },
-      width: '100vw',
-      height: '100vh',
-    });
-
-    dialogRef.afterClosed().subscribe(selectedCategory => {
-      if (selectedCategory) {
-        this.editForm.get('category').setValue(selectedCategory);
-      }
-    });
-  }
-
-  openTechnologyDialog() {
-    const dialogRef = this.dialog.open(TechnologyDialogComponent, {
-      data: { selectedTechnologies: this.editForm.get('technologies').value },
-      width: '100vw',
-      height: '100vh',
-    });
-
-    dialogRef.afterClosed().subscribe(selectedTechnologies => {
-      if (selectedTechnologies) {
-        this.editForm.get('technologies').setValue(selectedTechnologies);
-      }
-    });
-  }
-
   // openExperienceDialog() {
   //   const dialogRef = this.dialog.open(ExperienceDialogComponent, {
-  //     data: { selectedExperience: this.editForm.get('experience').value },
+  //     data: { selectedExperience: this.editForm.get('offerExperience').value || [] },
   //     width: '100vw',
   //     height: '100vh',
   //   });
-
+  
   //   dialogRef.afterClosed().subscribe(selectedExperience => {
   //     if (selectedExperience) {
-  //       this.editForm.get('experience').setValue(selectedExperience);
+  //       // Zaktualizuj offerExperience w formularzu
+  //       this.data.offerExperience = selectedExperience;
   //     }
   //   });
   // }

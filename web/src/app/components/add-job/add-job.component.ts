@@ -21,8 +21,7 @@ export class AddJobComponent  {
       label: key,
       value: Experience[key as keyof typeof Experience]
     }));
-   
-    console.log('Dialog Data:', this.data);
+  
    }
   
 
