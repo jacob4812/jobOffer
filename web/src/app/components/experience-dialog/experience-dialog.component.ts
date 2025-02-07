@@ -43,8 +43,7 @@ export class ExperienceDialogComponent {
   }
 
   close() {
-    console.log('Wybrane poziomy doświadczenia:', this.data.selectedExperienceLevels);
     
-    this.dialogRef.close(this.data.selectedExperienceLevels);  // Zamykamy dialog i przekazujemy wybrane poziomy
+    this.dialogRef.close(this.data.selectedExperienceLevels); 
   }
 }

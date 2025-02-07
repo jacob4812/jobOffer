@@ -61,18 +61,4 @@ export class DashboardJobDetailDialogComponent {
       });
     }
   }
-  // openExperienceDialog() {
-  //   const dialogRef = this.dialog.open(ExperienceDialogComponent, {
-  //     data: { selectedExperience: this.editForm.get('offerExperience').value || [] },
-  //     width: '100vw',
-  //     height: '100vh',
-  //   });
-  
-  //   dialogRef.afterClosed().subscribe(selectedExperience => {
-  //     if (selectedExperience) {
-  //       // Zaktualizuj offerExperience w formularzu
-  //       this.data.offerExperience = selectedExperience;
-  //     }
-  //   });
-  // }
 }
