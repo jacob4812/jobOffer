@@ -4,18 +4,7 @@ import { SearchService } from 'src/services/searchService/search.service';
 
 @Component({
   selector: 'app-experience-dialog',
-  template: `
-    <h2>Poziom Doświadczenia</h2>
-    <mat-list>
-      <mat-list-item *ngFor="let level of experienceLevels">
-        <mat-checkbox [checked]="data.selectedExperienceLevels.includes(level)"
-                      (change)="toggleSelection(level, $event.checked)">
-          {{ level }}
-        </mat-checkbox>
-      </mat-list-item>
-    </mat-list>
-    <button mat-button (click)="close()">Zatwierdź</button>
-  `,
+  templateUrl:'./experience-dialog.component.html',
   styles: ['mat-list { overflow: auto; }']
 })
 export class ExperienceDialogComponent {
