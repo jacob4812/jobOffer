@@ -3,5 +3,6 @@ export enum Experience {
     JUNIOR = 'JUNIOR',
     MID = 'MID',
     SENIOR = 'SENIOR',
-    EXPERT = 'EXPERT'
+    EXPERT = 'EXPERT',
+    
   }

@@ -16,6 +16,12 @@ export class SearchService {
   private experienceFilterSubject = new BehaviorSubject<string[]>([]);
   experienceFilter$ = this.experienceFilterSubject.asObservable();
 
+  private technologyFilterSubject = new BehaviorSubject<string[]>([]);
+  technologyFilter$ = this.technologyFilterSubject.asObservable();
+  
+  private positionFilterSubject = new BehaviorSubject<string[]>([]);
+  positionFilter$ = this.positionFilterSubject.asObservable();
+
   updateSearchCriteria(criteria: any) {
     this.searchCriteriaSubject.next(criteria);
   }
@@ -23,61 +29,68 @@ export class SearchService {
  updateExperienceFilter(selectedExperienceLevels: string[]) {
    this.experienceFilterSubject.next(selectedExperienceLevels);
  }
+ updateTechnologyFilter(selectedTechnologies: string[]) {
+  this.technologyFilterSubject.next(selectedTechnologies);
+}
+updatePositionFilter(selectedPositionsLevels: string[]) {
+  this.positionFilterSubject.next(selectedPositionsLevels);
+}
+
   clearSearchCriteria() {
     this.searchCriteriaSubject.next(null);
   }
-  searchJobOffers(searchData: any) {
-    let url = 'offer/search?';
+//   searchJobOffers(searchData: any) {
+//     let url = 'offer/search?';
 
     
-     if (searchData.title) {
-       url += `title=${searchData.title}&`;
-     }
-     if (searchData.description) {
-       url += `description=${searchData.description}&`;
-     }
-     if (searchData.location) {
-       url += `location=${searchData.location}&`;
-     }
+//      if (searchData.title) {
+//        url += `title=${searchData.title}&`;
+//      }
+//      if (searchData.description) {
+//        url += `description=${searchData.description}&`;
+//      }
+//      if (searchData.location) {
+//        url += `location=${searchData.location}&`;
+//      }
 
-     if (searchData.salary) {
-       url += `salary=${searchData.salary}&`;
-     }
+//      if (searchData.salary) {
+//        url += `salary=${searchData.salary}&`;
+//      }
 
      
-     url = url.endsWith('&') ? url.slice(0, -1) : url;
+//      url = url.endsWith('&') ? url.slice(0, -1) : url;
 
-     this.rest.get(url).subscribe(
-       (response: any) => {
-         console.log('Found job offers:', response);
-       },
-       (error) => {
-         console.error('Error searching job offers:', error);
-       }
-     );
- }
- searchJobOffersWithFilters(selectedExperienceLevels: string[]) {
-  let url = 'offer/filter/experience?'; 
+//      this.rest.get(url).subscribe(
+//        (response: any) => {
+//          console.log('Found job offers:', response);
+//        },
+//        (error) => {
+//          console.error('Error searching job offers:', error);
+//        }
+//      );
+//  }
+//  searchJobOffersWithFilters(selectedExperienceLevels: string[]) {
+//   let url = 'offer/filter/experience?'; 
   
   
-  if (selectedExperienceLevels && selectedExperienceLevels.length > 0) {
+//   if (selectedExperienceLevels && selectedExperienceLevels.length > 0) {
     
-    url += `experiences=${selectedExperienceLevels.join(',')}&`;
-  }
+//     url += `experiences=${selectedExperienceLevels.join(',')}&`;
+//   }
 
   
-  url = url.endsWith('&') ? url.slice(0, -1) : url;
+//   url = url.endsWith('&') ? url.slice(0, -1) : url;
 
   
-  this.rest.get(url).subscribe(
-    (response: any) => {
-      console.log('Filtered job offers:', response); 
-    },
-    (error) => {
-      console.error('Error searching job offers:', error); 
-    }
-  );
-}
+//   this.rest.get(url).subscribe(
+//     (response: any) => {
+//       console.log('Filtered job offers:', response); 
+//     },
+//     (error) => {
+//       console.error('Error searching job offers:', error); 
+//     }
+//   );
+// }
 
 
 }

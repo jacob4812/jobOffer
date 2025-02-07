@@ -22,7 +22,7 @@ export class JobSearchComponent {
     this.searchForm = this.fb.group({
       title: [''],
       location: [''],
-      category: [[]],
+      position: [[]],
       salary: [],
       technologies: [[]],
       experience: [[]],
@@ -40,20 +40,26 @@ export class JobSearchComponent {
   
   onFilterChange() {
     const experienceFilter = this.searchForm.get('experience').value;
+    const technologyFilter = this.searchForm.get('technologies').value;
+    const positionFilter = this.searchForm.get('position').value;
+    console.log(experienceFilter);
+    console.log(technologyFilter);
+    console.log(positionFilter);
     this.searchService.updateExperienceFilter(experienceFilter);
-   
+    this.searchService.updateTechnologyFilter(technologyFilter);
+    this.searchService.updatePositionFilter(positionFilter);
   }
 
   openCategoryDialog() {
     const dialogRef = this.dialog.open(CategoryDialogComponent, {
-      data: { selectedCategories: this.searchForm.get('category').value },
+      data: { selectedPositionsLevels: this.searchForm.get('position').value },
       width: '100vw',
       height: '100vh',
     });
 
-    dialogRef.afterClosed().subscribe(selectedCategories => {
-      if (selectedCategories) {
-        this.searchForm.get('category').setValue(selectedCategories);
+    dialogRef.afterClosed().subscribe(selectedPosition => {
+      if (selectedPosition) {
+        this.searchForm.get('position').setValue(selectedPosition);
         this.onFilterChange(); 
       }
     });
@@ -70,10 +76,28 @@ export class JobSearchComponent {
       if (selectedTechnologies) {
         this.searchForm.get('technologies').setValue(selectedTechnologies);
         this.onFilterChange();
+        console.log("experience " + selectedTechnologies);
+        console.log(selectedTechnologies);
       }
     });
   }
 
+  // openCategoryDialog() {
+  //   const dialogRef = this.dialog.open(ExperienceDialogComponent, {
+  //     data: { selectedExperienceLevels: this.searchForm.get('experience').value },
+  //     width: '100vw',
+  //     height: '100vh',
+  //   });
+
+  //   dialogRef.afterClosed().subscribe(selectedExperience => {
+  //     if (selectedExperience) {
+  //       this.searchForm.get('experience').setValue(selectedExperience);
+  //       this.onFilterChange(); 
+  //       console.log("experience " + selectedExperience);
+  //       console.log(selectedExperience);
+  //     }
+  //   });
+  // }
   openExperienceDialog() {
     const dialogRef = this.dialog.open(ExperienceDialogComponent, {
       data: { selectedExperienceLevels: this.searchForm.get('experience').value },
@@ -85,10 +109,11 @@ export class JobSearchComponent {
       if (selectedExperience) {
         this.searchForm.get('experience').setValue(selectedExperience);
         this.onFilterChange(); 
+        console.log("experience " + selectedExperience);
+        console.log(selectedExperience);
       }
     });
   }
-
  
   resetFilters() {
     this.searchForm.patchValue({
@@ -96,12 +121,14 @@ export class JobSearchComponent {
       location: '',
       salary: null,
       description: '',
-      category: [],
+      position: [],
       technologies: [],
       experience: []
     });
 
     this.searchService.updateExperienceFilter([]);
+    this.searchService.updatePositionFilter([]);
+    this.searchService.updateTechnologyFilter([]);
     this.searchService.updateSearchCriteria(null);
   
   }

@@ -1,5 +1,7 @@
 import { Company } from "./company.model";
 import { Experience } from "./experience";
+import { Position } from "./position";
+import { Technology } from "./technology";
 
 export interface JobOffer {
   id: number;
@@ -11,5 +13,6 @@ export interface JobOffer {
   timeAgo: string;
   description: string;
   offerExperience: Experience[]; 
-  // technologies: string;
+  offerTechnologies: Technology[];
+  offerPosition: Position[];
 }

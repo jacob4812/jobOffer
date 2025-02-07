@@ -24,6 +24,8 @@ export class JobListComponent implements OnInit {
   role: string = '';
   searchCriteria: any = null;
   experienceFilter: any = null;
+  technologyFilter: any = null;
+  positionFilter: any = null;
 
   constructor(
     public dialog: MatDialog,
@@ -46,6 +48,14 @@ export class JobListComponent implements OnInit {
    
     this.searchService.experienceFilter$.subscribe(experienceFilter => {
       this.experienceFilter = experienceFilter;
+      this.applyFilters();  
+    });
+    this.searchService.technologyFilter$.subscribe(technologyFilter => {
+      this.technologyFilter = technologyFilter;
+      this.applyFilters();  
+    });
+    this.searchService.positionFilter$.subscribe(positionFilter => {
+      this.positionFilter = positionFilter;
       this.applyFilters();  
     });
   }
@@ -86,13 +96,16 @@ export class JobListComponent implements OnInit {
  
   applyFilters() {
     this.filteredOffers = this.searchedOffers.filter(offer =>
-      (!this.experienceFilter || this.experienceFilter.length === 0 || this.experienceFilter.includes(offer.offerExperience.toString()))
+      (!this.experienceFilter || this.experienceFilter.length === 0 || this.experienceFilter.includes(offer.offerExperience ? offer.offerExperience.toString() : '')) &&
+      
+      (!this.positionFilter || this.positionFilter.length === 0 || this.positionFilter.includes(offer.offerPosition ? offer.offerPosition : ''))
     );
-
+  
     this.totalRecords = this.filteredOffers.length;
     this.first = 0;
     this.paginateFilteredOffers();
   }
+  
 
  
   paginateFilteredOffers() {

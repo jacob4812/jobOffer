@@ -2,11 +2,11 @@ package pl.joboffer.job.features.offer;
 
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import pl.joboffer.job.dto.offer.Offer;
 import pl.joboffer.job.enums.OfferExperience;
+import pl.joboffer.job.enums.OfferPosition;
+import pl.joboffer.job.enums.OfferTechnology;
 
 import java.util.List;
 
@@ -32,4 +32,8 @@ public interface OfferService {
       String description, String location, Double salary, PageRequest pageRequest);
   Page<Offer> filterJobOffers(
           List<OfferExperience> offerExperience, PageRequest pageRequest);
+  Page<Offer> filterJobOffersByPosition(
+          List<OfferPosition> offerPosition, PageRequest pageRequest);
+  Page<Offer> filterJobOffersByTechnology(
+          List<OfferTechnology> offerTechnology, PageRequest pageRequest);
 }
