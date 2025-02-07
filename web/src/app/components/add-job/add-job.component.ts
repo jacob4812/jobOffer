@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Experience } from 'src/app/models/experience';
+import { Position } from 'src/app/models/position';
+import { Technology } from 'src/app/models/technology';
 
 
 @Component({
@@ -12,6 +14,8 @@ export class AddJobComponent  {
 
  
   experienceOptions: { label: string, value: string }[] = [];
+  technologyOptions: { label: string, value: string }[] = [];
+  positionOptions: { label: string, value: string }[] = [];
   
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -21,7 +25,14 @@ export class AddJobComponent  {
       label: key,
       value: Experience[key as keyof typeof Experience]
     }));
-  
+    this.technologyOptions = Object.keys(Technology).map(key => ({
+      label: key,
+      value: Technology[key as keyof typeof Technology]
+    }));
+    this.positionOptions = Object.keys(Position).map(key => ({
+          label: key,
+          value: Position[key as keyof typeof Position]
+        }));
    }
   
 

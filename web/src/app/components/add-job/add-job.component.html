@@ -39,6 +39,29 @@
     required="true">
     </p-multiSelect>
 
+    <p-multiSelect 
+    [options]="technologyOptions"
+    [(ngModel)]="data.offerTechnology" 
+    name="offerTechnology" 
+    optionLabel="label" 
+    optionValue="value"
+    placeholder="Select technology"
+    [showToggleAll]="false" 
+    class="full-width"
+    required="true">
+    </p-multiSelect>
+
+    <p-multiSelect 
+    [options]="positionOptions"
+    [(ngModel)]="data.offerPosition" 
+    name="offerPosition" 
+    optionLabel="label" 
+    optionValue="value"
+    placeholder="Select position"
+    [showToggleAll]="false" 
+    class="full-width"
+    required="true">
+    </p-multiSelect>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Data wygaśnięcia</mat-label>

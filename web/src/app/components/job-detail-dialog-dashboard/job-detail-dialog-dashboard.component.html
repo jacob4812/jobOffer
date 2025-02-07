@@ -27,9 +27,31 @@
     optionValue="value"
     placeholder="Select Experience"
     [showToggleAll]="false" 
-    class="full-width">
+    class="full-width"
+    required="true">
     </p-multiSelect>
 
+    <p-multiSelect 
+    [options]="technologyOptions"
+    formControlName="offerTechnology"
+    optionLabel="label" 
+    optionValue="value"
+    placeholder="Select technology"
+    [showToggleAll]="false" 
+    class="full-width"
+    required="true">
+    </p-multiSelect>
+
+    <p-multiSelect 
+    [options]="positionOptions"
+    formControlName="offerPosition"
+    optionLabel="label" 
+    optionValue="value"
+    placeholder="Select position"
+    [showToggleAll]="false" 
+    class="full-width"
+    required="true">
+    </p-multiSelect>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Opis</mat-label>

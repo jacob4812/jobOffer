@@ -33,64 +33,65 @@ export class SearchService {
   this.technologyFilterSubject.next(selectedTechnologies);
 }
 updatePositionFilter(selectedPositionsLevels: string[]) {
+  console.log("search service "+selectedPositionsLevels);
   this.positionFilterSubject.next(selectedPositionsLevels);
 }
 
   clearSearchCriteria() {
     this.searchCriteriaSubject.next(null);
   }
-//   searchJobOffers(searchData: any) {
-//     let url = 'offer/search?';
+  searchJobOffers(searchData: any) {
+    let url = 'offer/search?';
 
     
-//      if (searchData.title) {
-//        url += `title=${searchData.title}&`;
-//      }
-//      if (searchData.description) {
-//        url += `description=${searchData.description}&`;
-//      }
-//      if (searchData.location) {
-//        url += `location=${searchData.location}&`;
-//      }
+     if (searchData.title) {
+       url += `title=${searchData.title}&`;
+     }
+     if (searchData.description) {
+       url += `description=${searchData.description}&`;
+     }
+     if (searchData.location) {
+       url += `location=${searchData.location}&`;
+     }
 
-//      if (searchData.salary) {
-//        url += `salary=${searchData.salary}&`;
-//      }
+     if (searchData.salary) {
+       url += `salary=${searchData.salary}&`;
+     }
 
      
-//      url = url.endsWith('&') ? url.slice(0, -1) : url;
+     url = url.endsWith('&') ? url.slice(0, -1) : url;
 
-//      this.rest.get(url).subscribe(
-//        (response: any) => {
-//          console.log('Found job offers:', response);
-//        },
-//        (error) => {
-//          console.error('Error searching job offers:', error);
-//        }
-//      );
-//  }
-//  searchJobOffersWithFilters(selectedExperienceLevels: string[]) {
-//   let url = 'offer/filter/experience?'; 
+     this.rest.get(url).subscribe(
+       (response: any) => {
+         console.log('Found job offers:', response);
+       },
+       (error) => {
+         console.error('Error searching job offers:', error);
+       }
+     );
+ }
+ searchJobOffersWithFilters(selectedPositionsLevels: string[]) {
+  let url = 'offer/filter/position?'; 
   
   
-//   if (selectedExperienceLevels && selectedExperienceLevels.length > 0) {
+  if (selectedPositionsLevels && selectedPositionsLevels.length > 0) {
     
-//     url += `experiences=${selectedExperienceLevels.join(',')}&`;
-//   }
+    url += `positions=${selectedPositionsLevels.join(',')}&`;
+  }
 
   
-//   url = url.endsWith('&') ? url.slice(0, -1) : url;
+  url = url.endsWith('&') ? url.slice(0, -1) : url;
 
   
-//   this.rest.get(url).subscribe(
-//     (response: any) => {
-//       console.log('Filtered job offers:', response); 
-//     },
-//     (error) => {
-//       console.error('Error searching job offers:', error); 
-//     }
-//   );
-// }
+  this.rest.get(url).subscribe(
+    (response: any) => {
+      console.log('Filtered job offers:', response); 
+    },
+    (error) => {
+      console.error('Error searching job offers:', error); 
+    }
+  );
+}
 
 
 }
