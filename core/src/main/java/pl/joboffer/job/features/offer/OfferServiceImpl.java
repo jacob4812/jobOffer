@@ -3,12 +3,15 @@ package pl.joboffer.job.features.offer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
+
 import java.util.List;
+
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.joboffer.job.dto.offer.Offer;
 import pl.joboffer.job.enums.OfferExperience;
@@ -91,11 +94,24 @@ public class OfferServiceImpl implements OfferService {
   }
 
   @Override
-  public Page<Offer> filterJobOffers(OfferExperience offerExperience, PageRequest pageRequest) {
-    Page<OfferEntity> offerPage = offerRepository.findByOfferExperience(offerExperience, pageRequest);
+  public Page<Offer> filterJobOffers(List<OfferExperience> offerExperiences, PageRequest pageRequest) {
+    if (offerExperiences == null || offerExperiences.isEmpty()) {
+      // Gdy brak filtrów, zwróć wszystkie oferty
+      Page<OfferEntity> offerPage = offerRepository.findAll(pageRequest);
+      List<Offer> offers = offerMapper.mapListEntityToDto(offerPage.getContent());
+      return new PageImpl<>(offers, pageRequest, offerPage.getTotalElements());
+    }
+
+    Page<OfferEntity> offerPage = offerRepository.findByOfferExperience(offerExperiences, pageRequest);
     List<Offer> offers = offerMapper.mapListEntityToDto(offerPage.getContent());
     return new PageImpl<>(offers, pageRequest, offerPage.getTotalElements());
   }
+
+
+
+
+
+
 
   @Override
   @Transactional

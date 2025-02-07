@@ -6,11 +6,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import pl.joboffer.job.dto.offer.Offer;
 import pl.joboffer.job.enums.OfferExperience;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/offer")
@@ -58,11 +63,27 @@ public class OfferController {
 
   @GetMapping("/filter/experience")
   public ResponseEntity<Page<Offer>> filterJobOffersByExperience(
-          @RequestParam OfferExperience experience,
+          @RequestParam(value = "experiences", required = false) List<String> experienceStrList,
           @RequestParam(defaultValue = "0") int page,
           @RequestParam(defaultValue = "10") int size) {
+    List<OfferExperience> experiences = null;
+
+    if (experienceStrList != null && !experienceStrList.isEmpty()) {
+      try {
+        experiences = experienceStrList.stream()
+                .map(e -> OfferExperience.valueOf(e.toUpperCase()))
+                .collect(Collectors.toList());
+      } catch (IllegalArgumentException e) {
+        return ResponseEntity.badRequest().body(Page.empty());
+      }
+    }
+
     PageRequest pageRequest = PageRequest.of(page, size);
-    Page<Offer> filteredOffers = offerService.filterJobOffers(experience, pageRequest);
+    Page<Offer> filteredOffers = offerService.filterJobOffers(experiences, pageRequest);
     return ResponseEntity.ok(filteredOffers);
   }
+
+
+
+
 }

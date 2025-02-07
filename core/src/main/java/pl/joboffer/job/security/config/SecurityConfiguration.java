@@ -69,7 +69,7 @@ public class SecurityConfiguration {
                     .permitAll()
                     .requestMatchers("/api/offer/editJobOffer")
                     .permitAll()
-                        .requestMatchers("/api/offer/filter/experience")
+                        .requestMatchers("/api/offer/filter/*")
                         .permitAll()
                     .requestMatchers("/api/user/*/*")
                     .permitAll()
