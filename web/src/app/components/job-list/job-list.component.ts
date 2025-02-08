@@ -6,6 +6,9 @@ import { PaginatorState } from "primeng/paginator";
 import { JobOffer } from "../../models/job-offer.model";
 import { ApplyJobComponent } from '../apply-job/apply-job.component';
 import { SearchService } from 'src/services/searchService/search.service';
+import { Position } from 'src/app/models/position';
+import { Experience } from 'src/app/models/experience';
+import { Technology } from 'src/app/models/technology';
 
 @Component({
   selector: 'app-job-list',
@@ -98,18 +101,21 @@ export class JobListComponent implements OnInit {
 
   applyFilters() {
     this.filteredOffers = this.searchedOffers.filter(offer =>
-      (!this.experienceFilter || this.experienceFilter.length === 0 || this.experienceFilter.includes(offer.offerExperience.toString())) &&
-      (!this.positionFilter || this.positionFilter.length === 0 || this.positionFilter.includes(offer.offerPosition.toString())) &&
-      (!this.technologyFilter || this.technologyFilter.length === 0 || this.technologyFilter.includes(offer.offerTechnology.toString()))
+      
+      (!this.experienceFilter || this.experienceFilter.length === 0 || this.experienceFilter.some((exp: Experience) => offer.offerExperience.includes(exp))) &&
+      
+      
+      (!this.positionFilter || this.positionFilter.length === 0 || this.positionFilter.some((pos: Position) => offer.offerPosition.includes(pos))) &&
+      
+      
+      (!this.technologyFilter || this.technologyFilter.length === 0 || this.technologyFilter.some((tech: Technology) => offer.offerTechnology.includes(tech)))
     );
-    
     
   
     this.totalRecords = this.filteredOffers.length;
     this.first = 0;
     this.paginateFilteredOffers();
   }
-
 
 
   paginateFilteredOffers() {

@@ -84,22 +84,7 @@ export class JobSearchComponent {
     });
   }
 
-  // openCategoryDialog() {
-  //   const dialogRef = this.dialog.open(ExperienceDialogComponent, {
-  //     data: { selectedExperienceLevels: this.searchForm.get('experience').value },
-  //     width: '100vw',
-  //     height: '100vh',
-  //   });
 
-  //   dialogRef.afterClosed().subscribe(selectedExperience => {
-  //     if (selectedExperience) {
-  //       this.searchForm.get('experience').setValue(selectedExperience);
-  //       this.onFilterChange(); 
-  //       console.log("experience " + selectedExperience);
-  //       console.log(selectedExperience);
-  //     }
-  //   });
-  // }
   openExperienceDialog() {
     const dialogRef = this.dialog.open(ExperienceDialogComponent, {
       data: { selectedExperienceLevels: this.searchForm.get('experience').value },
