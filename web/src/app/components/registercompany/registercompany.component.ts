@@ -22,7 +22,7 @@ export class RegisterCompanyComponent {
     this.registerForm = this.fb.group(
       {
         companyName: ['', Validators.required],
-        nip: ['', Validators.required],
+        nip: ['', Validators.required,Validators.pattern('^[0-9]*$'),Validators.minLength(10)],
         phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
         username: ['', Validators.required],
         email: ['', [Validators.required, Validators.email, Validators.maxLength(250)]],

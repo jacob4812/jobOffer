@@ -13,8 +13,10 @@
         <div class="form-group mb-3">
           <input type="text" id="nip" formControlName="nip" class="form-control" placeholder="NIP" required />
           <div *ngIf="registerForm.get('nip')?.invalid && registerForm.get('nip')?.touched" class="text-danger">
-            NIP jest wymagany.
+            <div *ngIf="registerForm.get('nip')?.errors?.['required']">NIP jest wymagany.</div>
+            <div *ngIf="registerForm.get('nip')?.errors?.['minLength']">Nip nie może być krótszy niż 10 znaków.</div>
           </div>
+
         </div>
 
         <div class="form-group mb-3">
