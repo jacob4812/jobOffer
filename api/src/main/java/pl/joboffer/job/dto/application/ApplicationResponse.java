@@ -1,5 +1,7 @@
 package pl.joboffer.job.dto.application;
 
+import pl.joboffer.job.enums.OfferStatus;
+
 import java.time.LocalDateTime;
 
 public record ApplicationResponse(
@@ -9,4 +11,4 @@ public record ApplicationResponse(
     String email,
     String name,
     LocalDateTime applicationDate,
-    String status) {}
+    OfferStatus status) {}

@@ -23,9 +23,13 @@ export class AuthService {
 
           localStorage.setItem("token", response.tokenContent);
           localStorage.setItem("email", decodedToken.sub);
-          localStorage.setItem("idUser", decodedToken.idUser);
           localStorage.setItem("role", decodedToken.role[0].authority);
-
+          const role = localStorage.getItem("role");
+          if(role==="COMPANY"){
+            localStorage.setItem("companyId", decodedToken.idUser);
+          }else{
+            localStorage.setItem("idUser", decodedToken.idUser);
+          }
           this.router.navigate([""]);
         }
         return response;

@@ -187,6 +187,16 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: company_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
                   name: application_date
                   type: timestamp
                   defaultValueComputed: CURRENT_TIMESTAMP
@@ -205,4 +215,11 @@ databaseChangeLog:
                   referencedTableName: offer
                   referencedColumnNames: id
                   constraintName: fk_application_offer
+
+              - addForeignKeyConstraint:
+                  baseTableName: application
+                  baseColumnNames: company_id
+                  referencedTableName: company
+                  referencedColumnNames: id
+                  constraintName: fk_application_company
 

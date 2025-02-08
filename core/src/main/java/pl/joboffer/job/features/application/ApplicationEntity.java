@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import pl.joboffer.job.enums.OfferStatus;
+import pl.joboffer.job.features.company.CompanyEntity;
 import pl.joboffer.job.features.offer.OfferEntity;
 import pl.joboffer.job.features.user.UserEntity;
 
@@ -30,5 +32,12 @@ public class ApplicationEntity {
   @JoinColumn(name = "offer_id", nullable = false)
   private OfferEntity offer;
 
+  @ManyToOne
+  @JoinColumn(name = "company_id", nullable = false)
+  private CompanyEntity company;
+
   private LocalDateTime applicationDate;
+  @Enumerated(EnumType.STRING)
+  @Column(name = "status", nullable = false)
+  private OfferStatus status;
 }

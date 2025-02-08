@@ -24,8 +24,8 @@ export class MyApplicationsComponent implements OnInit{
       const page = event ? Math.floor(event.first / event.rows) : 0;
       const size = event ? event.rows : this.rows;
       const userId = Number(localStorage.getItem('idUser')) || null;
-
-      this.applicationService.readMyApplications(userId,page, size).subscribe((response: Page<Application>) => {
+      const userRole = localStorage.getItem("role");
+      this.applicationService.readMyApplications(userRole,userId,page, size).subscribe((response: Page<Application>) => {
         this.applications = response.content;
         this.totalRecords = response.totalElements;
         this.totalPages = response.totalPages;

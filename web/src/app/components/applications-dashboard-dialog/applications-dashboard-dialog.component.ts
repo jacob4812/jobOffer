@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Status } from 'src/app/models/status';
 
 @Component({
   selector: 'application-dialog',
@@ -7,14 +8,14 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./applications-dashboard-dialog.component.scss']
 })
 export class DashboardApplicationsDialogComponent {
-  newStatus: string;
-
+  newStatus: string[] = [];
+  status = Object.values(Status);
   constructor(
     public dialogRef: MatDialogRef<DashboardApplicationsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { currentStatus: string }
   ) {
     dialogRef.disableClose = true;
-    this.newStatus = data.currentStatus;
+    this.newStatus = data.currentStatus ? [data.currentStatus] : [];
   }
 
   onSave(): void {

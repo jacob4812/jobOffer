@@ -69,7 +69,7 @@ export class DashboardJobListComponent implements OnInit {
   readJobOffers(event?: PaginatorState) {
     const page = event ? Math.floor(event.first / event.rows) : 0;
     const size = event ? event.rows : this.rows;
-    const userId = Number(localStorage.getItem('idUser')) || null;
+    const userId = Number(localStorage.getItem('companyId')) || null;
 
     this.companyService.readCompanyJobOffers(userId,page, size).subscribe((response: Page<JobOffer>) => {
       this.jobOffers = response.content;

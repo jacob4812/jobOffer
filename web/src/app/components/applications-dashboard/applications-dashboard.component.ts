@@ -19,7 +19,6 @@ export class DashboardApplicationsComponent implements OnInit {
   totalRecords = 0;
   totalPages = 0;
 
-
   sortColumn: keyof CompanyApplication = 'name';
   sortDirection: 'asc' | 'desc' = 'asc';
   constructor(public dialog: MatDialog,private comapnyApplicationService:CompanyApplicationService) { }
@@ -64,9 +63,9 @@ export class DashboardApplicationsComponent implements OnInit {
   getCompanyApplications(event?: PaginatorState){
     const page = event ? Math.floor(event.first / event.rows) : 0;
     const size = event ? event.rows : this.rows;
-    const userId = Number(localStorage.getItem('idUser')) || null;
-
-    this.comapnyApplicationService.readCompanyApplications(userId,page, size).subscribe((response: Page<CompanyApplication>) => {
+    const userId = Number(localStorage.getItem('companyId')) || null;
+    const userRole = localStorage.getItem('role');
+    this.comapnyApplicationService.readCompanyApplications(userRole,userId,page, size).subscribe((response: Page<CompanyApplication>) => {
       this.applications = response.content;
       this.totalRecords = response.totalElements;
       this.totalPages = response.totalPages;
