@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ApplicationRepository extends JpaRepository<ApplicationEntity, Long> {
   Page<ApplicationEntity> findByUserId(Long userId, PageRequest pageRequest);
+
+  Page<ApplicationEntity> findByCompanyId(Long companyId, PageRequest pageRequest);
 }

@@ -11,8 +11,8 @@ export class ApplicationService {
 private readonly applicationUrl = 'applications';
   constructor(private restService: RestService) { }
 
-  readMyApplications(userId: number,page: number = 0, size: number = 10): Observable<Page<Application>>{
-    const url = `${this.applicationUrl}/user/${userId}?page=${page}&size=${size}`;
+  readMyApplications(role:string,userId: number,page: number = 0, size: number = 10): Observable<Page<Application>>{
+    const url = `${this.applicationUrl}/${role}/${userId}?page=${page}&size=${size}`;
     return this.restService.getPageable<Page<Application>>(url);
   }
   applyForJob(applicationRequest:ApplicationRequest):Observable<Application>{

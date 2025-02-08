@@ -59,7 +59,7 @@ public class SecurityConfiguration {
                     .permitAll()
                     .requestMatchers("/api/applications")
                     .permitAll()
-                    .requestMatchers("/api/applications/user/{userId}")
+                    .requestMatchers("/api/applications/{role}/{id}")
                     .permitAll()
                     .requestMatchers("/api/offer/*")
                     .permitAll()

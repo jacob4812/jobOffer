@@ -29,12 +29,15 @@ export class ApplyJobComponent {
     this.dialogRef.close(this.data);
   }
   applyForJob(){
-
+     const userId = Number(localStorage.getItem("idUser"));
     this.applicationRequest = {
-      userId: this.data.company.id,
-      offerId: this.data.id
+      userId: userId,
+      offerId: this.data.id,
+      companyId: this.data.company.id
     };
-      console.log(this.data.id)
+      console.log("offer "+this.data.id)
+      console.log("company "+this.data.company.id)
+      console.log("userid "+ userId)
     // Send the application request to the backend
     this.applicationService.applyForJob(this.applicationRequest).subscribe({
       next: (response: any) => {

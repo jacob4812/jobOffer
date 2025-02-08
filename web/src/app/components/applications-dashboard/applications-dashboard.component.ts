@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DashboardApplicationsDialogComponent } from '../applications-dashboard-dialog/applications-dashboard-dialog.component';
 import { CompanyApplicationService } from 'src/services/application/comapny-application.service';
 import { Page } from 'src/app/models/page.model';
-import {PaginatorState} from "primeng/paginator";
+import { PaginatorState } from "primeng/paginator";
 import { CompanyApplication } from 'src/app/models/company-application.model';
 
 
@@ -14,18 +14,23 @@ import { CompanyApplication } from 'src/app/models/company-application.model';
 })
 export class DashboardApplicationsComponent implements OnInit {
   applications: CompanyApplication[] = [];
+  offerStatuses = [
+    { label: 'In Progress', value: 'In Progress' },
+    { label: 'Approved', value: 'Approved' },
+    { label: 'Rejected', value: 'Rejected' }
+  ];
   first = 0;
   rows = 10;
   totalRecords = 0;
   totalPages = 0;
 
-
   sortColumn: keyof CompanyApplication = 'name';
   sortDirection: 'asc' | 'desc' = 'asc';
-  constructor(public dialog: MatDialog,private comapnyApplicationService:CompanyApplicationService) { }
+
+  constructor(public dialog: MatDialog, private companyApplicationService: CompanyApplicationService) { }
+
   ngOnInit(): void {
     this.getCompanyApplications();
-
   }
 
   get sortedApplications() {
@@ -52,21 +57,35 @@ export class DashboardApplicationsComponent implements OnInit {
   openStatusDialog(application: CompanyApplication): void {
     const dialogRef = this.dialog.open(DashboardApplicationsDialogComponent, {
       width: '250px',
-      data: { currentStatus: application.status }
+      height:'400px',
+      data: { currentStatus: application.status, statusOptions: this.offerStatuses }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
         application.status = result;
+        this.updateApplicationStatus(application.id, result);
       }
     });
   }
-  getCompanyApplications(event?: PaginatorState){
+  
+  updateApplicationStatus(applicationId: number, newStatus: string): void {
+    this.companyApplicationService.updateApplicationStatus(applicationId, newStatus).subscribe(
+      response => {
+        
+      },
+      error => {
+        console.error('Error updating status', error);
+      }
+    );
+  }
+
+  getCompanyApplications(event?: PaginatorState) {
     const page = event ? Math.floor(event.first / event.rows) : 0;
     const size = event ? event.rows : this.rows;
-    const userId = Number(localStorage.getItem('idUser')) || null;
-
-    this.comapnyApplicationService.readCompanyApplications(userId,page, size).subscribe((response: Page<CompanyApplication>) => {
+    const userId = Number(localStorage.getItem('companyId')) || null;
+    const userRole = localStorage.getItem('role');
+    this.companyApplicationService.readCompanyApplications(userRole, userId, page, size).subscribe((response: Page<CompanyApplication>) => {
       this.applications = response.content;
       this.totalRecords = response.totalElements;
       this.totalPages = response.totalPages;

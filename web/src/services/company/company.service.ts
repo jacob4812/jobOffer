@@ -17,8 +17,8 @@ export class CompanyService {
     const url = `${this.companyUrl}/readCompanyJobOffers/${userId}?page=${page}&size=${size}`;
     return this.restService.getPageable<Page<JobOffer>>(url);
   }
-  readCompanyData(userId: number): Observable<Company>{
-  const url = `${this.companyUrl}/readCompanyData/${userId}`;
+  readCompanyData(companyId: number): Observable<Company>{
+  const url = `${this.companyUrl}/readCompanyData/${companyId}`;
   return this.restService.get(url);
   }
   updateCompanyData(companyDataUpdate: Company):Observable<Company>{

@@ -1,9 +1,13 @@
 <h1 mat-dialog-title>Edit Status</h1>
 <div mat-dialog-content>
-  <mat-form-field>
-    <mat-label>Status</mat-label>
-    <input matInput [(ngModel)]="newStatus">
-  </mat-form-field>
+  <p-dropdown 
+    [options]="statusOptions" 
+    [(ngModel)]="newStatus" 
+    name="offerStatus"
+    optionLabel="label"
+    optionValue="value"
+    placeholder="Select status"
+    class="full-width"/>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancel()">Cancel</button>

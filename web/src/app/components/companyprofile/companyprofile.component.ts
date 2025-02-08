@@ -70,7 +70,7 @@ export class CompanyProfileComponent implements OnInit {
     });
   }
   readCompanyData(): void {
-    const userId = Number(localStorage.getItem('idUser')) || null;
+    const userId = Number(localStorage.getItem('companyId')) || null;
     const email = localStorage.getItem('email') || null;
     if (userId) {
       this.companyService.readCompanyData(userId).subscribe({
