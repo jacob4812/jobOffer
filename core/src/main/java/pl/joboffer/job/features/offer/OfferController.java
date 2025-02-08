@@ -1,6 +1,8 @@
 package pl.joboffer.job.features.offer;
 
 import jakarta.validation.constraints.NotNull;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -13,9 +15,6 @@ import pl.joboffer.job.dto.offer.Offer;
 import pl.joboffer.job.enums.OfferExperience;
 import pl.joboffer.job.enums.OfferPosition;
 import pl.joboffer.job.enums.OfferTechnology;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/offer")
@@ -63,14 +62,15 @@ public class OfferController {
 
   @GetMapping("/filter/experience")
   public ResponseEntity<Page<Offer>> filterJobOffersByExperience(
-          @RequestParam(value = "experiences", required = false) List<String> experienceStrList,
-          @RequestParam(defaultValue = "0") int page,
-          @RequestParam(defaultValue = "10") int size) {
+      @RequestParam(value = "experiences", required = false) List<String> experienceStrList,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size) {
     List<OfferExperience> experiences = null;
 
     if (experienceStrList != null && !experienceStrList.isEmpty()) {
       try {
-        experiences = experienceStrList.stream()
+        experiences =
+            experienceStrList.stream()
                 .map(e -> OfferExperience.valueOf(e.toUpperCase()))
                 .collect(Collectors.toList());
       } catch (IllegalArgumentException e) {
@@ -82,16 +82,18 @@ public class OfferController {
     Page<Offer> filteredOffers = offerService.filterJobOffers(experiences, pageRequest);
     return ResponseEntity.ok(filteredOffers);
   }
+
   @GetMapping("/filter/technology")
   public ResponseEntity<Page<Offer>> filterJobOffersByTechnology(
-          @RequestParam(value = "technologies", required = false) List<String> technologyStrList,
-          @RequestParam(defaultValue = "0") int page,
-          @RequestParam(defaultValue = "10") int size) {
+      @RequestParam(value = "technologies", required = false) List<String> technologyStrList,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size) {
     List<OfferTechnology> technologies = null;
 
     if (technologyStrList != null && !technologyStrList.isEmpty()) {
       try {
-        technologies = technologyStrList.stream()
+        technologies =
+            technologyStrList.stream()
                 .map(e -> OfferTechnology.valueOf(e.toUpperCase()))
                 .collect(Collectors.toList());
       } catch (IllegalArgumentException e) {
@@ -100,19 +102,22 @@ public class OfferController {
     }
 
     PageRequest pageRequest = PageRequest.of(page, size);
-    Page<Offer> filteredOffers = offerService.filterJobOffersByTechnology(technologies, pageRequest);
+    Page<Offer> filteredOffers =
+        offerService.filterJobOffersByTechnology(technologies, pageRequest);
     return ResponseEntity.ok(filteredOffers);
   }
+
   @GetMapping("/filter/position")
   public ResponseEntity<Page<Offer>> filterJobOffersByPosition(
-          @RequestParam(value = "positions", required = false) List<String> positionStrList,
-          @RequestParam(defaultValue = "0") int page,
-          @RequestParam(defaultValue = "10") int size) {
+      @RequestParam(value = "positions", required = false) List<String> positionStrList,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size) {
     List<OfferPosition> positions = null;
 
     if (positionStrList != null && !positionStrList.isEmpty()) {
       try {
-        positions = positionStrList.stream()
+        positions =
+            positionStrList.stream()
                 .map(e -> OfferPosition.valueOf(e.toUpperCase()))
                 .collect(Collectors.toList());
       } catch (IllegalArgumentException e) {
@@ -124,6 +129,4 @@ public class OfferController {
     Page<Offer> filteredOffers = offerService.filterJobOffersByPosition(positions, pageRequest);
     return ResponseEntity.ok(filteredOffers);
   }
-
-
 }

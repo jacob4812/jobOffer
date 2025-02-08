@@ -42,9 +42,6 @@ export class JobSearchComponent {
     const experienceFilter = this.searchForm.get('experience').value;
     const technologyFilter = this.searchForm.get('technologies').value;
     const positionFilter = this.searchForm.get('position').value;
-    console.log("job search "+ experienceFilter);
-    console.log(technologyFilter);
-    console.log("job search "+positionFilter);
     this.searchService.updateExperienceFilter(experienceFilter);
     this.searchService.updateTechnologyFilter(technologyFilter);
     this.searchService.updatePositionFilter(positionFilter);
@@ -61,8 +58,7 @@ export class JobSearchComponent {
       if (selectedPosition) {
         this.searchForm.get('position').setValue(selectedPosition);
         this.onFilterChange(); 
-        console.log("experience " + selectedPosition);
-        console.log(selectedPosition);
+       
       }
     });
   }
@@ -78,8 +74,7 @@ export class JobSearchComponent {
       if (selectedTechnologies) {
         this.searchForm.get('technologies').setValue(selectedTechnologies);
         this.onFilterChange();
-        console.log("experience " + selectedTechnologies);
-        console.log(selectedTechnologies);
+        
       }
     });
   }
@@ -96,8 +91,7 @@ export class JobSearchComponent {
       if (selectedExperience) {
         this.searchForm.get('experience').setValue(selectedExperience);
         this.onFilterChange(); 
-        console.log("experience " + selectedExperience);
-        console.log(selectedExperience);
+       
       }
     });
   }

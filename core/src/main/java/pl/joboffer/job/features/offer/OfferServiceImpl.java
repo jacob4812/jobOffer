@@ -3,9 +3,7 @@ package pl.joboffer.job.features.offer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
-
 import java.util.List;
-
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
@@ -95,7 +93,8 @@ public class OfferServiceImpl implements OfferService {
   }
 
   @Override
-  public Page<Offer> filterJobOffers(List<OfferExperience> offerExperiences, PageRequest pageRequest) {
+  public Page<Offer> filterJobOffers(
+      List<OfferExperience> offerExperiences, PageRequest pageRequest) {
     if (offerExperiences == null || offerExperiences.isEmpty()) {
 
       Page<OfferEntity> offerPage = offerRepository.findAll(pageRequest);
@@ -103,13 +102,15 @@ public class OfferServiceImpl implements OfferService {
       return new PageImpl<>(offers, pageRequest, offerPage.getTotalElements());
     }
 
-    Page<OfferEntity> offerPage = offerRepository.findByOfferExperience(offerExperiences, pageRequest);
+    Page<OfferEntity> offerPage =
+        offerRepository.findByOfferExperience(offerExperiences, pageRequest);
     List<Offer> offers = offerMapper.mapListEntityToDto(offerPage.getContent());
     return new PageImpl<>(offers, pageRequest, offerPage.getTotalElements());
   }
 
   @Override
-  public Page<Offer> filterJobOffersByPosition(List<OfferPosition> offerPositions, PageRequest pageRequest) {
+  public Page<Offer> filterJobOffersByPosition(
+      List<OfferPosition> offerPositions, PageRequest pageRequest) {
     if (offerPositions == null || offerPositions.isEmpty()) {
 
       Page<OfferEntity> offerPage = offerRepository.findAll(pageRequest);
@@ -123,7 +124,8 @@ public class OfferServiceImpl implements OfferService {
   }
 
   @Override
-  public Page<Offer> filterJobOffersByTechnology(List<OfferTechnology> offerTechnologies, PageRequest pageRequest) {
+  public Page<Offer> filterJobOffersByTechnology(
+      List<OfferTechnology> offerTechnologies, PageRequest pageRequest) {
     if (offerTechnologies == null || offerTechnologies.isEmpty()) {
 
       Page<OfferEntity> offerPage = offerRepository.findAll(pageRequest);
@@ -131,11 +133,11 @@ public class OfferServiceImpl implements OfferService {
       return new PageImpl<>(offers, pageRequest, offerPage.getTotalElements());
     }
 
-    Page<OfferEntity> offerPage = offerRepository.findByOfferTechnology(offerTechnologies, pageRequest);
+    Page<OfferEntity> offerPage =
+        offerRepository.findByOfferTechnology(offerTechnologies, pageRequest);
     List<Offer> offers = offerMapper.mapListEntityToDto(offerPage.getContent());
     return new PageImpl<>(offers, pageRequest, offerPage.getTotalElements());
   }
-
 
   @Override
   @Transactional

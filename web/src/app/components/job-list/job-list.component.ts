@@ -51,7 +51,7 @@ export class JobListComponent implements OnInit {
 
     this.searchService.experienceFilter$.subscribe(experienceFilter => {
       this.experienceFilter = experienceFilter;
-      console.log("job list experience "+experienceFilter);
+     
       this.applyFilters();
     });
     this.searchService.technologyFilter$.subscribe(technologyFilter => {
@@ -60,7 +60,7 @@ export class JobListComponent implements OnInit {
     });
     this.searchService.positionFilter$.subscribe(positionFilter => {
       this.positionFilter = positionFilter;
-      console.log("job list "+positionFilter);
+      
       this.applyFilters();
     });
   }
