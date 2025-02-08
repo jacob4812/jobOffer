@@ -1,7 +1,12 @@
 package pl.joboffer.job.dto.offer;
 
 import java.time.LocalDate;
+import java.util.List;
+import javax.validation.constraints.NotNull;
 import pl.joboffer.job.dto.company.CompanyDetails;
+import pl.joboffer.job.enums.OfferExperience;
+import pl.joboffer.job.enums.OfferPosition;
+import pl.joboffer.job.enums.OfferTechnology;
 
 public record Offer(
     Long id,
@@ -11,4 +16,7 @@ public record Offer(
     double salary,
     LocalDate expirationDate,
     String description,
-    CompanyDetails company) {}
+    CompanyDetails company,
+    @NotNull List<OfferExperience> offerExperience,
+    @NotNull List<OfferPosition> offerPosition,
+    @NotNull List<OfferTechnology> offerTechnology) {}

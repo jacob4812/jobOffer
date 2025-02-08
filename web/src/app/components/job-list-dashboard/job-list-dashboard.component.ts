@@ -52,7 +52,6 @@ export class DashboardJobListComponent implements OnInit {
     this.dialog.open(DashboardJobDetailDialogComponent, {
       data: offer
     });
-    console.log(offer);
   }
   deleteJobOffer(offerId: number): void {
 

@@ -1,11 +1,14 @@
 package pl.joboffer.job.features.offer
 
-
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import pl.joboffer.job.dto.company.CompanyDetails
 import pl.joboffer.job.dto.offer.Offer
+import pl.joboffer.job.enums.OfferExperience
+import pl.joboffer.job.enums.OfferPosition
+import pl.joboffer.job.enums.OfferTechnology
 import pl.joboffer.job.enums.UserRole
+import pl.joboffer.job.features.company.CompanyEntity
 import pl.joboffer.job.features.company.CompanyMapper
 import spock.lang.Specification
 
@@ -21,15 +24,10 @@ class OfferServiceImplTest extends Specification {
     def "powinno zwrocic wszystkie oferty pracy"() {
         given: "Lista ofert i zapytanie paginowane"
         def pageRequest = PageRequest.of(0, 5)
-        def offerEntityList = [new OfferEntity(id: 1L, title: "Java Developer")]
-        def company = new CompanyDetails(1L,
-                "company",
-                524524,
-                UserRole.COMPANY, 123)
-        def offerList = [new Offer(1L, "Java Developer",
-                "location", "b2b", 212.00,
-                LocalDate.of(2025, 02, 28),
-                "desc", company)]
+        def offerEntityList = [new OfferEntity(id: 1L, title: "Java Developer", company: new CompanyEntity(id: 1L))]
+        def company = new CompanyDetails(1L, "company", 524524, UserRole.COMPANY, 123)
+        def offerList = [new Offer(1L, "Java Developer", "location", "b2b", 212.00,
+                LocalDate.of(2025, 02, 28), "desc", company, [OfferExperience.MID], [OfferPosition.FRONTEND], [OfferTechnology.ANGULAR])]
         def page = new PageImpl<>(offerEntityList, pageRequest, offerEntityList.size())
 
         offerRepository.findAll(pageRequest) >> page
@@ -45,13 +43,10 @@ class OfferServiceImplTest extends Specification {
 
     def "powinno dodac nowa oferte pracy"() {
         given: "Oferta do zapisania"
-        def company = new CompanyDetails(1L, "company",
-                524524, UserRole.COMPANY, 123)
-        def offerDto = new Offer(1L, "Java Developer",
-                "location", "b2b", 212.00,
-                LocalDate.of(2025, 02, 28),
-                "desc", company)
-        def offerEntity = new OfferEntity(id: 1L, title: "Java Developer")
+        def company = new CompanyDetails(1L, "company", 524524, UserRole.COMPANY, 123)
+        def offerDto = new Offer(1L, "Java Developer", "location", "b2b", 212.00,
+                LocalDate.of(2025, 02, 28), "desc", company, [OfferExperience.MID], [OfferPosition.FRONTEND], [OfferTechnology.ANGULAR])
+        def offerEntity = new OfferEntity(id: 1L, title: "Java Developer", company: new CompanyEntity(id: 1L))
 
         offerMapper.mapDtoToEntity(offerDto) >> offerEntity
         offerRepository.save(offerEntity) >> offerEntity
@@ -66,13 +61,9 @@ class OfferServiceImplTest extends Specification {
 
     def "powinno rzucic wyjatek gdy oferta do edycji nie ma ID"() {
         given: "Oferta bez ID"
-        def company = new CompanyDetails(1L,
-                "company", 524524,
-                UserRole.COMPANY, 123)
-        def offerDto = new Offer(null, "Java Developer",
-                "location", "b2b", 212.00,
-                LocalDate.of(2025, 02, 28),
-                "desc", company)
+        def company = new CompanyDetails(1L, "company", 524524, UserRole.COMPANY, 123)
+        def offerDto = new Offer(null, "Java Developer", "location", "b2b", 212.00,
+                LocalDate.of(2025, 02, 28), "desc", company, [OfferExperience.MID], [OfferPosition.FRONTEND], [OfferTechnology.ANGULAR])
 
         when: "Próbujemy edytować ofertę"
         offerService.editJobOffer(offerDto)
@@ -83,19 +74,13 @@ class OfferServiceImplTest extends Specification {
 
     def "powinno edytowac oferte pracy"() {
         given: "Istniejąca oferta do edycji"
-        def company = new CompanyDetails(1L,
-                "company", 524524,
-                UserRole.COMPANY, 123)
-        def offerDto = new Offer(1L, "Java Developer",
-                "location", "b2b", 212.00,
-                LocalDate.of(2025, 02, 28),
-                "desc", company)
+        def company = new CompanyDetails(1L, "company", 524524, UserRole.COMPANY, 123)
+        def offerDto = new Offer(1L, "Java Developer", "location", "b2b", 212.00,
+                LocalDate.of(2025, 02, 28), "desc", company, [OfferExperience.MID], [OfferPosition.FRONTEND], [OfferTechnology.ANGULAR])
         def offerEntity = offerMapper.mapDtoToEntity(offerDto)
 
-        def offerToEdit = new Offer(1L, "Senior Java Developer",
-                "location", "b2b", 212.00,
-                LocalDate.of(2025, 02, 28),
-                "desc", company)
+        def offerToEdit = new Offer(1L, "Senior Java Developer", "location", "b2b", 212.00,
+                LocalDate.of(2025, 02, 28), "desc", company, [OfferExperience.SENIOR], [OfferPosition.BACKEND], [OfferTechnology.TYPESCRIPT])
 
         offerRepository.save(offerEntity) >> offerEntity
 
@@ -110,13 +95,10 @@ class OfferServiceImplTest extends Specification {
     def "powinno znalezc oferty po ID firmy"() {
         given: "Oferty dla danego ID firmy"
         def pageRequest = PageRequest.of(0, 5)
-        def offerEntityList = [new OfferEntity(id: 1L, title: "Java Developer")]
-        def company = new CompanyDetails(1L, "company",
-                524524, UserRole.COMPANY, 123)
-        def offerList = [new Offer(1L, "Java Developer",
-                "location", "b2b", 212.00,
-                LocalDate.of(2025, 02, 28),
-                "desc", company)]
+        def offerEntityList = [new OfferEntity(id: 1L, title: "Java Developer", company: new CompanyEntity(id: 1L))]
+        def company = new CompanyDetails(1L, "company", 524524, UserRole.COMPANY, 123)
+        def offerList = [new Offer(1L, "Java Developer", "location", "b2b", 212.00,
+                LocalDate.of(2025, 02, 28), "desc", company, [OfferExperience.MID], [OfferPosition.FRONTEND], [OfferTechnology.ANGULAR])]
         def page = new PageImpl<>(offerEntityList, pageRequest, offerEntityList.size())
 
         offerRepository.findOfferByCompanyId(1L, pageRequest) >> page
@@ -132,12 +114,9 @@ class OfferServiceImplTest extends Specification {
 
     def "powinno usunac oferte pracy"() {
         given: "Oferta do usunięcia"
-        def company = new CompanyDetails(1L, "company",
-                524524, UserRole.COMPANY, 123)
-        def offerDto = new Offer(1L, "Java Developer", "location",
-                "b2b", 212.00,
-                LocalDate.of(2025, 02, 28),
-                "desc", company)
+        def company = new CompanyDetails(1L, "company", 524524, UserRole.COMPANY, 123)
+        def offerDto = new Offer(1L, "Java Developer", "location", "b2b", 212.00,
+                LocalDate.of(2025, 02, 28), "desc", company, [OfferExperience.MID], [OfferPosition.FRONTEND], [OfferTechnology.ANGULAR])
 
         def offerEntity = offerMapper.mapDtoToEntity(offerDto)
 

@@ -7,6 +7,9 @@ import { CategoryDialogComponent } from '../category-dialog/category-dialog.comp
 import { TechnologyDialogComponent } from '../technology-dialog/technology-dialog.component';
 import { ExperienceDialogComponent } from '../experience-dialog/experience-dialog.component';
 import { Company } from 'src/app/models/company.model';
+import { Experience } from 'src/app/models/experience';
+import { Technology } from 'src/app/models/technology';
+import { Position } from 'src/app/models/position';
 
 @Component({
   selector: 'app-job-detail-dialog-dashboard',
@@ -16,7 +19,9 @@ import { Company } from 'src/app/models/company.model';
 export class DashboardJobDetailDialogComponent {
   editForm: FormGroup;
   company: Company;
-  
+   experienceOptions: { label: string ,value: string }[] = [];
+   technologyOptions: { label: string ,value: string }[] = [];
+   positionOptions: { label: string ,value: string }[] = [];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
@@ -24,6 +29,18 @@ export class DashboardJobDetailDialogComponent {
     private offerService: OfferService,
     
   ) {
+    this.experienceOptions = Object.keys(Experience).map(key => ({
+      label: key,
+      value: Experience[key as keyof typeof Experience]
+    }));
+    this.technologyOptions = Object.keys(Technology).map(key => ({
+      label: key,
+      value: Technology[key as keyof typeof Technology]
+    }));
+    this.positionOptions = Object.keys(Position).map(key => ({
+      label: key,
+      value: Position[key as keyof typeof Position]
+    }));
     this.editForm = this.fb.group({
       id: [data.id],
       company:[data.company],
@@ -33,23 +50,22 @@ export class DashboardJobDetailDialogComponent {
       salary: [data.salary || '', [Validators.required, Validators.pattern('^[><0-9\\s]*(PLN|Zł)?$')]],
       expirationDate: [data.expirationDate || ''],
       description: [data.description || ''],
-//       category: [data.category || ''],
-//       technologies: [data.technologies || ''],
-//       experience: [data.experience || '']
+      offerExperience: [data.offerExperience || []],
+      offerTechnology: [data.offerTechnology || []],
+      offerPosition: [data.offerPosition]
     });
   }
 
   onSubmit() {
     if (this.editForm.valid) {
       const updatedJob = this.editForm.value;
-
-      console.log('Zaktualizowane dane oferty:', updatedJob);
-
+      
+      
       this.offerService.editJobOffer(updatedJob).subscribe({
         next: (updatedOffer) => {
-          console.log('Oferta zaktualizowana:', updatedOffer);
+          
           alert('Oferta została zaktualizowana!');
-          this.dialog.closeAll();  // Zamykamy dialog po zapisaniu
+          this.dialog.closeAll();  
         },
         error: (err) => {
           console.error('Błąd podczas edycji oferty:', err);
@@ -57,47 +73,5 @@ export class DashboardJobDetailDialogComponent {
         }
       });
     }
-  }
-
-  openCategoryDialog() {
-    const dialogRef = this.dialog.open(CategoryDialogComponent, {
-      data: { selectedCategory: this.editForm.get('category').value || [] },
-      width: '100vw',
-      height: '100vh',
-    });
-
-    dialogRef.afterClosed().subscribe(selectedCategory => {
-      if (selectedCategory) {
-        this.editForm.get('category').setValue(selectedCategory);
-      }
-    });
-  }
-
-  openTechnologyDialog() {
-    const dialogRef = this.dialog.open(TechnologyDialogComponent, {
-      data: { selectedTechnologies: this.editForm.get('technologies').value },
-      width: '100vw',
-      height: '100vh',
-    });
-
-    dialogRef.afterClosed().subscribe(selectedTechnologies => {
-      if (selectedTechnologies) {
-        this.editForm.get('technologies').setValue(selectedTechnologies);
-      }
-    });
-  }
-
-  openExperienceDialog() {
-    const dialogRef = this.dialog.open(ExperienceDialogComponent, {
-      data: { selectedExperience: this.editForm.get('experience').value },
-      width: '100vw',
-      height: '100vh',
-    });
-
-    dialogRef.afterClosed().subscribe(selectedExperience => {
-      if (selectedExperience) {
-        this.editForm.get('experience').setValue(selectedExperience);
-      }
-    });
   }
 }

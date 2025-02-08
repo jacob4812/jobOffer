@@ -20,6 +20,38 @@
       <mat-label>Wynagrodzenie</mat-label>
       <input matInput formControlName="salary" required />
     </mat-form-field>
+    <p-multiSelect 
+    [options]="experienceOptions"
+    formControlName="offerExperience"
+    optionLabel="label" 
+    optionValue="value"
+    placeholder="Select Experience"
+    [showToggleAll]="false" 
+    class="full-width"
+    required="true">
+    </p-multiSelect>
+
+    <p-multiSelect 
+    [options]="technologyOptions"
+    formControlName="offerTechnology"
+    optionLabel="label" 
+    optionValue="value"
+    placeholder="Select technology"
+    [showToggleAll]="false" 
+    class="full-width"
+    required="true">
+    </p-multiSelect>
+
+    <p-multiSelect 
+    [options]="positionOptions"
+    formControlName="offerPosition"
+    optionLabel="label" 
+    optionValue="value"
+    placeholder="Select position"
+    [showToggleAll]="false" 
+    class="full-width"
+    required="true">
+    </p-multiSelect>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Opis</mat-label>

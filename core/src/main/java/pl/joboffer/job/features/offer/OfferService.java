@@ -1,9 +1,13 @@
 package pl.joboffer.job.features.offer;
 
+import java.util.List;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import pl.joboffer.job.dto.offer.Offer;
+import pl.joboffer.job.enums.OfferExperience;
+import pl.joboffer.job.enums.OfferPosition;
+import pl.joboffer.job.enums.OfferTechnology;
 
 public interface OfferService {
   @NotNull
@@ -23,4 +27,11 @@ public interface OfferService {
 
   Page<Offer> searchJobOffers(
       String description, String location, Double salary, PageRequest pageRequest);
+
+  Page<Offer> filterJobOffers(List<OfferExperience> offerExperience, PageRequest pageRequest);
+
+  Page<Offer> filterJobOffersByPosition(List<OfferPosition> offerPosition, PageRequest pageRequest);
+
+  Page<Offer> filterJobOffersByTechnology(
+      List<OfferTechnology> offerTechnology, PageRequest pageRequest);
 }

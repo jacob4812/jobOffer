@@ -150,6 +150,15 @@ databaseChangeLog:
                   type: text
                   constraints:
                     nullable: false
+              - column:
+                  name: offer_experience
+                  type: varchar[]
+              - column:
+                  name: offer_position
+                  type: varchar[]
+              - column:
+                  name: offer_technology
+                  type: varchar[]
         - addForeignKeyConstraint:
             baseTableName: offer
             baseColumnNames: company_id

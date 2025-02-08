@@ -1,30 +1,18 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { SearchService } from 'src/services/searchService/search.service';
 
 @Component({
   selector: 'app-experience-dialog',
-  template: `
-    <h2>Poziom Doświadczenia</h2>
-    <mat-list>
-      <mat-list-item *ngFor="let level of experienceLevels">
-        <mat-checkbox [checked]="data.selectedExperienceLevels.includes(level)"
-                      (change)="toggleSelection(level, $event.checked)">
-          {{ level }}
-        </mat-checkbox>
-      </mat-list-item>
-    </mat-list>
-    <button mat-button (click)="close()">Zatwierdź</button>
-  `,
+  templateUrl:'./experience-dialog.component.html',
   styles: ['mat-list { overflow: auto; }']
 })
 export class ExperienceDialogComponent {
-  experienceLevels = [
-    'Junior', 'Mid', 'Senior', 'Expert', 'C-level'
-  ];
+  experienceLevels = ['Intern', 'Junior', 'Mid', 'Senior', 'Expert'];
 
   constructor(
     public dialogRef: MatDialogRef<ExperienceDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { selectedExperienceLevels: string[] }
+    @Inject(MAT_DIALOG_DATA) public data: { selectedExperienceLevels: string[] },private searchService: SearchService
   ) {
     dialogRef.disableClose = true;
     if (!this.data.selectedExperienceLevels) {
@@ -44,6 +32,7 @@ export class ExperienceDialogComponent {
   }
 
   close() {
-    this.dialogRef.close(this.data.selectedExperienceLevels);
+    
+    this.dialogRef.close(this.data.selectedExperienceLevels); 
   }
 }

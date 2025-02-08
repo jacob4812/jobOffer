@@ -11,6 +11,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.joboffer.job.dto.offer.Offer;
+import pl.joboffer.job.enums.OfferExperience;
+import pl.joboffer.job.enums.OfferPosition;
+import pl.joboffer.job.enums.OfferTechnology;
 
 @Service
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -35,6 +38,9 @@ public class OfferServiceImpl implements OfferService {
   @Transactional
   public OfferEntity addJobOffer(Offer offer) {
     var savedOfferEntity = offerMapper.mapDtoToEntity(offer);
+    if (offer.offerExperience() == null || offer.offerExperience().isEmpty()) {
+      throw new IllegalArgumentException("Offer experience cannot be null or empty");
+    }
     System.out.println(offer);
     System.out.println(savedOfferEntity);
     try {
@@ -87,8 +93,58 @@ public class OfferServiceImpl implements OfferService {
   }
 
   @Override
+  public Page<Offer> filterJobOffers(
+      List<OfferExperience> offerExperiences, PageRequest pageRequest) {
+    if (offerExperiences == null || offerExperiences.isEmpty()) {
+
+      Page<OfferEntity> offerPage = offerRepository.findAll(pageRequest);
+      List<Offer> offers = offerMapper.mapListEntityToDto(offerPage.getContent());
+      return new PageImpl<>(offers, pageRequest, offerPage.getTotalElements());
+    }
+
+    Page<OfferEntity> offerPage =
+        offerRepository.findByOfferExperience(offerExperiences, pageRequest);
+    List<Offer> offers = offerMapper.mapListEntityToDto(offerPage.getContent());
+    return new PageImpl<>(offers, pageRequest, offerPage.getTotalElements());
+  }
+
+  @Override
+  public Page<Offer> filterJobOffersByPosition(
+      List<OfferPosition> offerPositions, PageRequest pageRequest) {
+    if (offerPositions == null || offerPositions.isEmpty()) {
+
+      Page<OfferEntity> offerPage = offerRepository.findAll(pageRequest);
+      List<Offer> offers = offerMapper.mapListEntityToDto(offerPage.getContent());
+      return new PageImpl<>(offers, pageRequest, offerPage.getTotalElements());
+    }
+
+    Page<OfferEntity> offerPage = offerRepository.findByOfferPosition(offerPositions, pageRequest);
+    List<Offer> offers = offerMapper.mapListEntityToDto(offerPage.getContent());
+    return new PageImpl<>(offers, pageRequest, offerPage.getTotalElements());
+  }
+
+  @Override
+  public Page<Offer> filterJobOffersByTechnology(
+      List<OfferTechnology> offerTechnologies, PageRequest pageRequest) {
+    if (offerTechnologies == null || offerTechnologies.isEmpty()) {
+
+      Page<OfferEntity> offerPage = offerRepository.findAll(pageRequest);
+      List<Offer> offers = offerMapper.mapListEntityToDto(offerPage.getContent());
+      return new PageImpl<>(offers, pageRequest, offerPage.getTotalElements());
+    }
+
+    Page<OfferEntity> offerPage =
+        offerRepository.findByOfferTechnology(offerTechnologies, pageRequest);
+    List<Offer> offers = offerMapper.mapListEntityToDto(offerPage.getContent());
+    return new PageImpl<>(offers, pageRequest, offerPage.getTotalElements());
+  }
+
+  @Override
   @Transactional
   public OfferEntity editJobOffer(Offer offer) {
+    if (offer.offerExperience() == null || offer.offerExperience().isEmpty()) {
+      throw new IllegalArgumentException("Offer experience cannot be null or empty");
+    }
     if (offer.id() == null) {
       throw new RuntimeException("Brak id dla wskazanej oferty");
     }

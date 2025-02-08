@@ -27,6 +27,42 @@
       <input matInput [(ngModel)]="data.salary" name="salary" required>
     </mat-form-field>
 
+    <p-multiSelect 
+    [options]="experienceOptions"
+    [(ngModel)]="data.offerExperience" 
+    name="offerExperience" 
+    optionLabel="label" 
+    optionValue="value"
+    placeholder="Select Experience"
+    [showToggleAll]="false" 
+    class="full-width"
+    required="true">
+    </p-multiSelect>
+
+    <p-multiSelect 
+    [options]="technologyOptions"
+    [(ngModel)]="data.offerTechnology" 
+    name="offerTechnology" 
+    optionLabel="label" 
+    optionValue="value"
+    placeholder="Select technology"
+    [showToggleAll]="false" 
+    class="full-width"
+    required="true">
+    </p-multiSelect>
+
+    <p-multiSelect 
+    [options]="positionOptions"
+    [(ngModel)]="data.offerPosition" 
+    name="offerPosition" 
+    optionLabel="label" 
+    optionValue="value"
+    placeholder="Select position"
+    [showToggleAll]="false" 
+    class="full-width"
+    required="true">
+    </p-multiSelect>
+
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Data wygaśnięcia</mat-label>
       <input matInput [(ngModel)]="data.expirationDate" name="expirationDate" required type="date">

@@ -1,9 +1,12 @@
 <h2 mat-dialog-title>{{ data.title }}</h2>
 <mat-dialog-content>
-    <p><strong>Firma:</strong> {{ data.company }}</p>
+    <p><strong>Firma:</strong> {{ data.company.companyName }}</p>
+    <p><strong>Stanowisko:</strong> {{ data.offerPosition }}</p>
     <p><strong>Lokalizacja:</strong> {{ data.location }}</p>
     <p><strong>Typ kontraktu:</strong> {{ data.contractType }}</p>
     <p><strong>Wynagrodzenie:</strong> {{ data.salary }}</p>
+    <p><strong>Doświadczenie:</strong> {{ data.offerExperience }}</p>
+    <p><strong>Technologie:</strong> {{ data.offerTechnology }}</p>
     <p>{{ data.description }}</p>
 </mat-dialog-content>
 <mat-dialog-actions>
