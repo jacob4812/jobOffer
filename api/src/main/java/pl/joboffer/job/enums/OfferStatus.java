@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum OfferStatus {
   ACTIVE_STATUS("active"),
   NOT_ACTIVE_STATUS("notActive"),
-  IN_PROGRESS("In Progress");
+  IN_PROGRESS("In Progress"),
+  APPROVED("Approved"),
+  REJECTED("Rejected");
 
   private final String status;
 

@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Status } from 'src/app/models/status';
+
 
 @Component({
   selector: 'application-dialog',
@@ -8,20 +8,34 @@ import { Status } from 'src/app/models/status';
   styleUrls: ['./applications-dashboard-dialog.component.scss']
 })
 export class DashboardApplicationsDialogComponent {
-  newStatus: string[] = [];
-  status = Object.values(Status);
+  newStatus: string = '';  // Zmieniamy typ na string
+  statusOptions: { label: string, value: string }[] = [];
+
   constructor(
     public dialogRef: MatDialogRef<DashboardApplicationsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { currentStatus: string }
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    dialogRef.disableClose = true;
-    this.newStatus = data.currentStatus ? [data.currentStatus] : [];
+    this.newStatus = data.currentStatus; 
+    this.statusOptions = data.statusOptions;
   }
 
   onSave(): void {
-    this.dialogRef.close(this.newStatus);
+    const formattedStatus = this.formatStatus(this.newStatus);  
+    this.dialogRef.close(formattedStatus);
   }
-
+  formatStatus(status: string): string {
+    switch (status) {
+      case 'In Progress':
+        return 'IN_PROGRESS';
+      case 'Approved':
+        return 'APPROVED';
+      case 'Rejected':
+        return 'REJECTED';
+     
+      default:
+        return status; 
+    }
+  }
   onCancel(): void {
     this.dialogRef.close();
   }

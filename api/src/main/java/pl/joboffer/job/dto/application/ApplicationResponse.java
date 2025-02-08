@@ -1,10 +1,10 @@
 package pl.joboffer.job.dto.application;
 
+import java.time.LocalDateTime;
 import pl.joboffer.job.enums.OfferStatus;
 
-import java.time.LocalDateTime;
-
 public record ApplicationResponse(
+    Long id,
     String companyName,
     String position,
     String location,

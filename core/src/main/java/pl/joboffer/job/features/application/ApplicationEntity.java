@@ -37,6 +37,7 @@ public class ApplicationEntity {
   private CompanyEntity company;
 
   private LocalDateTime applicationDate;
+
   @Enumerated(EnumType.STRING)
   @Column(name = "status", nullable = false)
   private OfferStatus status;

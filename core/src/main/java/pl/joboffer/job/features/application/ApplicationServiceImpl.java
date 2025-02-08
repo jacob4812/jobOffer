@@ -1,5 +1,7 @@
 package pl.joboffer.job.features.application;
 
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,9 +51,9 @@ public class ApplicationServiceImpl implements ApplicationService {
             .findById(request.offerId())
             .orElseThrow(() -> new RuntimeException("Offer not found"));
     CompanyEntity company =
-            companyRepository
-                    .findById(request.companyId())
-                    .orElseThrow(() -> new RuntimeException("Company not found"));
+        companyRepository
+            .findById(request.companyId())
+            .orElseThrow(() -> new RuntimeException("Company not found"));
 
     ApplicationEntity application = new ApplicationEntity();
     application.setUser(user);
@@ -63,28 +65,9 @@ public class ApplicationServiceImpl implements ApplicationService {
     applicationRepository.save(application);
   }
 
-//  @Override
-//  public Page<ApplicationResponse> getApplicationsByUserId(Long userId, PageRequest pageRequest) {
-//    Page<ApplicationEntity> applications = applicationRepository.findByUserId(userId, pageRequest);
-//
-//    List<ApplicationResponse> applicationResponses =
-//        applications.getContent().stream()
-//            .map(
-//                app ->
-//                    new ApplicationResponse(
-//                        app.getOffer().getCompany().getCompanyName(),
-//                        app.getOffer().getTitle(),
-//                        app.getOffer().getLocation(),
-//                        app.getUser().getEmail(),
-//                        app.getUser().getLogin(),
-//                        app.getApplicationDate(),
-//                        "In Progress"))
-//            .collect(Collectors.toList());
-//
-//    return new PageImpl<>(applicationResponses, pageRequest, applications.getTotalElements());
-//  }
   @Override
-  public Page<ApplicationResponse> getApplicationsByType(Long id, UserRole type, PageRequest pageRequest) {
+  public Page<ApplicationResponse> getApplicationsByType(
+      Long id, UserRole type, PageRequest pageRequest) {
     Page<ApplicationEntity> applications;
 
     if (type == UserRole.COMPANY) {
@@ -96,19 +79,34 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     List<ApplicationResponse> applicationResponses =
-            applications.getContent().stream()
-                    .map(
-                            app ->
-                                    new ApplicationResponse(
-                                            app.getOffer().getCompany().getCompanyName(),
-                                            app.getOffer().getTitle(),
-                                            app.getOffer().getLocation(),
-                                            app.getUser().getEmail(),
-                                            app.getUser().getLogin(),
-                                            app.getApplicationDate(),
-                                            app.getStatus()))
-                    .collect(Collectors.toList());
+        applications.getContent().stream()
+            .map(
+                app ->
+                    new ApplicationResponse(
+                        app.getId(),
+                        app.getOffer().getCompany().getCompanyName(),
+                        app.getOffer().getTitle(),
+                        app.getOffer().getLocation(),
+                        app.getUser().getEmail(),
+                        app.getUser().getLogin(),
+                        app.getApplicationDate(),
+                        app.getStatus()))
+            .collect(Collectors.toList());
 
     return new PageImpl<>(applicationResponses, pageRequest, applications.getTotalElements());
+  }
+
+  @Transactional
+  @Override
+  public void updateApplicationStatus(Long applicationId, OfferStatus newStatus) {
+    ApplicationEntity application =
+        applicationRepository
+            .findById(applicationId)
+            .orElseThrow(
+                () ->
+                    new EntityNotFoundException("Application not found with ID: " + applicationId));
+
+    application.setStatus(newStatus);
+    applicationRepository.save(application);
   }
 }

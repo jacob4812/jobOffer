@@ -1,5 +1,6 @@
 export enum Status {
     IN_PROGRESS = 'In Progress',
-    INTEGRACJA = 'Integracja'
+    INTEGRACJA = 'Integracja',
+    PENDING = 'Pending'
   }
   

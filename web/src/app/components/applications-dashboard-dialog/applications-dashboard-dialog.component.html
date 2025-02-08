@@ -1,18 +1,13 @@
 <h1 mat-dialog-title>Edit Status</h1>
 <div mat-dialog-content>
-  
-      <p-multiSelect 
-    [options]="status"
+  <p-dropdown 
+    [options]="statusOptions" 
     [(ngModel)]="newStatus" 
-    name="offerStatus" 
-    optionLabel="label" 
+    name="offerStatus"
+    optionLabel="label"
     optionValue="value"
     placeholder="Select status"
-    [showToggleAll]="false" 
-    class="full-width"
-    >
-    </p-multiSelect>
-  
+    class="full-width"/>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancel()">Cancel</button>
