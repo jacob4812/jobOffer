@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum OfferTechnology {
     JAVASCRIPT("JavaScript"),
     TYPESCRIPT("TypeScript"),
-    JAVA("JAVA"),
+    JAVA("Java"),
     PYTHON("Python"),
     CSHARP("C#"),
     RUBY("Ruby"),

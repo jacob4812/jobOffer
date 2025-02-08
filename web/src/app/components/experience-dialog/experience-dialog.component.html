@@ -3,7 +3,7 @@
   <mat-list-item *ngFor="let level of experienceLevels">
     <mat-checkbox [checked]="data.selectedExperienceLevels.includes(level)"
                   (change)="toggleSelection(level, $event.checked)">
-                  {{ level.charAt(0).toUpperCase() + level.slice(1).toLowerCase() }}
+                  {{ level }}
     </mat-checkbox>
   </mat-list-item>
 </mat-list>

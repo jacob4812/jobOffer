@@ -13,6 +13,6 @@ export interface JobOffer {
   timeAgo: string;
   description: string;
   offerExperience: Experience[]; 
-  offerTechnologies: Technology[];
+  offerTechnology: Technology[];
   offerPosition: Position[];
 }

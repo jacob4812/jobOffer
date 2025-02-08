@@ -21,7 +21,7 @@ import { SearchService } from 'src/services/searchService/search.service';
 export class CategoryDialogComponent {
   positions = [
     'Administracja', 'Analiza', 'Back-Office', 'Biznes Manager', 'Dane', 'Zarządzanie danymi',
-    'Projektowanie', 'DevOps', 'Testing', 'HR', 'BACKEND', 'Frontend', 
+    'Projektowanie', 'DevOps', 'Testing', 'HR', 'Backend', 'Frontend', 
     'Integracja', 'Fullstack', 'Operacje', 'Inne', 'Zarządzanie produktem', 'PM', 
     'Zarządzanie projektem', 'Rekrutacja', 'Bezpieczeństwo', 'Rozwój oprogramowania'
   ]; 

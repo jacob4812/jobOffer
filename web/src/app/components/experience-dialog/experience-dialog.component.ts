@@ -8,7 +8,7 @@ import { SearchService } from 'src/services/searchService/search.service';
   styles: ['mat-list { overflow: auto; }']
 })
 export class ExperienceDialogComponent {
-  experienceLevels = ['INTERN', 'JUNIOR', 'MID', 'SENIOR', 'EXPERT'];
+  experienceLevels = ['Intern', 'Junior', 'Mid', 'Senior', 'Expert'];
 
   constructor(
     public dialogRef: MatDialogRef<ExperienceDialogComponent>,

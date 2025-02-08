@@ -20,7 +20,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class TechnologyDialogComponent {
   technologies = [
-    'JavaScript', 'TypeScript', 'JAVA', 'Python', 'C#', 'Ruby', 'PHP', 'Go', 'Swift', 'Kotlin', 'C++', 'Rust', 'UX/UI', 'Angular', 'Spring', 'SQL', 'Linux'
+    'JavaScript', 'TypeScript', 'Java', 'Python', 'C#', 'Ruby', 'PHP', 'Go', 'Swift', 'Kotlin', 'C++', 'Rust', 'UX/UI', 'Angular', 'Spring', 'SQL', 'Linux'
   ];
   constructor(
     public dialogRef: MatDialogRef<TechnologyDialogComponent>,

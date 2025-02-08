@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum OfferExperience {
-    INTERN("INTERN"),
-    JUNIOR("JUNIOR"),
-    MID("MID"),
-    SENIOR("SENIOR"),
-    EXPERT("EXPERT");
+    INTERN("Intern"),
+    JUNIOR("Junior"),
+    MID("Mid"),
+    SENIOR("Senior"),
+    EXPERT("Expert");
 
     private final String experience;
 

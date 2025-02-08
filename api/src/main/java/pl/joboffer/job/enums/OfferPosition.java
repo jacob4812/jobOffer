@@ -12,7 +12,7 @@ public enum OfferPosition {
     PROJEKTOWANIE("Projektowanie"),
     DEVOPS("DevOps"),
     TESTING("TESTING"),
-    BACKEND("BACKEND"),
+    BACKEND("Backend"),
     FRONTEND("Frontend"),
     FULLSTACK("Fullstack"),
     PM("PM"),

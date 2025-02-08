@@ -4,3 +4,43 @@
   border: 1px solid #ddd;
   cursor: not-allowed;
 }
+
+.container {
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .col-12 {
+    display: flex;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-text {
+      flex-grow: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .d-flex.mt-3 {
+      margin-top: auto;
+    }
+  }
+}
+

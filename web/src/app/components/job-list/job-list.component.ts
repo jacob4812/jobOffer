@@ -10,13 +10,13 @@ import { SearchService } from 'src/services/searchService/search.service';
 @Component({
   selector: 'app-job-list',
   templateUrl: './job-list.component.html',
-  styles: []
+  styleUrls: ['./job-list.component.scss']
 })
 export class JobListComponent implements OnInit {
-  jobOffers: JobOffer[] = [];       
-  allOffers: JobOffer[] = [];       
-  filteredOffers: JobOffer[] = [];   
-  searchedOffers: JobOffer[] = [];   
+  jobOffers: JobOffer[] = [];
+  allOffers: JobOffer[] = [];
+  filteredOffers: JobOffer[] = [];
+  searchedOffers: JobOffer[] = [];
 
   first = 0;
   rows = 10;
@@ -36,29 +36,29 @@ export class JobListComponent implements OnInit {
   ngOnInit() {
     this.role = localStorage.getItem('role') || '';
 
-    
+
     this.readJobOffers();
 
-    
+
     this.searchService.searchCriteria$.subscribe(criteria => {
       this.searchCriteria = criteria;
-      this.applySearch(); 
+      this.applySearch();
     });
 
-   
+
     this.searchService.experienceFilter$.subscribe(experienceFilter => {
       this.experienceFilter = experienceFilter;
       console.log("job list experience "+experienceFilter);
-      this.applyFilters();  
+      this.applyFilters();
     });
     this.searchService.technologyFilter$.subscribe(technologyFilter => {
       this.technologyFilter = technologyFilter;
-      this.applyFilters();  
+      this.applyFilters();
     });
     this.searchService.positionFilter$.subscribe(positionFilter => {
       this.positionFilter = positionFilter;
       console.log("job list "+positionFilter);
-      this.applyFilters();  
+      this.applyFilters();
     });
   }
 
@@ -70,16 +70,16 @@ export class JobListComponent implements OnInit {
     this.dialog.open(ApplyJobComponent, { data: offer });
   }
 
-  
+
   readJobOffers() {
     this.offerService.readAllJobOffers(0, 1000).subscribe(response => {
       this.allOffers = response.content;
-      this.searchedOffers = [...this.allOffers];  
-      this.applyFilters();   
+      this.searchedOffers = [...this.allOffers];
+      this.applyFilters();
     });
   }
 
-  
+
   applySearch() {
     if (!this.searchCriteria) {
       this.searchedOffers = [...this.allOffers];
@@ -92,31 +92,33 @@ export class JobListComponent implements OnInit {
         (!this.searchCriteria.description || offer.description?.toLowerCase().includes(this.searchCriteria.description.toLowerCase()))
       );
     }
-    this.applyFilters();   
+    this.applyFilters();
   }
 
- 
+
   applyFilters() {
     this.filteredOffers = this.searchedOffers.filter(offer =>
-      (!this.experienceFilter || this.experienceFilter.length === 0 || this.experienceFilter.includes(offer.offerExperience ? offer.offerExperience.toString() : '')) &&
-      
-      (!this.positionFilter || this.positionFilter.length === 0 || this.positionFilter.includes(offer.offerPosition ? offer.offerPosition : ''))
+      (!this.experienceFilter || this.experienceFilter.length === 0 || this.experienceFilter.includes(offer.offerExperience.toString())) &&
+      (!this.positionFilter || this.positionFilter.length === 0 || this.positionFilter.includes(offer.offerPosition.toString())) &&
+      (!this.technologyFilter || this.technologyFilter.length === 0 || this.technologyFilter.includes(offer.offerTechnology.toString()))
     );
+    
+    
   
     this.totalRecords = this.filteredOffers.length;
     this.first = 0;
     this.paginateFilteredOffers();
   }
-  
 
- 
+
+
   paginateFilteredOffers() {
     const start = this.first;
     const end = start + this.rows;
     this.jobOffers = this.filteredOffers.slice(start, end);
   }
 
- 
+
   onPageChange(event: PaginatorState) {
     this.first = event.first;
     this.paginateFilteredOffers();
