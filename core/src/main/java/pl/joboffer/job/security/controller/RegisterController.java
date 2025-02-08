@@ -1,5 +1,6 @@
 package pl.joboffer.job.security.controller;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -31,14 +32,15 @@ public class RegisterController {
   @NotNull RegisterService registerService;
 
   @PostMapping("/signup")
-  public ResponseEntity<Void> registerUser(@RequestBody UserRegisterDetails userRegisterDetails) {
+  public ResponseEntity<Void> registerUser(
+      @Valid @RequestBody UserRegisterDetails userRegisterDetails) {
     registerService.signup(userRegisterDetails);
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
   @PostMapping("/company/signup")
   public ResponseEntity<Void> registerCompany(
-      @RequestBody CompanyRegisterDetails companyRegisterDetails) {
+      @Valid @RequestBody CompanyRegisterDetails companyRegisterDetails) {
     registerService.companySignup(companyRegisterDetails);
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
