@@ -19,7 +19,7 @@
                                 <span class="badge bg-secondary me-2">{{ offer.salary }}PLN</span>
                                 <span class="badge bg-secondary">{{ offer.timeAgo }}</span>
                             </div>
-                            <!-- <p class="card-text">{{ offer.technologies }}</p> -->
+                            <p class="card-text">{{ offer.offerTechnology }}</p>
                              <p class="card-text" [innerHTML]="offer.description" [ngClass]="{'truncated-text': isTextTruncated(offer)}"></p>
                             <div class="d-flex mt-3">
                                 <button class="btn btn-primary me-2" (click)="openJobDetailDialog(offer)">Edit</button>
