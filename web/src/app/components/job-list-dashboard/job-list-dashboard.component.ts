@@ -12,7 +12,7 @@ import { Company } from 'src/app/models/company.model';
 @Component({
   selector: 'app-job-list-dashboard',
   templateUrl: './job-list-dashboard.component.html',
-  styles: []
+  styleUrls: ['./job-list-dashboard.component.scss']
 })
 export class DashboardJobListComponent implements OnInit {
   jobOffers: JobOffer[] = [];

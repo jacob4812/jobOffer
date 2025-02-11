@@ -20,13 +20,12 @@ import { SearchService } from 'src/services/searchService/search.service';
 })
 export class CategoryDialogComponent {
   positions = [
-    'Administracja', 'Analiza', 'Back-Office', 'Biznes Manager', 'Dane', 'Zarządzanie danymi',
-    'Projektowanie', 'DevOps', 'Testing', 'HR', 'Backend', 'Frontend', 
-    'Integracja', 'Fullstack', 'Operacje', 'Inne', 'Zarządzanie produktem', 'PM', 
-    'Zarządzanie projektem', 'Rekrutacja', 'Bezpieczeństwo', 'Rozwój oprogramowania'
-  ]; 
-  
-  
+    'Administracja', 'Analiza', 'Back-Office', 'Biznes Manager', 'Dane',
+    'Projektowanie', 'DevOps', 'Testing', 'Backend', 'Frontend',
+    'Integracja', 'Fullstack', 'PM'
+  ];
+
+
 
   constructor(
     public dialogRef: MatDialogRef<CategoryDialogComponent>,
