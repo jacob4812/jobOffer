@@ -2,7 +2,7 @@ export enum Technology {
     JAVASCRIPT = 'JavaScript',
     TYPESCRIPT = 'TypeScript',
     JAVA = 'Java',
-    BOOTSTRAP = 'Bootstrap',
+    BOOTSTRAP = 'BootStrap',
     PYTHON = 'Python',
     CSHARP = 'C#',
     RUBY = 'Ruby',

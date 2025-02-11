@@ -32,7 +32,7 @@ export class ExperienceDialogComponent {
   }
 
   close() {
-    
-    this.dialogRef.close(this.data.selectedExperienceLevels); 
+
+    this.dialogRef.close(this.data.selectedExperienceLevels);
   }
 }

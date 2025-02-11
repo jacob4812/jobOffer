@@ -1,8 +1,8 @@
 export enum Experience {
-    INTERN = 'INTERN',
-    JUNIOR = 'JUNIOR',
-    MID = 'MID',
-    SENIOR = 'SENIOR',
-    EXPERT = 'EXPERT',
+    INTERN = 'Intern',
+    JUNIOR = 'Junior',
+    MID = 'Mid',
+    SENIOR = 'Senior',
+    EXPERT = 'Expert',
     
   }
