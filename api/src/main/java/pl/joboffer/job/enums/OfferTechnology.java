@@ -18,7 +18,7 @@ public enum OfferTechnology {
   RUST("Rust"),
   UX("UX/UI"),
   ANGULAR("Angular"),
-  SPRING("SPRING"),
+  SPRING("Spring"),
   SQL("SQL"),
   LINUX("Linux");
 
