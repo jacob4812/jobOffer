@@ -68,8 +68,8 @@
     placeholder="Select Experience"
     [showToggleAll]="false"
     autoWidth="false"
-    [style]="{'width': '100%', 'margin-bottom': '15px'}"
-    required #offerExperience="ngModel">
+    required #offerExperience="ngModel"
+    class="experience-multi-select">
     <div *ngIf="offerExperience.invalid && offerExperience.touched" class="text-danger">
       Pole jest wymagane.
     </div>

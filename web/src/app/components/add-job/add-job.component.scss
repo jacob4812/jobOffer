@@ -11,3 +11,15 @@
   .half-width {
     flex: 1;
   }
+  ::ng-deep .p-multiselect {
+    width: 100% !important;
+    margin-bottom: 15px !important;
+  }
+  
+  ::ng-deep .p-multiselect-label-container {
+    background-color: #e0e2ec; 
+    height: 2.5rem;
+  }
+  ::ng-deep .p-multiselect .p-multiselect-label.p-placeholder {
+    color: #44474e !important; 
+  }
