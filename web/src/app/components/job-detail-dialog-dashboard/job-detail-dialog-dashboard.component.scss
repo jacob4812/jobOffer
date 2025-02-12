@@ -11,3 +11,24 @@
      width: 100%;
      margin-top: 8px;
  }
+ ::ng-deep .p-multiselect {
+  width: 100% !important;
+  margin-bottom: 15px !important;
+}
+
+::ng-deep .p-multiselect-label-container {
+  background-color: #e0e2ec; 
+  height: 2.5rem;
+}
+::ng-deep .p-multiselect .p-multiselect-label.p-placeholder {
+  color: #44474e !important; 
+}
+.salary-container {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.half-width {
+  flex: 1;
+}

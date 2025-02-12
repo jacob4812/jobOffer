@@ -9,10 +9,10 @@ VALUES
 INSERT INTO company (id,company_name, nip, email, password, phone_number, user_role)
 VALUES
 (1,'Firma #1', 1234567894, 'firma1@example.com', crypt('Zaq1234@', gen_salt('bf')), 123456789, 'COMPANY'),
-(2,'Firma #2', 9876543215, 'firma2@example.com', crypt('Zaq1234', gen_salt('bf')), 987654321, 'COMPANY'),
-(3,'Firma #3', 9876543214, 'firma3@example.com', crypt('Zaq1234', gen_salt('bf')), 987654321, 'COMPANY'),
-(4,'Firma #4', 9876543213, 'firma4@example.com', crypt('Zaq1234', gen_salt('bf')), 987654321, 'COMPANY'),
-(5,'Firma #5', 9876543216, 'firma5@example.com', crypt('Zaq1234', gen_salt('bf')), 987654321, 'COMPANY');
+(2,'Firma #2', 9876543215, 'firma2@example.com', crypt('Zaq1234@', gen_salt('bf')), 987654321, 'COMPANY'),
+(3,'Firma #3', 9876543214, 'firma3@example.com', crypt('Zaq1234@', gen_salt('bf')), 987654321, 'COMPANY'),
+(4,'Firma #4', 9876543213, 'firma4@example.com', crypt('Zaq1234@', gen_salt('bf')), 987654321, 'COMPANY'),
+(5,'Firma #5', 9876543216, 'firma5@example.com', crypt('Zaq1234@', gen_salt('bf')), 987654321, 'COMPANY');
 
 INSERT INTO offer (company_id, title, location, contract_type, salary_min,salary_max, expiration_date, description, offer_experience, offer_position, offer_technology)
 VALUES
