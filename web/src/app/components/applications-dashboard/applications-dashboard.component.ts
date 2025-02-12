@@ -57,7 +57,7 @@ export class DashboardApplicationsComponent implements OnInit {
   openStatusDialog(application: CompanyApplication): void {
     const dialogRef = this.dialog.open(DashboardApplicationsDialogComponent, {
       width: '250px',
-      height:'400px',
+      height:'300px',
       data: { currentStatus: application.status, statusOptions: this.offerStatuses }
     });
 
@@ -68,11 +68,11 @@ export class DashboardApplicationsComponent implements OnInit {
       }
     });
   }
-  
+
   updateApplicationStatus(applicationId: number, newStatus: string): void {
     this.companyApplicationService.updateApplicationStatus(applicationId, newStatus).subscribe(
       response => {
-        
+
       },
       error => {
         console.error('Error updating status', error);

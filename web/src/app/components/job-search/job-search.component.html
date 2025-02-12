@@ -2,7 +2,7 @@
     <div class="text-start">
       <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="row g-3">
         <div class="col-md-3">
-          <input formControlName="title" type="text" class="form-control" placeholder="Stanowisko" />
+          <input formControlName="title" type="text" class="form-control" placeholder="Tytuł" />
         </div>
         <div class="col-md-2">
           <input formControlName="description" type="text" class="form-control" placeholder="Słowa kluczowe" />
@@ -17,15 +17,14 @@
           <button type="submit" class="btn btn-danger w-100">Szukaj</button>
         </div>
       </form>
-  
+
       <button type="button" class="btn btn-light mt-3" (click)="openCategoryDialog()">Stanowiska</button>
 
       <button type="button" class="btn btn-light mt-3 ms-2" (click)="openTechnologyDialog()">Technologie</button>
 
       <button type="button" class="btn btn-light mt-3 ms-2" (click)="openExperienceDialog()">Doświadczenie</button>
-     
+
       <button type="button"  class="btn btn-light mt-3 ms-1 pi pi-times" (click)="resetFilters()"></button>
 
     </div>
   </div>
-  

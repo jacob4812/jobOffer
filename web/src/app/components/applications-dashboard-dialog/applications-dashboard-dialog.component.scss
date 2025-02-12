@@ -1,11 +1,9 @@
-/* Dodaj to do styles.scss lub bezpośrednio w komponentach */
 .full-width {
     width: 100%;
-    max-width: 400px; /* Maksymalna szerokość, dopasuj w zależności od potrzeb */
+    max-width: 400px;
   }
-  
+
   mat-dialog-content {
-    max-height: 300px;  /* Jeśli chcesz ograniczyć wysokość, by lista nie wykraczała poza okno */
-    overflow-y: auto;   /* Dodanie przewijania w przypadku długiej listy */
+    max-height: 100px;
+    overflow-y: auto;
   }
-  
