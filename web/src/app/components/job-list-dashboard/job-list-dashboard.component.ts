@@ -8,6 +8,10 @@ import { Page } from "../../models/page.model";
 import { HttpErrorResponse } from '@angular/common/http';
 import { CompanyService } from 'src/services/company/company.service';
 import { Company } from 'src/app/models/company.model';
+import { SearchService } from 'src/services/searchService/search.service';
+import { Experience } from 'src/app/models/experience';
+import { Position } from 'src/app/models/position';
+import { Technology } from 'src/app/models/technology';
 
 @Component({
   selector: 'app-job-list-dashboard',
@@ -16,28 +20,54 @@ import { Company } from 'src/app/models/company.model';
 })
 export class DashboardJobListComponent implements OnInit {
   jobOffers: JobOffer[] = [];
+  allOffers: JobOffer[] = [];
+  filteredOffers: JobOffer[] = [];
+  searchedOffers: JobOffer[] = [];
   first = 0;
   rows = 10;
   totalRecords = 0;
   totalPages = 0;
   expandedDescriptions: Set<number> = new Set();
   company: Company[] =[];
-
+  searchCriteria: any = null;
+  experienceFilter: any = null;
+  technologyFilter: any = null;
+  positionFilter: any = null;
+  role: string = '';
   ngOnInit() {
+    this.role = localStorage.getItem('role') || '';
      this.readJobOffers();
+
+     this.searchService.searchCriteria$.subscribe(criteria => {
+      this.searchCriteria = criteria;
+      this.applySearch();
+    });
+    this.searchService.experienceFilter$.subscribe(experienceFilter => {
+      this.experienceFilter = experienceFilter;
+
+      this.applyFilters();
+    });
+    this.searchService.technologyFilter$.subscribe(technologyFilter => {
+      this.technologyFilter = technologyFilter;
+      this.applyFilters();
+    });
+    this.searchService.positionFilter$.subscribe(positionFilter => {
+      this.positionFilter = positionFilter;
+
+      this.applyFilters();
+    });
   }
 
   constructor(
     public dialog: MatDialog,
     private companyService: CompanyService,
-    private offerService: OfferService
+    private offerService: OfferService,
+    private searchService: SearchService
   ) { }
 
 
 
-  isTextTruncated(offer: JobOffer): boolean {
-    return !this.expandedDescriptions.has(offer.id);
-  }
+
 
 
   toggleDescription(offer: JobOffer): void {
@@ -71,26 +101,52 @@ export class DashboardJobListComponent implements OnInit {
     const size = event ? event.rows : this.rows;
     const userId = Number(localStorage.getItem('companyId')) || null;
 
-    this.companyService.readCompanyJobOffers(userId,page, size).subscribe((response: Page<JobOffer>) => {
-      this.jobOffers = response.content;
-      this.totalRecords = response.totalElements;
-      this.totalPages = response.totalPages;
-
-      if (page >= this.totalPages && this.totalPages > 0) {
-        this.first = (this.totalPages - 1) * this.rows;
-        this.readJobOffers({ first: this.first, rows: this.rows });
-      }
+    this.companyService.readCompanyJobOffers(userId,page, size).subscribe(response => {
+      this.allOffers = response.content;
+      this.searchedOffers = [...this.allOffers];
+      this.applyFilters();
     });
   }
-
-  onPageChange(event: PaginatorState) {
-    const requestedPage = Math.floor(event.first / event.rows);
-    if (requestedPage >= 0 && requestedPage < this.totalPages) {
-      this.readJobOffers(event);
+  applySearch() {
+    if (!this.searchCriteria) {
+      this.searchedOffers = [...this.allOffers];
     } else {
-      this.first = (this.totalPages - 1) * this.rows;
-      this.readJobOffers({ first: this.first, rows: this.rows });
+      this.searchedOffers = this.allOffers.filter(offer =>
+        (!this.searchCriteria.title || offer.title?.toLowerCase().includes(this.searchCriteria.title.toLowerCase())) &&
+        (!this.searchCriteria.location || offer.location?.toLowerCase().includes(this.searchCriteria.location.toLowerCase())) &&
+        (!this.searchCriteria.salaryMin || offer.salaryMin >= this.searchCriteria.salaryMin) &&
+        (!this.searchCriteria.company || this.searchCriteria.company.length === 0 || this.searchCriteria.company.includes(offer.company)) &&
+        (!this.searchCriteria.description || offer.description?.toLowerCase().includes(this.searchCriteria.description.toLowerCase()))
+      );
     }
+    this.applyFilters();
+  }
+   applyFilters() {
+      this.filteredOffers = this.searchedOffers.filter(offer =>
+
+        (!this.experienceFilter || this.experienceFilter.length === 0 || this.experienceFilter.some((exp: Experience) => offer.offerExperience.includes(exp))) &&
+
+
+        (!this.positionFilter || this.positionFilter.length === 0 || this.positionFilter.some((pos: Position) => offer.offerPosition.includes(pos))) &&
+
+
+        (!this.technologyFilter || this.technologyFilter.length === 0 || this.technologyFilter.some((tech: Technology) => offer.offerTechnology.includes(tech)))
+      );
+
+
+      this.totalRecords = this.filteredOffers.length;
+      this.first = 0;
+      this.paginateFilteredOffers();
+    }
+
+  paginateFilteredOffers() {
+    const start = this.first;
+    const end = start + this.rows;
+    this.jobOffers = this.filteredOffers.slice(start, end);
+  }
+  onPageChange(event: PaginatorState) {
+    this.first = event.first;
+    this.paginateFilteredOffers();
   }
 
 }

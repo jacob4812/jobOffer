@@ -10,7 +10,7 @@ export class JobOfferComponent {
   @Input() title!: string;
   @Input() location!: string;
   @Input() contractType!: string;
-  @Input() salary!: string;
+  @Input() salaryMin!: string;
   @Input() timeAgo!: string;
   @Input() description!: string;
   @Input() experience!: string; // Dodano pole doświadczenia

@@ -25,14 +25,26 @@
         Pole jest wymagane.
       </div>
     </mat-form-field>
-
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Wynagrodzenie</mat-label>
-      <input matInput formControlName="salary" (keypress)="validateNumberInput($event)" required  />
-      <div *ngIf="editForm.get('salary')?.invalid && editForm.get('salary')?.touched" class="text-danger">
+    <div class="salary-container">
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>Wynagrodzenie minimalne</mat-label>
+      <input matInput formControlName="salaryMin" (keypress)="validateNumberInput($event)" required  />
+      <div *ngIf="editForm.get('salaryMin')?.invalid && editForm.get('salaryMin')?.touched" class="text-danger">
         Pole jest wymagane.
       </div>
     </mat-form-field>
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>Wynagrodzenie maksymalne</mat-label>
+      <input matInput formControlName="salaryMax" (keypress)="validateNumberInput($event)" required  />
+      <div *ngIf="editForm.get('salaryMax')?.invalid && editForm.get('salaryMax')?.touched" class="text-danger">
+        Pole jest wymagane.
+      </div>
+    </mat-form-field>
+  </div>
+    <div *ngIf="data.salaryMin && data.salaryMax && data.salaryMin > data.salaryMax" class="text-danger">
+      Minimalne wynagrodzenie nie może być większe niż maksymalne.
+    </div>
+
     <p-multiSelect
     [options]="experienceOptions"
     formControlName="offerExperience"
@@ -41,9 +53,7 @@
     placeholder="Select Experience"
     [showToggleAll]="false"
     class="full-width"
-    required="true"
-    autoWidth="false"
-    [style]="{'width': '100%', 'margin-bottom': '15px'}">
+    required="true">
     <div *ngIf="editForm.get('offerExperience')?.invalid && editForm.get('offerExperience')?.touched" class="text-danger">
       Wybierz doświadczenie.
     </div>
@@ -57,9 +67,7 @@
     placeholder="Select technology"
     [showToggleAll]="false"
     class="full-width"
-    required="true"
-    autoWidth="false"
-    [style]="{'width': '100%', 'margin-bottom': '15px'}">
+    required="true">
     <div *ngIf="editForm.get('offerTechnology')?.invalid && editForm.get('offerTechnology')?.touched" class="text-danger">
       Wybierz technologie.
     </div>
@@ -73,13 +81,16 @@
     placeholder="Select position"
     [showToggleAll]="false"
     class="full-width"
-    required="true"
-    autoWidth="false"
-    [style]="{'width': '100%', 'margin-bottom': '15px'}">
+    required="true">
     <div *ngIf="editForm.get('offerPosition')?.invalid && editForm.get('offerPosition')?.touched" class="text-danger">
       Wybierz stanowisko.
     </div>
     </p-multiSelect>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Opis</mat-label>
+      <textarea matInput formControlName="description" rows="4"></textarea>
+    </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Data wygaśnięcia</mat-label>
@@ -87,11 +98,6 @@
       <div *ngIf="editForm.get('expirationDate')?.invalid && editForm.get('expirationDate')?.touched" class="text-danger">
         Pole jest wymagane.
       </div>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Opis</mat-label>
-      <textarea matInput formControlName="description" rows="4"></textarea>
     </mat-form-field>
 <!--    &lt;!&ndash; Przyciski do otwierania dialogów &ndash;&gt;-->
 <!--    <div class="d-flex mt-3">-->

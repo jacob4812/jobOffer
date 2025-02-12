@@ -41,8 +41,6 @@ public class OfferServiceImpl implements OfferService {
     if (offer.offerExperience() == null || offer.offerExperience().isEmpty()) {
       throw new IllegalArgumentException("Offer experience cannot be null or empty");
     }
-    System.out.println(offer);
-    System.out.println(savedOfferEntity);
     try {
       var savedEntity = offerRepository.save(savedOfferEntity);
     } catch (Exception e) {
@@ -60,29 +58,30 @@ public class OfferServiceImpl implements OfferService {
 
   @Override
   public Page<Offer> searchJobOffers(
-      String description, String location, Double salary, PageRequest pageRequest) {
+      String description, String location, Double salaryMin, PageRequest pageRequest) {
     Page<OfferEntity> offerPage;
 
-    if (salary == null) {
-      salary = 0.0;
+    if (salaryMin == null) {
+      salaryMin = 0.0;
     }
 
-    if (description != null && location != null && salary != 0.0) {
+    if (description != null && location != null && salaryMin != 0.0) {
       offerPage =
-          offerRepository.findByDescriptionAndLocationAndSalary(
-              description, location, salary, pageRequest);
+          offerRepository.findByDescriptionAndLocationAndSalaryMin(
+              description, location, salaryMin, pageRequest);
     } else if (description != null && location != null) {
       offerPage = offerRepository.findByDescriptionAndLocation(description, location, pageRequest);
-    } else if (description != null && salary != 0.0) {
-      offerPage = offerRepository.findByDescriptionAndSalary(description, salary, pageRequest);
-    } else if (location != null && salary != 0.0) {
-      offerPage = offerRepository.findByLocationAndSalary(location, salary, pageRequest);
+    } else if (description != null && salaryMin != 0.0) {
+      offerPage =
+          offerRepository.findByDescriptionAndSalaryMin(description, salaryMin, pageRequest);
+    } else if (location != null && salaryMin != 0.0) {
+      offerPage = offerRepository.findByLocationAndSalaryMin(location, salaryMin, pageRequest);
     } else if (description != null) {
       offerPage = offerRepository.findByDescription(description, pageRequest);
     } else if (location != null) {
       offerPage = offerRepository.findByLocation(location, pageRequest);
-    } else if (salary != 0.0) {
-      offerPage = offerRepository.findBySalaryGreaterThanEqual(salary, pageRequest);
+    } else if (salaryMin != 0.0) {
+      offerPage = offerRepository.findBySalaryMinGreaterThanEqual(salaryMin, pageRequest);
     } else {
       offerPage = offerRepository.findAll(pageRequest);
     }

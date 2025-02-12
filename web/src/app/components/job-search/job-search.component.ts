@@ -23,21 +23,21 @@ export class JobSearchComponent {
       title: [''],
       location: [''],
       position: [[]],
-      salary: [],
+      salaryMin: [],
       technologies: [[]],
       experience: [[]],
       description: []
     });
   }
 
-  
+
   onSearch() {
     const searchCriteria = this.searchForm.value;
     this.searchService.updateSearchCriteria(searchCriteria);
-    
+
   }
 
-  
+
   onFilterChange() {
     const experienceFilter = this.searchForm.get('experience').value;
     const technologyFilter = this.searchForm.get('technologies').value;
@@ -57,8 +57,8 @@ export class JobSearchComponent {
     dialogRef.afterClosed().subscribe(selectedPosition => {
       if (selectedPosition) {
         this.searchForm.get('position').setValue(selectedPosition);
-        this.onFilterChange(); 
-       
+        this.onFilterChange();
+
       }
     });
   }
@@ -74,7 +74,7 @@ export class JobSearchComponent {
       if (selectedTechnologies) {
         this.searchForm.get('technologies').setValue(selectedTechnologies);
         this.onFilterChange();
-        
+
       }
     });
   }
@@ -90,17 +90,17 @@ export class JobSearchComponent {
     dialogRef.afterClosed().subscribe(selectedExperience => {
       if (selectedExperience) {
         this.searchForm.get('experience').setValue(selectedExperience);
-        this.onFilterChange(); 
-       
+        this.onFilterChange();
+
       }
     });
   }
- 
+
   resetFilters() {
     this.searchForm.patchValue({
       title: '',
       location: '',
-      salary: null,
+      salaryMin: null,
       description: '',
       position: [],
       technologies: [],
@@ -111,8 +111,8 @@ export class JobSearchComponent {
     this.searchService.updatePositionFilter([]);
     this.searchService.updateTechnologyFilter([]);
     this.searchService.updateSearchCriteria(null);
-  
+
   }
 
-  
+
 }

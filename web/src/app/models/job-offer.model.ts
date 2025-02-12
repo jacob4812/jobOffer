@@ -9,10 +9,11 @@ export interface JobOffer {
   title: string;
   location: string;
   contractType: string;
-  salary: number;
+  salaryMin: number;
+  salaryMax:number;
   timeAgo: string;
   description: string;
-  offerExperience: Experience[]; 
+  offerExperience: Experience[];
   offerTechnology: Technology[];
   offerPosition: Position[];
 }

@@ -27,7 +27,7 @@ export class DashboardJobDetailDialogComponent {
     private fb: FormBuilder,
     private dialog: MatDialog,
     private offerService: OfferService,
-    
+
   ) {
     this.experienceOptions = Object.keys(Experience).map(key => ({
       label: key,
@@ -47,7 +47,8 @@ export class DashboardJobDetailDialogComponent {
       title: [data.title || '', Validators.required],
       location: [data.location || '', Validators.required],
       contractType: [data.contractType || '', Validators.required],
-      salary: [data.salary || '', [Validators.required, Validators.pattern('^[><0-9\\s]*(PLN|Zł)?$')]],
+      salaryMin: [data.salaryMin || '', [Validators.required, Validators.pattern('^[><0-9\\s]*(PLN|Zł)?$')]],
+      salaryMax: [data.salaryMax || '', [Validators.required, Validators.pattern('^[><0-9\\s]*(PLN|Zł)?$')]],
       expirationDate: [data.expirationDate || ''],
       description: [data.description || ''],
       offerExperience: [data.offerExperience || []],
@@ -59,13 +60,13 @@ export class DashboardJobDetailDialogComponent {
   onSubmit() {
     if (this.editForm.valid) {
       const updatedJob = this.editForm.value;
-      
-      
+
+
       this.offerService.editJobOffer(updatedJob).subscribe({
         next: (updatedOffer) => {
-          
+
           alert('Oferta została zaktualizowana!');
-          this.dialog.closeAll();  
+          this.dialog.closeAll();
         },
         error: (err) => {
           console.error('Błąd podczas edycji oferty:', err);
@@ -76,13 +77,13 @@ export class DashboardJobDetailDialogComponent {
   }
   validateNumberInput(event: KeyboardEvent): void {
     const input = event.target as HTMLInputElement;
-    
-    
+
+
     if (!/^\d$/.test(event.key)) {
       event.preventDefault();
     }
-  
-   
+
+
 
   }
 }

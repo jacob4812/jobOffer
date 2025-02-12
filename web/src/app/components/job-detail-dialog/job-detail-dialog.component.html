@@ -4,7 +4,12 @@
     <p><strong>Stanowisko:</strong> {{ data.offerPosition }}</p>
     <p><strong>Lokalizacja:</strong> {{ data.location }}</p>
     <p><strong>Typ kontraktu:</strong> {{ data.contractType }}</p>
-    <p><strong>Wynagrodzenie:</strong> {{ data.salary }}</p>
+    <p *ngIf="data.salaryMax; else onlyMin">
+        <strong>Widełki:</strong> {{ data.salaryMin }} - {{ data.salaryMax }} PLN
+      </p>
+      <ng-template #onlyMin>
+        <p><strong>Widełki:</strong> {{ data.salaryMin }} PLN</p>
+      </ng-template>
     <p><strong>Doświadczenie:</strong> {{ data.offerExperience }}</p>
     <p><strong>Technologie:</strong> {{ data.offerTechnology }}</p>
     <p>{{ data.description }}</p>

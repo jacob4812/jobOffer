@@ -9,23 +9,23 @@ import { RestService } from '../rest/rest.service';
 export class SearchService {
 
   constructor(private rest: RestService) { }
-  
+
   private searchCriteriaSubject = new BehaviorSubject<any>(null);
   searchCriteria$ = this.searchCriteriaSubject.asObservable();
-  
+
   private experienceFilterSubject = new BehaviorSubject<string[]>([]);
   experienceFilter$ = this.experienceFilterSubject.asObservable();
 
   private technologyFilterSubject = new BehaviorSubject<string[]>([]);
   technologyFilter$ = this.technologyFilterSubject.asObservable();
-  
+
   private positionFilterSubject = new BehaviorSubject<string[]>([]);
   positionFilter$ = this.positionFilterSubject.asObservable();
 
   updateSearchCriteria(criteria: any) {
     this.searchCriteriaSubject.next(criteria);
   }
- 
+
  updateExperienceFilter(selectedExperienceLevels: string[]) {
    this.experienceFilterSubject.next(selectedExperienceLevels);
  }
@@ -43,7 +43,7 @@ updatePositionFilter(selectedPositionsLevels: string[]) {
   searchJobOffers(searchData: any) {
     let url = 'offer/search?';
 
-    
+
      if (searchData.title) {
        url += `title=${searchData.title}&`;
      }
@@ -54,11 +54,11 @@ updatePositionFilter(selectedPositionsLevels: string[]) {
        url += `location=${searchData.location}&`;
      }
 
-     if (searchData.salary) {
-       url += `salary=${searchData.salary}&`;
+     if (searchData.salaryMin) {
+       url += `salaryMin=${searchData.salaryMin}&`;
      }
 
-     
+
      url = url.endsWith('&') ? url.slice(0, -1) : url;
 
      this.rest.get(url).subscribe(
@@ -71,24 +71,24 @@ updatePositionFilter(selectedPositionsLevels: string[]) {
      );
  }
  searchJobOffersWithFilters(selectedPositionsLevels: string[]) {
-  let url = 'offer/filter/position?'; 
-  
-  
+  let url = 'offer/filter/position?';
+
+
   if (selectedPositionsLevels && selectedPositionsLevels.length > 0) {
-    
+
     url += `positions=${selectedPositionsLevels.join(',')}&`;
   }
 
-  
+
   url = url.endsWith('&') ? url.slice(0, -1) : url;
 
-  
+
   this.rest.get(url).subscribe(
     (response: any) => {
-      console.log('Filtered job offers:', response); 
+      console.log('Filtered job offers:', response);
     },
     (error) => {
-      console.error('Error searching job offers:', error); 
+      console.error('Error searching job offers:', error);
     }
   );
 }
