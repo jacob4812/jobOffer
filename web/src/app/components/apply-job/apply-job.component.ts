@@ -11,6 +11,8 @@ import { ApplicationService } from 'src/services/application/application.service
 })
 export class ApplyJobComponent {
   applicationRequest: ApplicationRequest
+  cvUploaded = false;
+  cvTouched = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ApplyJobComponent>,
@@ -20,7 +22,10 @@ export class ApplyJobComponent {
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
-      // this.data.cv = file;
+      const validExtensions = ['pdf', 'doc', 'docx'];
+      const fileExtension = file.name.split('.').pop()?.toLowerCase();
+      this.cvUploaded = validExtensions.includes(fileExtension || '');
+      this.cvTouched = true;
     }
   }
 
@@ -49,5 +54,22 @@ export class ApplyJobComponent {
       }
     });
   }
+  
 
+  isFutureBirthDate(): boolean {
+    return this.data.birthDate && new Date(this.data.birthDate) > new Date();
+  }
+  validateNumberInput(event: KeyboardEvent, maxLength: number): void {
+    const input = event.target as HTMLInputElement;
+    
+    
+    if (!/^\d$/.test(event.key)) {
+      event.preventDefault();
+    }
+  
+    
+    if (input.value.length >= maxLength) {
+      event.preventDefault();
+    }
+  }
 }

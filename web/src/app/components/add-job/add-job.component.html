@@ -9,22 +9,34 @@
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Tytuł</mat-label>
-      <input matInput [(ngModel)]="data.title" name="title" required>
+      <input matInput [(ngModel)]="data.title" name="title" required #title="ngModel">
+      <div *ngIf="title.invalid && title.touched" class="text-danger">
+        Pole jest wymagane.
+      </div>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Lokalizacja</mat-label>
-      <input matInput [(ngModel)]="data.location" name="location" required>
+      <input matInput [(ngModel)]="data.location" name="location" required #location="ngModel">
+      <div *ngIf="location.invalid && location.touched" class="text-danger">
+        Pole jest wymagane.
+      </div> 
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Typ kontraktu</mat-label>
-      <input matInput [(ngModel)]="data.contractType" name="contractType" required>
+      <input matInput [(ngModel)]="data.contractType" name="contractType" required #contractType="ngModel">
+      <div *ngIf="contractType.invalid && contractType.touched" class="text-danger">
+        Pole jest wymagane.
+      </div>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Wynagrodzenie</mat-label>
-      <input matInput [(ngModel)]="data.salary" name="salary" required>
+      <input matInput [(ngModel)]="data.salary" name="salary" required (keypress)="validateNumberInput($event)" #salary="ngModel">
+      <div *ngIf="salary.invalid && salary.touched" class="text-danger">
+        Pole jest wymagane.
+      </div>
     </mat-form-field>
 
     <p-multiSelect 
@@ -36,7 +48,10 @@
     placeholder="Select Experience"
     [showToggleAll]="false" 
     class="full-width"
-    required="true">
+    required #offerExperience="ngModel">
+    <div *ngIf="offerExperience.invalid && offerExperience.touched" class="text-danger">
+      Pole jest wymagane.
+    </div>
     </p-multiSelect>
 
     <p-multiSelect 
@@ -48,7 +63,10 @@
     placeholder="Select technology"
     [showToggleAll]="false" 
     class="full-width"
-    required="true">
+    required #offerTechnology="ngModel">
+    <div *ngIf="offerTechnology.invalid && offerTechnology.touched" class="text-danger">
+      Pole jest wymagane.
+    </div>
     </p-multiSelect>
 
     <p-multiSelect 
@@ -60,12 +78,18 @@
     placeholder="Select position"
     [showToggleAll]="false" 
     class="full-width"
-    required="true">
+    required #offerPosition="ngModel">
+    <div *ngIf="offerPosition.invalid && offerPosition.touched" class="text-danger">
+      Pole jest wymagane.
+    </div>
     </p-multiSelect>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Data wygaśnięcia</mat-label>
-      <input matInput [(ngModel)]="data.expirationDate" name="expirationDate" required type="date">
+      <input matInput [(ngModel)]="data.expirationDate" name="expirationDate" required type="date" #expirationDate="ngModel">
+      <div *ngIf="expirationDate.invalid && expirationDate.touched" class="text-danger">
+        Pole jest wymagane.
+      </div>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">

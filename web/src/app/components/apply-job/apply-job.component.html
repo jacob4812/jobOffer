@@ -5,32 +5,57 @@
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Imię</mat-label>
-      <input matInput [(ngModel)]="data.firstName" name="firstName" required>
+      <input matInput [(ngModel)]="data.firstName" name="firstName"  required #firstName="ngModel">
+      <div *ngIf="firstName.invalid && firstName.touched" class="text-danger">
+        Pole jest wymagane.
+      </div>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Nazwisko</mat-label>
-      <input matInput [(ngModel)]="data.lastName" name="lastName" required>
+      <input matInput [(ngModel)]="data.lastName" name="lastName" required #lastName="ngModel">
+      <div *ngIf="lastName.invalid && lastName.touched" class="text-danger">
+        Pole jest wymagane.
+      </div>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Adres</mat-label>
-      <input matInput [(ngModel)]="data.address" name="address" required>
+      <input matInput [(ngModel)]="data.address" name="address" required #address="ngModel">
+      <div *ngIf="address.invalid && address.touched" class="text-danger">
+        Adres jest wymagany.
+      </div>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Data urodzenia</mat-label>
-      <input matInput [(ngModel)]="data.birthDate" name="birthDate" required type="date">
+      <input matInput [(ngModel)]="data.birthDate" name="birthDate" required type="date" #birthDate="ngModel">
+      <div *ngIf="birthDate.invalid && birthDate.touched" class="text-danger">
+        Data urodzenia jest wymagana.
+      </div>
+      <div *ngIf="isFutureBirthDate()" class="text-danger">
+        Data urodzenia nie może być w przyszłości.
+      </div>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Telefon</mat-label>
-      <input matInput [(ngModel)]="data.phone" name="phone" required>
+      <input matInput [(ngModel)]="data.phone" name="phone" required pattern="^[0-9]{9}$" inputmode="numeric"  (keypress)="validateNumberInput($event,9)" #phoneNumber="ngModel">
+      <div *ngIf="phoneNumber.touched && phoneNumber.invalid && !phoneNumber.value" class="text-danger">
+        Pole jest wymagane.
+      </div>
+      <div *ngIf="phoneNumber.value && phoneNumber.value.length > 0 && phoneNumber.value.length !== 9 && phoneNumber.touched" class="text-danger">
+        Jeśli podajesz numer telefonu, musi zawierać dokładnie 9 cyfr.
+      </div>
     </mat-form-field>
 
     <div class="file-upload-container">
-      <mat-label>Prześlij CV  </mat-label>
-      <input type="file" (change)="onFileChange($event)" accept=".pdf,.doc,.docx" name="cv">
+      <mat-label>Prześlij CV</mat-label>
+      <input type="file" (change)="onFileChange($event)" accept=".pdf,.doc,.docx" name="cv" required>
+    </div>
+    
+    <div *ngIf="!cvUploaded && cvTouched" class="text-danger">
+      CV jest wymagane i musi mieć format PDF, DOC lub DOCX.
     </div>
 
     <button mat-raised-button color="primary" type="submit" [disabled]="!addForm.valid">Zapisz</button>

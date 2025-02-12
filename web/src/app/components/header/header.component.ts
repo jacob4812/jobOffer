@@ -17,16 +17,14 @@ export class HeaderComponent implements OnInit {
     const role = localStorage.getItem('role');
      if (role === 'ADMIN' || role === 'EMPLOYEE') {
     this.items = [
-      { label: `Zalogowano:  ${this.email}`, icon: 'pi pi-info', url: 'http://angular.io' },
-      { separator: true },
-      { label: 'Dodaj CV' },
+      { label: `Zalogowano:  ${this.email}`, icon: 'pi pi-info' },
       { separator: true },
       { label: 'Mój profil', icon: 'pi pi-cog', routerLink: ['/myprofile'] }
     ];
   }
 else if(role === 'COMPANY'){
   this.items = [
-        { label: `Zalogowano:  ${this.email}`, icon: 'pi pi-info', url: 'http://angular.io' },
+        { label: `Zalogowano:  ${this.email}`, icon: 'pi pi-info' },
         { separator: true },
         { label: 'Dashboard', icon: 'pi pi-cog', routerLink: ['/dashboard'] }
       ];

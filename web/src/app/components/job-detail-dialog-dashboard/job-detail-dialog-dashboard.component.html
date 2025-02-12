@@ -4,21 +4,34 @@
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Stanowisko</mat-label>
       <input matInput formControlName="title" required />
+      <div *ngIf="editForm.get('title')?.invalid && editForm.get('title')?.touched" class="text-danger">
+        Pole jest wymagane.
+      </div>
+
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Lokalizacja</mat-label>
       <input matInput formControlName="location" required />
+      <div *ngIf="editForm.get('location')?.invalid && editForm.get('location')?.touched" class="text-danger">
+        Pole jest wymagane.
+      </div>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Typ kontraktu</mat-label>
       <input matInput formControlName="contractType" required />
+      <div *ngIf="editForm.get('contractType')?.invalid && editForm.get('contractType')?.touched" class="text-danger">
+        Pole jest wymagane.
+      </div>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Wynagrodzenie</mat-label>
-      <input matInput formControlName="salary" required />
+      <input matInput formControlName="salary" (keypress)="validateNumberInput($event)" required  />
+      <div *ngIf="editForm.get('salary')?.invalid && editForm.get('salary')?.touched" class="text-danger">
+        Pole jest wymagane.
+      </div>
     </mat-form-field>
     <p-multiSelect 
     [options]="experienceOptions"
@@ -29,6 +42,9 @@
     [showToggleAll]="false" 
     class="full-width"
     required="true">
+    <div *ngIf="editForm.get('offerExperience')?.invalid && editForm.get('offerExperience')?.touched" class="text-danger">
+      Wybierz doświadczenie.
+    </div>
     </p-multiSelect>
 
     <p-multiSelect 
@@ -40,6 +56,9 @@
     [showToggleAll]="false" 
     class="full-width"
     required="true">
+    <div *ngIf="editForm.get('offerTechnology')?.invalid && editForm.get('offerTechnology')?.touched" class="text-danger">
+      Wybierz technologie.
+    </div>
     </p-multiSelect>
 
     <p-multiSelect 
@@ -51,6 +70,9 @@
     [showToggleAll]="false" 
     class="full-width"
     required="true">
+    <div *ngIf="editForm.get('offerPosition')?.invalid && editForm.get('offerPosition')?.touched" class="text-danger">
+      Wybierz stanowisko.
+    </div>
     </p-multiSelect>
 
     <mat-form-field appearance="fill" class="full-width">
@@ -61,6 +83,9 @@
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Data wygaśnięcia</mat-label>
       <input matInput formControlName="expirationDate" required type="date">
+      <div *ngIf="editForm.get('expirationDate')?.invalid && editForm.get('expirationDate')?.touched" class="text-danger">
+        Pole jest wymagane.
+      </div>
     </mat-form-field>
 <!--    &lt;!&ndash; Przyciski do otwierania dialogów &ndash;&gt;-->
 <!--    <div class="d-flex mt-3">-->
