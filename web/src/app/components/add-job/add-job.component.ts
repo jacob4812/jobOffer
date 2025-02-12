@@ -40,4 +40,15 @@ export class AddJobComponent  {
     console.log(this.data)
     this.dialogRef.close(this.data);
   }
+  validateNumberInput(event: KeyboardEvent): void {
+    const input = event.target as HTMLInputElement;
+    
+    
+    if (!/^\d$/.test(event.key)) {
+      event.preventDefault();
+    }
+  
+   
+
+  }
 }

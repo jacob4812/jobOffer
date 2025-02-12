@@ -2,22 +2,31 @@
 <mat-dialog-content>
   <mat-form-field appearance="fill">
     <mat-label>Company Name</mat-label>
-    <input matInput [(ngModel)]="data.company.companyName" name="companyName">
+    <input matInput [(ngModel)]="data.company.companyName" name="companyName" required #companyName="ngModel">
+    <div *ngIf="companyName.invalid && companyName.touched" class="text-danger">
+      Nazwa firmy jest wymagana.
+    </div>
   </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>NIP</mat-label>
-    <input matInput [(ngModel)]="data.company.nip" name="nip" pattern="[0-9]*" inputmode="numeric">
+    <input matInput [(ngModel)]="data.company.nip" name="nip" pattern="[0-9]*" inputmode="numeric" required  (keypress)="validateNumberInput($event,10)" #nip="ngModel">
+    <div *ngIf="nip.value && nip.value.length>0 && nip.touched && nip.value.length !== 10" class="text-danger">
+      NIP musi zawierać dokładnie 10 cyfr.
+    </div>
   </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>Phone Number</mat-label>
-    <input matInput [(ngModel)]="data.company.phoneNumber" name="phoneNumber" pattern="[0-9]*" inputmode="numeric">
+    <input matInput [(ngModel)]="data.company.phoneNumber" name="phoneNumber" pattern="[0-9]*" inputmode="numeric"  (keypress)="validateNumberInput($event,9)" #phoneNumber="ngModel">
+    <div *ngIf="phoneNumber.value && phoneNumber.value.length > 0 && phoneNumber.value.length !== 9 && phoneNumber.touched" class="text-danger">
+      Jeśli podajesz numer telefonu, musi zawierać dokładnie 9 cyfr.
+    </div>
   </mat-form-field>
 
   
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button (click)="onSave()">Save</button>
+  <button mat-button [disabled]="companyName.invalid || nip.invalid || phoneNumber.invalid || nip.value?.length !== 10 || phoneNumber.value?.length !== 9"  (click)="onSave()">Save</button>
 </mat-dialog-actions>

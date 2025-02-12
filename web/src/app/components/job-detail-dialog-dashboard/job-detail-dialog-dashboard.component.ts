@@ -74,4 +74,15 @@ export class DashboardJobDetailDialogComponent {
       });
     }
   }
+  validateNumberInput(event: KeyboardEvent): void {
+    const input = event.target as HTMLInputElement;
+    
+    
+    if (!/^\d$/.test(event.key)) {
+      event.preventDefault();
+    }
+  
+   
+
+  }
 }

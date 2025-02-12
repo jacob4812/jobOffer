@@ -33,4 +33,17 @@ export class CompanyProfileDialogComponent {
       console.error('Error updating company data:', error);
   });
 }
+validateNumberInput(event: KeyboardEvent, maxLength: number): void {
+  const input = event.target as HTMLInputElement;
+  
+  
+  if (!/^\d$/.test(event.key)) {
+    event.preventDefault();
+  }
+
+  
+  if (input.value.length >= maxLength) {
+    event.preventDefault();
+  }
+}
 }
