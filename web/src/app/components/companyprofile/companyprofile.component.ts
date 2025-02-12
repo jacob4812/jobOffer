@@ -22,7 +22,7 @@ export class CompanyProfileComponent implements OnInit {
     private offerService: OfferService,
     private companyService: CompanyService
   ) {
-    
+
   }
 
   ngOnInit(): void {
@@ -43,7 +43,8 @@ export class CompanyProfileComponent implements OnInit {
   }
   openJobDialog(): void {
     const dialogRef = this.dialog.open(AddJobComponent, {
-      width: '400px',
+      width: '90%',
+      height: '75%',
       data: {
         company:this.company,
         title: '',
@@ -55,7 +56,7 @@ export class CompanyProfileComponent implements OnInit {
         offerExperience: [] as Experience[]
       }
     });
-    
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.offerService.addJobOffer(result).subscribe({

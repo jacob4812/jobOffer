@@ -2,3 +2,12 @@
   width: 100%;
   margin-bottom: 15px;
 }
+.custom-multiselect {
+     display: flex;
+     flex-direction: column;
+   }
+
+.custom-multiselect p-multiSelect {
+     width: 100%;
+     margin-top: 8px;
+ }

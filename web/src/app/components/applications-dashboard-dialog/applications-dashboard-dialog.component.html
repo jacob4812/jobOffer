@@ -1,13 +1,15 @@
 <h1 mat-dialog-title>Edit Status</h1>
 <div mat-dialog-content>
-  <p-dropdown 
-    [options]="statusOptions" 
-    [(ngModel)]="newStatus" 
+  <p-dropdown
+    [options]="statusOptions"
+    [(ngModel)]="newStatus"
     name="offerStatus"
     optionLabel="label"
     optionValue="value"
     placeholder="Select status"
-    class="full-width"/>
+    class="full-width"
+    autoWidth="false"
+    [style]="{'width': '100%', 'margin-bottom': '15px'}"/>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancel()">Cancel</button>
