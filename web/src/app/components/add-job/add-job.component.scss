@@ -2,3 +2,12 @@
     width: 100%;
     margin-bottom: 15px;
   }
+  .salary-container {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .half-width {
+    flex: 1;
+  }

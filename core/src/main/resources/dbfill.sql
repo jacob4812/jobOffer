@@ -14,9 +14,9 @@ VALUES
 (4,'Firma #4', 9876543213, 'firma4@example.com', crypt('Zaq1234', gen_salt('bf')), 987654321, 'COMPANY'),
 (5,'Firma #5', 9876543216, 'firma5@example.com', crypt('Zaq1234', gen_salt('bf')), 987654321, 'COMPANY');
 
-INSERT INTO offer (company_id, title, location, contract_type, salary, expiration_date, description, offer_experience, offer_position, offer_technology)
+INSERT INTO offer (company_id, title, location, contract_type, salary_min,salary_max, expiration_date, description, offer_experience, offer_position, offer_technology)
 VALUES
-    (1, 'Angular Developer', 'Warszawa', 'Kontrakt B2B', 50000.00, '2024-05-01',
+    (1, 'Angular Developer', 'Warszawa', 'Kontrakt B2B', 40000.00,50000.00, '2024-05-01',
         'About the Company: We are proud to be working with a leading provider of financial services, known for their innovative approach in helping businesses transform and grow. As a trusted partner, our client is committed to developing cutting-edge technologies to improve the overall customer experience while ensuring operational efficiency. The company has a strong focus on providing its employees with continuous growth opportunities and a work environment that fosters collaboration and creative problem-solving. Join our team and become part of a thriving global community.
 
         About the Role: As an Angular Developer, you will be instrumental in the modernization of our client\ Customer Relationship Management (CRM) system, which serves millions of customers worldwide. You will be working with a team of highly skilled professionals to develop high-quality, user-friendly Angular applications that improve business processes, enhance the customer experience, and provide a stable foundation for the company\ growth. This position offers a unique opportunity to be part of a strategic project that will significantly impact the financial services industry.
@@ -53,16 +53,16 @@ VALUES
         - Pluralsight subscription to help you keep growing your technical expertise with an extensive library of online courses.
         - Flexible working hours and the option to work remotely, enabling you to balance your personal and professional life effectively.',
         '{"MID", "SENIOR"}', '{"FRONTEND"}', '{"ANGULAR", "TYPESCRIPT", "BOOTSTRAP"}'),
-    (2, 'IT Specialist', 'Gniezno', 'Kontrakt B2B', 50000.00, '2024-04-30', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '{"MID"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
-    (5, 'Java Developer', 'Lublin', 'Umowa o pracę', 60000.00, '2024-04-30', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '{"MID", "SENIOR"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
-    (1, 'IT Specialist', 'Gniezno', 'Kontrakt B2B', 50000.00, '2024-04-30', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '{"MID"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
-    (4, 'Frontend Developer', 'Kraków', 'Kontrakt B2B', 55000.00, '2024-06-15', 'Looking for a skilled frontend developer with React experience.', '{"JUNIOR", "MID"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
-    (1, 'Backend Developer', 'Wrocław', 'Umowa o pracę', 65000.00, '2024-07-01', 'Seeking an experienced backend developer for our growing team.', '{"MID", "SENIOR"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
-    (2, 'Data Scientist', 'Warszawa', 'Kontrakt B2B', 70000.00, '2024-05-20', 'Join us as a data scientist to help analyze big data and drive business insights.', '{"MID", "SENIOR"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
-    (1, 'UX/UI Designer', 'Gdańsk', 'Umowa o pracę', 60000.00, '2024-05-25', 'We need a creative UX/UI designer to enhance user experience for our products.', '{"JUNIOR", "MID"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
-    (2, 'Product Manager', 'Poznań', 'Kontrakt B2B', 75000.00, '2024-06-01', 'Experienced product manager needed to lead product development and strategy.', '{"MID", "SENIOR"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
-    (1, 'System Administrator', 'Szczecin', 'Umowa o pracę', 50000.00, '2024-05-15', 'Responsible for maintaining and managing our IT infrastructure.', '{"MID"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
-    (3, 'Business Analyst', 'Katowice', 'Kontrakt B2B', 55000.00, '2024-07-10', 'Looking for a business analyst to work on project requirements and process improvements.', '{"MID"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
-    (1, 'Network Engineer', 'Bydgoszcz', 'Umowa o pracę', 58000.00, '2024-06-05', 'Join our team as a network engineer to manage and optimize network systems.', '{"MID"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
-    (4, 'Software Architect', 'Lublin', 'Kontrakt B2B', 80000.00, '2024-07-20', 'Seeking a software architect to design scalable and efficient software solutions.', '{"SENIOR"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
-    (1, 'Digital Marketer', 'Rzeszów', 'Umowa o pracę', 52000.00, '2024-06-30', 'Looking for a digital marketer to drive online marketing campaigns and strategies.', '{"JUNIOR", "MID"}','{"BACKEND"}','{"JAVA", "SPRING"}');
+    (2, 'IT Specialist', 'Gniezno', 'Kontrakt B2B', 40000.00,50000.00, '2024-04-30', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '{"MID"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
+    (5, 'Java Developer', 'Lublin', 'Umowa o pracę', 60000.00,70000.00, '2024-04-30', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '{"MID", "SENIOR"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
+    (1, 'IT Specialist', 'Gniezno', 'Kontrakt B2B', 50000.00,60000.00, '2024-04-30', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '{"MID"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
+    (4, 'Frontend Developer', 'Kraków', 'Kontrakt B2B', 55000.00,65000.00, '2024-06-15', 'Looking for a skilled frontend developer with React experience.', '{"JUNIOR", "MID"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
+    (1, 'Backend Developer', 'Wrocław', 'Umowa o pracę', 65000.00,75000.00, '2024-07-01', 'Seeking an experienced backend developer for our growing team.', '{"MID", "SENIOR"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
+    (2, 'Data Scientist', 'Warszawa', 'Kontrakt B2B', 70000.00,80000.00, '2024-05-20', 'Join us as a data scientist to help analyze big data and drive business insights.', '{"MID", "SENIOR"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
+    (1, 'UX/UI Designer', 'Gdańsk', 'Umowa o pracę', 60000.00,70000.00, '2024-05-25', 'We need a creative UX/UI designer to enhance user experience for our products.', '{"JUNIOR", "MID"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
+    (2, 'Product Manager', 'Poznań', 'Kontrakt B2B', 75000.00,85000.00, '2024-06-01', 'Experienced product manager needed to lead product development and strategy.', '{"MID", "SENIOR"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
+    (1, 'System Administrator', 'Szczecin', 'Umowa o pracę', 50000.00,70000.00, '2024-05-15', 'Responsible for maintaining and managing our IT infrastructure.', '{"MID"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
+    (3, 'Business Analyst', 'Katowice', 'Kontrakt B2B', 55000.00,65000.00, '2024-07-10', 'Looking for a business analyst to work on project requirements and process improvements.', '{"MID"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
+    (1, 'Network Engineer', 'Bydgoszcz', 'Umowa o pracę', 58000.00, 68000.00, '2024-06-05', 'Join our team as a network engineer to manage and optimize network systems.', '{"MID"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
+    (4, 'Software Architect', 'Lublin', 'Kontrakt B2B', 80000.00,90000.00, '2024-07-20', 'Seeking a software architect to design scalable and efficient software solutions.', '{"SENIOR"}','{"BACKEND"}','{"JAVA", "SPRING"}'),
+    (1, 'Digital Marketer', 'Rzeszów', 'Umowa o pracę', 52000.00,62000.00, '2024-06-30', 'Looking for a digital marketer to drive online marketing campaigns and strategies.', '{"JUNIOR", "MID"}','{"BACKEND"}','{"JAVA", "SPRING"}');

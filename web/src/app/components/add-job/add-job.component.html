@@ -31,14 +31,34 @@
       </div>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Wynagrodzenie</mat-label>
-      <input matInput [(ngModel)]="data.salary" name="salary" required (keypress)="validateNumberInput($event)" #salary="ngModel">
-      <div *ngIf="salary.invalid && salary.touched" class="text-danger">
-        Pole jest wymagane.
-      </div>
-    </mat-form-field>
+    <div class="salary-container">
+      <mat-form-field appearance="fill" class="half-width">
+        <mat-label>Wynagrodzenie minimalne</mat-label>
+        <input
+          matInput
+          [(ngModel)]="data.salaryMin"
+          name="salaryMin"
+          required
+          (keypress)="validateNumberInput($event)"
+          #salaryMin="ngModel">
+      </mat-form-field>
 
+      <mat-form-field appearance="fill" class="half-width">
+        <mat-label>Wynagrodzenie maksymalne</mat-label>
+        <input
+          matInput
+          [(ngModel)]="data.salaryMax"
+          name="salaryMax"
+          required
+          (keypress)="validateNumberInput($event)"
+          #salaryMax="ngModel">
+      </mat-form-field>
+    </div>
+
+
+    <div *ngIf="data.salaryMin && data.salaryMax && data.salaryMin > data.salaryMax" class="text-danger">
+      Minimalne wynagrodzenie nie może być większe niż maksymalne.
+    </div>
     <p-multiSelect
     [options]="experienceOptions"
     [(ngModel)]="data.offerExperience"

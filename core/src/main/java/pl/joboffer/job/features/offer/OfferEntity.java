@@ -42,8 +42,11 @@ public class OfferEntity {
   @Column(name = "contract_type")
   String contractType;
 
-  @Column(name = "salary")
-  double salary;
+  @Column(name = "salary_min")
+  double salaryMin;
+
+  @Column(name = "salary_max")
+  double salaryMax;
 
   @Column(name = "expiration_date")
   LocalDate expirationDate;

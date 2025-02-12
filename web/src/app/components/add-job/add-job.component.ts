@@ -12,11 +12,11 @@ import { Technology } from 'src/app/models/technology';
 })
 export class AddJobComponent  {
 
- 
+
   experienceOptions: { label: string, value: string }[] = [];
   technologyOptions: { label: string, value: string }[] = [];
   positionOptions: { label: string, value: string }[] = [];
-  
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<AddJobComponent>
@@ -34,21 +34,23 @@ export class AddJobComponent  {
           value: Position[key as keyof typeof Position]
         }));
    }
-  
+
 
   onSubmit() {
     console.log(this.data)
     this.dialogRef.close(this.data);
   }
   validateNumberInput(event: KeyboardEvent): void {
-    const input = event.target as HTMLInputElement;
-    
-    
+    const allowedKeys = ['Backspace', 'Tab', 'ArrowLeft', 'ArrowRight'];
+    const regex = /^[0-9]*$/;
+    if (!regex.test(event.key) && !allowedKeys.includes(event.key)) {
+      event.preventDefault();
+    }
     if (!/^\d$/.test(event.key)) {
       event.preventDefault();
     }
-  
-   
+
+
 
   }
 }

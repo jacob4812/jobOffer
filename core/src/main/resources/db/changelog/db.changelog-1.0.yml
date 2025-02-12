@@ -141,7 +141,10 @@ databaseChangeLog:
                   name: contract_type
                   type: varchar(50)
               - column:
-                  name: salary
+                  name: salary_min
+                  type: numeric(10,2)
+              - column:
+                  name: salary_max
                   type: numeric(10,2)
               - column:
                   name: expiration_date

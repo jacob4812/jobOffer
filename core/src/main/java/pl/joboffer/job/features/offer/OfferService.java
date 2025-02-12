@@ -26,7 +26,7 @@ public interface OfferService {
   Page<Offer> findJobsOfferById(Long userId, PageRequest pageRequest);
 
   Page<Offer> searchJobOffers(
-      String description, String location, Double salary, PageRequest pageRequest);
+      String description, String location, Double salaryMin, PageRequest pageRequest);
 
   Page<Offer> filterJobOffers(List<OfferExperience> offerExperience, PageRequest pageRequest);
 

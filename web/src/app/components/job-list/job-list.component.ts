@@ -51,7 +51,7 @@ export class JobListComponent implements OnInit {
 
     this.searchService.experienceFilter$.subscribe(experienceFilter => {
       this.experienceFilter = experienceFilter;
-     
+
       this.applyFilters();
     });
     this.searchService.technologyFilter$.subscribe(technologyFilter => {
@@ -60,7 +60,7 @@ export class JobListComponent implements OnInit {
     });
     this.searchService.positionFilter$.subscribe(positionFilter => {
       this.positionFilter = positionFilter;
-      
+
       this.applyFilters();
     });
   }
@@ -90,7 +90,7 @@ export class JobListComponent implements OnInit {
       this.searchedOffers = this.allOffers.filter(offer =>
         (!this.searchCriteria.title || offer.title?.toLowerCase().includes(this.searchCriteria.title.toLowerCase())) &&
         (!this.searchCriteria.location || offer.location?.toLowerCase().includes(this.searchCriteria.location.toLowerCase())) &&
-        (!this.searchCriteria.salary || offer.salary >= this.searchCriteria.salary) &&
+        (!this.searchCriteria.salaryMin || offer.salaryMin >= this.searchCriteria.salaryMin) &&
         (!this.searchCriteria.company || this.searchCriteria.company.length === 0 || this.searchCriteria.company.includes(offer.company)) &&
         (!this.searchCriteria.description || offer.description?.toLowerCase().includes(this.searchCriteria.description.toLowerCase()))
       );
@@ -101,17 +101,17 @@ export class JobListComponent implements OnInit {
 
   applyFilters() {
     this.filteredOffers = this.searchedOffers.filter(offer =>
-      
+
       (!this.experienceFilter || this.experienceFilter.length === 0 || this.experienceFilter.some((exp: Experience) => offer.offerExperience.includes(exp))) &&
-      
-      
+
+
       (!this.positionFilter || this.positionFilter.length === 0 || this.positionFilter.some((pos: Position) => offer.offerPosition.includes(pos))) &&
-      
-      
+
+
       (!this.technologyFilter || this.technologyFilter.length === 0 || this.technologyFilter.some((tech: Technology) => offer.offerTechnology.includes(tech)))
     );
-    
-  
+
+
     this.totalRecords = this.filteredOffers.length;
     this.first = 0;
     this.paginateFilteredOffers();
