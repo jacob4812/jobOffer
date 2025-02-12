@@ -215,6 +215,7 @@ databaseChangeLog:
                   referencedTableName: offer
                   referencedColumnNames: id
                   constraintName: fk_application_offer
+                  onDelete: CASCADE
 
               - addForeignKeyConstraint:
                   baseTableName: application
@@ -222,4 +223,5 @@ databaseChangeLog:
                   referencedTableName: company
                   referencedColumnNames: id
                   constraintName: fk_application_company
+                  onDelete: CASCADE
 
