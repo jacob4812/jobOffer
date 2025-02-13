@@ -5,6 +5,7 @@ import { CompanyApplicationService } from 'src/services/application/comapny-appl
 import { Page } from 'src/app/models/page.model';
 import { PaginatorState } from "primeng/paginator";
 import { CompanyApplication } from 'src/app/models/company-application.model';
+import { CvServiceService } from 'src/services/cvService/cv-service.service';
 
 
 @Component({
@@ -27,12 +28,20 @@ export class DashboardApplicationsComponent implements OnInit {
   sortColumn: keyof CompanyApplication = 'name';
   sortDirection: 'asc' | 'desc' = 'asc';
 
-  constructor(public dialog: MatDialog, private companyApplicationService: CompanyApplicationService) { }
+  constructor(public dialog: MatDialog, private companyApplicationService: CompanyApplicationService,private cvService:CvServiceService) { }
 
   ngOnInit(): void {
     this.getCompanyApplications();
+    
   }
-
+  viewCv() {
+    const userId = localStorage.getItem("idUser");
+    if (userId) {
+      this.cvService.viewCv(userId);
+    } else {
+      console.error('User ID is not available');
+    }
+  }
   get sortedApplications() {
     return this.applications.slice().sort((a, b) => {
       const aValue = a[this.sortColumn] || '';

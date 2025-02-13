@@ -4,7 +4,7 @@ export interface CompanyApplication {
   id:number;
     name: string;
     email: string;
-    cv: string;
+    fileName: string;
     position: string;
     location: string;
     applicationDate: Date;

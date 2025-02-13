@@ -10,9 +10,9 @@
           [class.sorted-asc]="sortColumn === 'email' && sortDirection === 'asc'"
           [class.sorted-desc]="sortColumn === 'email' && sortDirection === 'desc'" (click)="sort('email')">Email
         </th>
-        <th scope="col" [class.sorted]="sortColumn === 'cv'"
-          [class.sorted-asc]="sortColumn === 'cv' && sortDirection === 'asc'"
-          [class.sorted-desc]="sortColumn === 'cv' && sortDirection === 'desc'" (click)="sort('cv')">CV
+        <th scope="col" [class.sorted]="sortColumn === 'fileName'"
+          [class.sorted-asc]="sortColumn === 'fileName' && sortDirection === 'asc'"
+          [class.sorted-desc]="sortColumn === 'fileName' && sortDirection === 'desc'" (click)="sort('fileName')">CV
         </th>
         <th scope="col" [class.sorted]="sortColumn === 'position'"
           [class.sorted-asc]="sortColumn === 'position' && sortDirection === 'asc'"
@@ -38,7 +38,12 @@
       <tr *ngFor="let application of sortedApplications">
         <td>{{ application.name }}</td>
         <td>{{ application.email }}</td>
-        <td>{{ application.cv }}</td>
+        <td>
+          <a *ngIf="application.fileName" (click)="viewCv()" style="cursor: pointer;">
+            {{ application.fileName }}
+          </a>
+          <span *ngIf="!application.fileName">Brak CV</span>
+        </td>
         <td>{{ application.position }}</td>
         <td>{{ application.location }}</td>
         <td>{{ application.applicationDate }}</td>

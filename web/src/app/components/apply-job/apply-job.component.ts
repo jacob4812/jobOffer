@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApplicationRequest } from 'src/app/models/applicationRequest.model';
 import { JobOffer } from 'src/app/models/job-offer.model';
+import { Status } from 'src/app/models/status';
 import { ApplicationService } from 'src/services/application/application.service';
 import { CvServiceService } from 'src/services/cvService/cv-service.service';
 
@@ -17,7 +18,7 @@ export class ApplyJobComponent implements OnInit {
   cvTouched = false;
   cvFileName: string ;
   userHasCv = false;
-
+status: Status;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ApplyJobComponent>,
@@ -51,21 +52,35 @@ export class ApplyJobComponent implements OnInit {
    
   }
   applyForJob(){
-     const userId = Number(localStorage.getItem("idUser"));
+    const userId = Number(localStorage.getItem("idUser"));
     this.applicationRequest = {
-      userId: userId,
+      userId: userId,  // Przechowujemy userId w applicationRequest
       offerId: this.data.id,
-      companyId: this.data.company.id
+      companyId: this.data.company.id,
+      file: this.selectedFile,
+      fileName: this.selectedFile ? this.selectedFile.name : '',
+      status: Status.IN_PROGRESS // Używaj statusu bez toUpperCase() jeśli jest to już odpowiedni format
     };
-    
+  
+    const formData = new FormData();
+    formData.append("userId", userId.toString());  // Dodajemy userId
+    formData.append("offerId", this.applicationRequest.offerId.toString());
+    formData.append("companyId", this.applicationRequest.companyId.toString());
+    formData.append("file_name", this.applicationRequest.file || '');
+    formData.append("status", this.applicationRequest.status);  // Dodajemy status
+  
+    if (this.selectedFile) {
+      formData.append("cvFile", this.selectedFile, this.selectedFile.name);
+    }
+  
     this.applicationService.applyForJob(this.applicationRequest).subscribe({
       next: (response: any) => {
         alert("Application submitted successfully.");
-      
         this.dialogRef.close(); 
       },
       error: (err) => {
         alert("Failed to submit application: " + err.message);
+        console.log(this.applicationRequest);
       }
     });
   }

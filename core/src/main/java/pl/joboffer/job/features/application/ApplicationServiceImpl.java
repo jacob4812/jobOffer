@@ -2,6 +2,7 @@ package pl.joboffer.job.features.application;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,11 +62,20 @@ public class ApplicationServiceImpl implements ApplicationService {
     application.setCompany(company);
     application.setApplicationDate(LocalDateTime.now());
     application.setStatus(OfferStatus.IN_PROGRESS);
-
+    try {
+      if (request.file() != null && !request.file().isEmpty()) {
+        application.setData(request.file().getBytes()); // Zapisanie danych pliku CV
+        application.setFileName(request.file().getOriginalFilename()); // Zapisanie nazwy pliku CV
+        application.setFileType(request.file().getContentType()); // Zapisanie typu pliku CV
+      }
+    } catch (IOException e) {
+      throw new RuntimeException("Błąd zapisu pliku CV", e);
+    }
     applicationRepository.save(application);
   }
 
   @Override
+  @Transactional
   public Page<ApplicationResponse> getApplicationsByType(
       Long id, UserRole type, PageRequest pageRequest) {
     Page<ApplicationEntity> applications;
@@ -90,7 +100,8 @@ public class ApplicationServiceImpl implements ApplicationService {
                         app.getUser().getEmail(),
                         app.getUser().getLogin(),
                         app.getApplicationDate(),
-                        app.getStatus()))
+                        app.getStatus(),
+                        app.getFileName()))
             .collect(Collectors.toList());
 
     return new PageImpl<>(applicationResponses, pageRequest, applications.getTotalElements());
