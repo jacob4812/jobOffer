@@ -50,13 +50,23 @@
     </mat-form-field>
 
     <div class="file-upload-container">
-      <mat-label>Prześlij CV</mat-label>
-      <input type="file" (change)="onFileChange($event)" accept=".pdf,.doc,.docx" name="cv" required>
+      <mat-label *ngIf="!cvUploaded">Prześlij CV</mat-label>
+      <div *ngIf="cvUploaded">
+        <mat-label>Dodany plik: {{ cvFileName }}</mat-label>
+      </div>
+      <input 
+        type="file" 
+        (change)="onFileChange($event)" 
+        accept=".pdf,.doc,.docx" 
+        name="cv" 
+        required
+      />
     </div>
     
-    <div *ngIf="!cvUploaded && cvTouched" class="text-danger">
+    <div *ngIf="cvTouched && !cvUploaded" class="text-danger">
       CV jest wymagane i musi mieć format PDF, DOC lub DOCX.
     </div>
+    
 
     <button mat-raised-button color="primary" type="submit" [disabled]="!addForm.valid">Zapisz</button>
   </form>
