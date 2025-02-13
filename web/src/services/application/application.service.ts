@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApplicationService {
-  private baseUrl = 'http://localhost:8080/api/applications';
+  private baseUrl = 'applications';
   constructor(private restService: RestService,private http: HttpClient) { }
 
   readMyApplications(role:string,userId: number,page: number = 0, size: number = 10): Observable<Page<Application>>{
@@ -30,9 +30,9 @@ if (applicationRequest.file) {
 }
 return this.http.post(this.baseUrl, formData,{ responseType: 'text' });
 }
-
+private cvUrl = 'http://localhost:8080/api/applications'
 getCvFile(applicationId: number): Observable<Blob> {
-  return this.http.get(`${this.baseUrl}/${applicationId}/cv`, {
+  return this.http.get(`${this.cvUrl}/${applicationId}/cv`, {
     responseType: 'blob'  
   });
 }
