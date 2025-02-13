@@ -24,10 +24,16 @@ formData.append("companyId", applicationRequest.companyId.toString());
 formData.append("file", applicationRequest.file );
 formData.append("status", applicationRequest.status); 
 
-// Dodajemy plik CV, jeśli jest dostępny
+
 if (applicationRequest.file) {
   formData.append("file", applicationRequest.file, applicationRequest.file.name);
 }
 return this.http.post(this.baseUrl, formData,{ responseType: 'text' });
+}
+
+getCvFile(applicationId: number): Observable<Blob> {
+  return this.http.get(`${this.baseUrl}/${applicationId}/cv`, {
+    responseType: 'blob'  
+  });
 }
 }

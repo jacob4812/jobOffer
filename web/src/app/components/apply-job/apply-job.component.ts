@@ -54,21 +54,21 @@ status: Status;
   applyForJob(){
     const userId = Number(localStorage.getItem("idUser"));
     this.applicationRequest = {
-      userId: userId,  // Przechowujemy userId w applicationRequest
+      userId: userId,  
       offerId: this.data.id,
       companyId: this.data.company.id,
       file: this.selectedFile,
       fileName: this.selectedFile ? this.selectedFile.name : '',
-      status: Status.IN_PROGRESS // Używaj statusu bez toUpperCase() jeśli jest to już odpowiedni format
+      status: Status.IN_PROGRESS 
     };
   
     const formData = new FormData();
-    formData.append("userId", userId.toString());  // Dodajemy userId
+    formData.append("userId", userId.toString());  
     formData.append("offerId", this.applicationRequest.offerId.toString());
     formData.append("companyId", this.applicationRequest.companyId.toString());
     formData.append("file_name", this.applicationRequest.file || '');
-    formData.append("status", this.applicationRequest.status);  // Dodajemy status
-  
+    formData.append("status", this.applicationRequest.status);  
+    
     if (this.selectedFile) {
       formData.append("cvFile", this.selectedFile, this.selectedFile.name);
     }

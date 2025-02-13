@@ -39,7 +39,7 @@
         <td>{{ application.name }}</td>
         <td>{{ application.email }}</td>
         <td>
-          <a *ngIf="application.fileName" (click)="viewCv()" style="cursor: pointer;">
+          <a *ngIf="application.fileName" (click)="viewCv(application.id)" style="cursor: pointer;">
             {{ application.fileName }}
           </a>
           <span *ngIf="!application.fileName">Brak CV</span>

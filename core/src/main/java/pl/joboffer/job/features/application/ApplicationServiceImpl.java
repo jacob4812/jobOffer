@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -101,10 +102,28 @@ public class ApplicationServiceImpl implements ApplicationService {
                         app.getUser().getLogin(),
                         app.getApplicationDate(),
                         app.getStatus(),
-                        app.getFileName()))
+                        app.getFileName(),
+                        app.getData()))
             .collect(Collectors.toList());
 
     return new PageImpl<>(applicationResponses, pageRequest, applications.getTotalElements());
+  }
+
+  @Transactional
+  @Override
+  public byte[] getCvFile(Long applicationId) {
+    // Znajdź aplikację po ID
+    Optional<ApplicationEntity> applicationOpt = applicationRepository.findById(applicationId);
+
+    // Jeśli aplikacja nie istnieje, rzucamy wyjątek
+    if (applicationOpt.isEmpty()) {
+      throw new RuntimeException("Aplikacja o ID " + applicationId + " nie została znaleziona.");
+    }
+
+    ApplicationEntity application = applicationOpt.get();
+
+    // Zwróć dane pliku CV (zakładając, że są zapisane w polu 'data')
+    return application.getData();
   }
 
   @Transactional

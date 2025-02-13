@@ -4,8 +4,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -66,5 +69,17 @@ public class ApplicationController {
     response.put("message", "Application status updated successfully");
 
     return ResponseEntity.ok(response);
+  }
+
+  @GetMapping("/{applicationId}/cv")
+  public ResponseEntity<ByteArrayResource> getCv(@PathVariable Long applicationId) {
+    byte[] cvFile = applicationService.getCvFile(applicationId);
+
+    ByteArrayResource resource = new ByteArrayResource(cvFile);
+
+    return ResponseEntity.ok()
+        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=cv.pdf")
+        .contentType(MediaType.APPLICATION_OCTET_STREAM)
+        .body(resource);
   }
 }
