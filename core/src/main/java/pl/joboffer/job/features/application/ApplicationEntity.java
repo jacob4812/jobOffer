@@ -41,4 +41,14 @@ public class ApplicationEntity {
   @Enumerated(EnumType.STRING)
   @Column(name = "status", nullable = false)
   private OfferStatus status;
+
+  @Column(nullable = false)
+  private String fileName;
+
+  @Column(nullable = false)
+  private String fileType;
+
+  @Basic(fetch = FetchType.LAZY)
+  @Lob
+  private byte[] data;
 }

@@ -17,6 +17,8 @@ public interface ApplicationService {
 
   Page<ApplicationResponse> getApplicationsByType(Long id, UserRole type, PageRequest pageRequest);
 
+  public byte[] getCvFile(Long applicationId);
+
   @Transactional
   void updateApplicationStatus(Long applicationId, OfferStatus newStatus);
 }

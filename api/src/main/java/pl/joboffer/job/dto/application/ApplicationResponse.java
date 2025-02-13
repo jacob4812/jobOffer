@@ -11,4 +11,6 @@ public record ApplicationResponse(
     String email,
     String name,
     LocalDateTime applicationDate,
-    OfferStatus status) {}
+    OfferStatus status,
+    String fileName,
+    byte[] data) {}

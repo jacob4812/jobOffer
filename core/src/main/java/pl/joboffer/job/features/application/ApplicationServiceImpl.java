@@ -2,8 +2,10 @@ package pl.joboffer.job.features.application;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -61,11 +63,20 @@ public class ApplicationServiceImpl implements ApplicationService {
     application.setCompany(company);
     application.setApplicationDate(LocalDateTime.now());
     application.setStatus(OfferStatus.IN_PROGRESS);
-
+    try {
+      if (request.file() != null && !request.file().isEmpty()) {
+        application.setData(request.file().getBytes()); // Zapisanie danych pliku CV
+        application.setFileName(request.file().getOriginalFilename()); // Zapisanie nazwy pliku CV
+        application.setFileType(request.file().getContentType()); // Zapisanie typu pliku CV
+      }
+    } catch (IOException e) {
+      throw new RuntimeException("Błąd zapisu pliku CV", e);
+    }
     applicationRepository.save(application);
   }
 
   @Override
+  @Transactional
   public Page<ApplicationResponse> getApplicationsByType(
       Long id, UserRole type, PageRequest pageRequest) {
     Page<ApplicationEntity> applications;
@@ -90,10 +101,29 @@ public class ApplicationServiceImpl implements ApplicationService {
                         app.getUser().getEmail(),
                         app.getUser().getLogin(),
                         app.getApplicationDate(),
-                        app.getStatus()))
+                        app.getStatus(),
+                        app.getFileName(),
+                        app.getData()))
             .collect(Collectors.toList());
 
     return new PageImpl<>(applicationResponses, pageRequest, applications.getTotalElements());
+  }
+
+  @Transactional
+  @Override
+  public byte[] getCvFile(Long applicationId) {
+    // Znajdź aplikację po ID
+    Optional<ApplicationEntity> applicationOpt = applicationRepository.findById(applicationId);
+
+    // Jeśli aplikacja nie istnieje, rzucamy wyjątek
+    if (applicationOpt.isEmpty()) {
+      throw new RuntimeException("Aplikacja o ID " + applicationId + " nie została znaleziona.");
+    }
+
+    ApplicationEntity application = applicationOpt.get();
+
+    // Zwróć dane pliku CV (zakładając, że są zapisane w polu 'data')
+    return application.getData();
   }
 
   @Transactional

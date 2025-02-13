@@ -5,6 +5,8 @@ import { CompanyApplicationService } from 'src/services/application/comapny-appl
 import { Page } from 'src/app/models/page.model';
 import { PaginatorState } from "primeng/paginator";
 import { CompanyApplication } from 'src/app/models/company-application.model';
+import { CvServiceService } from 'src/services/cvService/cv-service.service';
+import { ApplicationService } from 'src/services/application/application.service';
 
 
 @Component({
@@ -23,16 +25,34 @@ export class DashboardApplicationsComponent implements OnInit {
   rows = 10;
   totalRecords = 0;
   totalPages = 0;
-
   sortColumn: keyof CompanyApplication = 'name';
   sortDirection: 'asc' | 'desc' = 'asc';
 
-  constructor(public dialog: MatDialog, private companyApplicationService: CompanyApplicationService) { }
+  constructor(public dialog: MatDialog, private companyApplicationService: CompanyApplicationService,private applicationService:ApplicationService) { }
 
   ngOnInit(): void {
     this.getCompanyApplications();
   }
-
+  viewCv(applicationId: number) {
+    
+    this.applicationService.getCvFile(applicationId).subscribe(
+      (blob: Blob) => {
+       
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `CV-${applicationId}.pdf`;  
+        a.click();  
+  
+        
+        window.URL.revokeObjectURL(url);
+      },
+      (error) => {
+        console.error('Error downloading CV:', error);
+      }
+    );
+  }
+  
   get sortedApplications() {
     return this.applications.slice().sort((a, b) => {
       const aValue = a[this.sortColumn] || '';
@@ -89,6 +109,11 @@ export class DashboardApplicationsComponent implements OnInit {
       this.applications = response.content;
       this.totalRecords = response.totalElements;
       this.totalPages = response.totalPages;
+      this.applications.forEach(application => {
+        
+        application.id = application.id;  
+      });
+      console.log(this.applications)
       if (page >= this.totalPages && this.totalPages > 0) {
         this.first = (this.totalPages - 1) * this.rows;
         this.getCompanyApplications({ first: this.first, rows: this.rows });
