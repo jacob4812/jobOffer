@@ -1,5 +1,6 @@
 package pl.joboffer.job.features.application;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,11 @@ public class ApplicationController {
   @Autowired private ApplicationService applicationService;
 
   @PostMapping
-  public ResponseEntity<String> applyForOffer(@RequestBody Application applicationRequest) {
+  public ResponseEntity<Map<String, String>> applyForOffer(
+      @RequestBody Application applicationRequest) {
     applicationService.apply(applicationRequest);
-    return ResponseEntity.ok("Application submitted successfully.");
+    return ResponseEntity.ok(
+        Collections.singletonMap("message", "Application submitted successfully."));
   }
 
   @GetMapping("/{role}/{id}")

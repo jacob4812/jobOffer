@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef,Component, OnInit } from '@angular/core';
+import { CvServiceService } from 'src/services/cvService/cv-service.service';
 
 
 @Component({
@@ -11,8 +12,8 @@ export class CvComponent implements OnInit {
   selectedFile: File | null = null;
   cvUploaded = false;
   cvFileName: string ;
-  cv: any;
-  constructor(private http: HttpClient,private cdr: ChangeDetectorRef) {}
+ 
+  constructor(private cvService:CvServiceService,private cdr: ChangeDetectorRef) {}
 
 
   ngOnInit(): void {
@@ -23,7 +24,7 @@ export class CvComponent implements OnInit {
   getCv() {
     const userId = localStorage.getItem("idUser");
     if (userId) {
-      this.http.get('http://localhost:8080/api/cv/' + userId, { responseType: 'text' }).subscribe(
+      this.cvService.getCv(userId).subscribe(
         (response) => {
           if (response) {
             this.cvFileName = response;
@@ -67,23 +68,17 @@ export class CvComponent implements OnInit {
 
   uploadCv() {
     if (this.selectedFile) {
-      const formData = new FormData();
-      formData.append('file', this.selectedFile);
       const userId = localStorage.getItem("idUser");
-      formData.append('userId', userId);
-
-      const url = `http://localhost:8080/api/cv/upload/${userId}`;
-      this.http.post(url, formData,{ responseType: 'text' }).subscribe(
-        (response) => {
-          this.cv = response;
-          this.cvFileName = this.selectedFile!.name;
-          this.cdr.detectChanges();
-          this.cvUploaded = true;
-        },
-        (error) => {
-          console.error('Error uploading file:', error);
-        }
-      );
+      if (userId) {
+        this.cvService.uploadCv(this.selectedFile, userId).subscribe(
+          () => {
+            this.cvFileName = this.selectedFile!.name;
+            this.cvUploaded = true;
+            this.cdr.detectChanges();
+          },
+          (error) => console.error('Error uploading file:', error)
+        );
+      }
     }
   }
 
@@ -105,21 +100,14 @@ export class CvComponent implements OnInit {
   }
   updateCv() {
     if (this.selectedFile) {
-      const formData = new FormData();
-      formData.append('file', this.selectedFile);
-
       const userId = localStorage.getItem("idUser");
-
       if (userId) {
-        const url = `http://localhost:8080/api/cv/edit/${userId}`;
-        this.http.put(url, formData, { responseType: 'text' }).subscribe(
-          (response) => {
-            this.cvFileName = this.selectedFile.name;
+        this.cvService.updateCv(this.selectedFile, userId).subscribe(
+          () => {
+            this.cvFileName = this.selectedFile!.name;
             this.cvUploaded = true;
           },
-          (error) => {
-            console.error('Error updating CV:', error);
-          }
+          (error) => console.error('Error updating CV:', error)
         );
       } else {
         console.error('User ID is not available');
@@ -129,23 +117,26 @@ export class CvComponent implements OnInit {
 
   deleteCv() {
     const userId = localStorage.getItem("idUser");
-  if (userId) {
-    this.http.delete(`http://localhost:8080/api/cv/delete/${userId}`, { responseType: 'text' }).subscribe(
-      (response) => {
-        this.cvUploaded = false;
-        this.selectedFile = null;
-      },
-      (error) => {
-        console.error('Error deleting CV:', error);
-      }
-    );
-  } else {
-    console.error('User ID is not available');
-  }
+    if (userId) {
+      this.cvService.deleteCv(userId).subscribe(
+        () => {
+          this.cvUploaded = false;
+          this.selectedFile = null;
+        },
+        (error) => console.error('Error deleting CV:', error)
+      );
+    } else {
+      console.error('User ID is not available');
+    }
   }
 
 
-  viewCV(id: string) {
-    window.open(`http://localhost:8080/api/cv/${id}`, '_blank');
+  viewCv() {
+    const userId = localStorage.getItem("idUser");
+    if (userId) {
+      this.cvService.viewCv(userId);
+    } else {
+      console.error('User ID is not available');
+    }
   }
 }
