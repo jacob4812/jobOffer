@@ -19,18 +19,21 @@
 
         </div>
 
-        <div class="form-group mb-3">
+        <!-- <div class="form-group mb-3">
           <input type="text" id="username" formControlName="username" class="form-control" placeholder="Username" required />
           <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched" class="text-danger">
             Nazwa użytkownika jest wymagana.
           </div>
-        </div>
+        </div> -->
 
         <div class="form-group mb-3">
           <input type="email" id="email" formControlName="email" class="form-control" placeholder="Email" required />
           <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-danger">
             <div *ngIf="registerForm.get('email')?.errors?.['email']">Proszę podać poprawny email.</div>
             <div *ngIf="registerForm.get('email')?.errors?.['maxlength']">Email nie może być dłuższy niż 250 znaków.</div>
+          </div>
+          <div *ngIf="registerForm.get('email')?.errors?.['emailUsed']" class="text-danger">
+            Ten adres e-mail jest już używany.
           </div>
         </div>
 

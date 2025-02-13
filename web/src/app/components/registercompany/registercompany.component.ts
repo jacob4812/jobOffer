@@ -22,9 +22,9 @@ export class RegisterCompanyComponent {
     this.registerForm = this.fb.group(
       {
         companyName: ['', Validators.required],
-        nip: ['', Validators.required,Validators.pattern('^[0-9]*$'),Validators.minLength(10)],
+        nip: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10)]],
         phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-        username: ['', Validators.required],
+        
         email: ['', [Validators.required, Validators.email, Validators.maxLength(250)]],
         password: [
           '',
@@ -45,23 +45,28 @@ export class RegisterCompanyComponent {
   }
 
   private passwordMatchValidator(g: FormGroup) {
-    return g.get('password')?.value === g.get('repeatPassword')?.value
-      ? null
-      : { mismatch: true };
+    const password = g.get('password')?.value;
+    const repeatPassword = g.get('repeatPassword')?.value;
+    return password === repeatPassword ? null : { mismatch: true };
   }
 
   onSubmit() {
     if (this.registerForm.valid) {
       const { repeatPassword, ...companyRegisterDetails } = this.registerForm.value;
-      this.registerCompanyService.registerCompany(companyRegisterDetails).subscribe(
-        () => {
-          console.log('Registration successful');
+      this.registerCompanyService.registerCompany(companyRegisterDetails).subscribe({
+        next: (response) => {
+          if (response.emailUsed) {
+            this.registerForm.get('email')?.setErrors({ emailUsed: true });
+          }else{
+            console.log('Registration successful');
           this.router.navigate(['/main']);
+          }
+          
         },
-        error => {
-          console.error('Registration error', error);
+        error: (err) => {
+          console.error('Wystąpił błąd podczas rejestracji:', err);
         }
-      );
+    });
     } else {
       console.error('Form is invalid');
     }
