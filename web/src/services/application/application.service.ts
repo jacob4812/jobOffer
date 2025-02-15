@@ -9,9 +9,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApplicationService {
-  private baseUrl = 'applications';
+  private readonly baseUrl = 'applications';
   constructor(private restService: RestService,private http: HttpClient) { }
-
+  private readonly url = 'http://localhost:8080/api/applications';
   readMyApplications(role:string,userId: number,page: number = 0, size: number = 10): Observable<Page<Application>>{
     const url = `${this.baseUrl}/${role}/${userId}?page=${page}&size=${size}`;
     return this.restService.getPageable<Page<Application>>(url);
@@ -22,18 +22,18 @@ formData.append("userId", applicationRequest.userId.toString());
 formData.append("offerId", applicationRequest.offerId.toString());
 formData.append("companyId", applicationRequest.companyId.toString());
 formData.append("file", applicationRequest.file );
-formData.append("status", applicationRequest.status); 
+formData.append("status", applicationRequest.status);
 
 
 if (applicationRequest.file) {
   formData.append("file", applicationRequest.file, applicationRequest.file.name);
 }
-return this.http.post(this.baseUrl, formData,{ responseType: 'text' });
+return this.http.post(this.url, formData,{ responseType: 'text' });
 }
-private cvUrl = 'http://localhost:8080/api/applications'
+
 getCvFile(applicationId: number): Observable<Blob> {
-  return this.http.get(`${this.cvUrl}/${applicationId}/cv`, {
-    responseType: 'blob'  
+  return this.http.get(`${this.url}/${applicationId}/cv`, {
+    responseType: 'blob'
   });
 }
 }
