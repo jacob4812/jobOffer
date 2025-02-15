@@ -30,7 +30,6 @@ export class RegisterComponent {
             Validators.minLength(6),
             Validators.maxLength(25),
             Validators.pattern(
-              // Walidacja hasła - co najmniej 1 duża litera, 1 mała litera, 1 cyfra, 1 znak specjalny
               /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,25}$/
             ),
           ],
@@ -50,17 +49,24 @@ export class RegisterComponent {
   onSubmit() {
     if (this.registerForm.valid) {
       const { repeatPassword, ...userRegisterDetails } = this.registerForm.value;
+      
+      
       this.registerService.register(userRegisterDetails).subscribe({
-        next: () => {
-          console.log('Registration successful');
-          this.router.navigate(['/main']);
+        next: (response) => {
+          if (response.emailUsed) {
+            this.registerForm.get('email')?.setErrors({ emailUsed: true });
+          } else {
+            
+            this.router.navigate(['/main']);
+          }
         },
         error: (err) => {
-          console.error('Registration error', err);
-        },
+          console.error('Wystąpił błąd podczas rejestracji:', err);
+        }
       });
     } else {
       console.error('Form is invalid');
     }
   }
+  
 }
