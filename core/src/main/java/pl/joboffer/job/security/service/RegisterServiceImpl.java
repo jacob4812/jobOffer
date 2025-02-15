@@ -30,17 +30,18 @@ public class RegisterServiceImpl implements RegisterService {
   @Transactional
   public RegistrationResponse signup(UserRegisterDetails userRegisterDetails) {
     if (validationService.isEmailAlreadyInUse(userRegisterDetails.email())) {
-      return new RegistrationResponse(true,"E-mail jest już używany przez innego użytkownika lub firmę.");
+      return new RegistrationResponse(
+          true, "E-mail jest już używany przez innego użytkownika lub firmę.");
     }
     var userEntity = userMapper.mapDtoToEntity(userRegisterDetails);
     userEntity.setPassword(passwordEncoder.encode(userRegisterDetails.password()));
     userEntity.setUserRole(UserRole.valueOf("EMPLOYEE"));
     try {
       userRepository.save(userEntity);
-      return new RegistrationResponse(false,"Rejestracja zakończona sukcesem");
+      return new RegistrationResponse(false, "Rejestracja zakończona sukcesem");
     } catch (Exception e) {
- throw new RuntimeException("Zapis sie nie powiodl");
-//      return new RegistrationResponse(false,"zapis sie nie powiodl");
+      throw new RuntimeException("Zapis sie nie powiodl");
+      //      return new RegistrationResponse(false,"zapis sie nie powiodl");
     }
   }
 
@@ -48,17 +49,18 @@ public class RegisterServiceImpl implements RegisterService {
   @Transactional
   public RegistrationResponse companySignup(CompanyRegisterDetails companyRegisterDetails) {
     if (validationService.isEmailAlreadyInUse(companyRegisterDetails.email())) {
-      return new RegistrationResponse(true,"E-mail jest już używany przez innego użytkownika lub firmę.");
+      return new RegistrationResponse(
+          true, "E-mail jest już używany przez innego użytkownika lub firmę.");
     }
     var companyEntity = companyMapper.mapDtoToEntity(companyRegisterDetails);
     companyEntity.setPassword(passwordEncoder.encode(companyRegisterDetails.password()));
     companyEntity.setUserRole(UserRole.valueOf("COMPANY"));
     try {
       companyRepository.save(companyEntity);
-      return new RegistrationResponse(false,"Rejestracja zakończona sukcesem");
+      return new RegistrationResponse(false, "Rejestracja zakończona sukcesem");
     } catch (Exception e) {
       throw new RuntimeException("Zapis sie nie powiodl");
-//      return new RegistrationResponse(false,"zapis sie nie powiodl");
+      //      return new RegistrationResponse(false,"zapis sie nie powiodl");
     }
   }
 }

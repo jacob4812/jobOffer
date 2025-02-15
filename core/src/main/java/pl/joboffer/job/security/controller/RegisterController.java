@@ -35,8 +35,8 @@ public class RegisterController {
   @PostMapping("/signup")
   public ResponseEntity<RegistrationResponse> registerUser(
       @Valid @RequestBody UserRegisterDetails userRegisterDetails) {
-    RegistrationResponse response =registerService.signup(userRegisterDetails);
-    if(response.emailUsed()){
+    RegistrationResponse response = registerService.signup(userRegisterDetails);
+    if (response.emailUsed()) {
       return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -46,7 +46,7 @@ public class RegisterController {
   public ResponseEntity<RegistrationResponse> registerCompany(
       @Valid @RequestBody CompanyRegisterDetails companyRegisterDetails) {
     RegistrationResponse response = registerService.companySignup(companyRegisterDetails);
-    if (response.emailUsed()){
+    if (response.emailUsed()) {
       return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     return ResponseEntity.status(HttpStatus.CREATED).body(response);

@@ -22,8 +22,14 @@ export class RegisterCompanyComponent {
     this.registerForm = this.fb.group(
       {
         companyName: ['', Validators.required],
-        nip: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10)]],
-        phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+        nip: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10), 
+          Validators.maxLength(10)]],
+        phoneNumber: ['', [
+          Validators.required, 
+          Validators.pattern('^[0-9]*$'), 
+          Validators.minLength(9), 
+          Validators.maxLength(9)
+        ]],
         
         email: ['', [Validators.required, Validators.email, Validators.maxLength(250)]],
         password: [
@@ -69,6 +75,19 @@ export class RegisterCompanyComponent {
     });
     } else {
       console.error('Form is invalid');
+    }
+  }
+  validateNumberInput(event: KeyboardEvent, maxLength: number): void {
+    const input = event.target as HTMLInputElement;
+    
+    
+    if (!/^\d$/.test(event.key)) {
+      event.preventDefault();
+    }
+  
+    
+    if (input.value.length >= maxLength) {
+      event.preventDefault();
     }
   }
 }
